@@ -18,7 +18,8 @@ var logoutRouter = require('./routes/logout');
 var verifyRouter = require('./routes/verify/verify');
 var createVoteRouter = require('./routes/admin/createvote');
 var workConfigRouter=require('./routes/admin/workconfig');
-var overviewRouter =require('./routes/overview/overview');
+var signupoverviewRouter =require('./routes/overview/signup_overview');
+var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
 var voteRouter=require('./routes/vote/vote');
 //個人專區
@@ -80,7 +81,8 @@ app.use('/logout',logoutRouter);
 app.use('/verify',verifyRouter);
 app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
-app.use('/overview',overviewRouter);
+app.use('/overview_signup',signupoverviewRouter);
+app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);
 app.use('/vote',voteRouter);
 //個人專區

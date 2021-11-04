@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
     $('#signup').click(function(){
         //var index=$(this).index('.container');
         var topic=$('input#topic').val();
@@ -15,7 +15,7 @@ $(document).ready(function(){
         //var topic = $('input#topic').eq(index).val();
         window.location.href = "/vote/" + topic;
     })
-})
+})*/
 /*
 function signup(){
     var index=$('#container').index(this);

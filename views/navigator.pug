@@ -22,7 +22,14 @@
                 if(role=='admin')
                     <a class="nav-item nav-link" href="/createvote">創建活動</a>
                     <a class="nav-item nav-link" href="/workconfig">作品管理</a>
-                <a class="nav-item nav-link" href="/overview">活動總覽</a>
+                //<a class="nav-item nav-link" href="/overview">活動總覽</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-link" data-toggle="dropdown"role="button" aria-haspopup="true"aria-expanded="false">活動總覽<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-item" href="/overview_signup">活動報名</a></li>
+                        <li><a class="nav-item" href="/overview_vote">活動投票</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle nav-link" data-toggle="dropdown"role="button" aria-haspopup="true"aria-expanded="false">個人專區<span class="caret"></span></a>
                     <ul class="dropdown-menu">

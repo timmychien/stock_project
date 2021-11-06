@@ -32,9 +32,16 @@ var workuploadRouter=require('./routes/personal/workupload');
 var accountconfigRouter=require('./routes/personal/accountconfig');
 var app = express();
 require('dotenv').config();
+/*
 var pool=mysql.createPool({
   host: "127.0.0.1",
   user: "root",
+  password: process.env.DB_PASS,
+  database: "user"
+})*/
+var pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: "user"
 })

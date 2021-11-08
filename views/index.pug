@@ -10,13 +10,21 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   include ./navigator.pug
-  <label>Address:</label>
-    <a id="addr"></a>
   <br>
-  <br>
-  <label>Balance:</label>
-    <a id="bal"></a>
-  <hr>
+  <h1>請使用<a href="https://www.google.com/chrome/">chrome</a>開啟</h1>
+  <h1>點我下載<a href="https://metamask.io/">Metamask</a>錢包</h1>
+  <div class="wallet_info">
+    <h1>目前連接錢包資訊</h1>
+    <hr>
+    <label>地址:</label><br>
+      <a id="addr"></a>
+    <br>
+    <br>
+    <label>餘額:</label><br>
+      <a id="bal"></a> ETH
+    <hr>
+  <div>
+<!--
   <form action="" method="post">
     <label>To Address:</label><br>
     <input id="to_addr"><br>
@@ -61,7 +69,7 @@
 </form><br>
 <br>
 <span id="transspan">txhash:</span><br>
-<p id="transhash"></p>
+<p id="transhash"></p>-->
 <script src="/javascripts/abi.js"></script>
 <script src="/javascripts/index.js"></script>
 </body>

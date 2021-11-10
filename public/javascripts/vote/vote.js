@@ -1,4 +1,4 @@
-/*
+
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -32,8 +32,8 @@ window.addEventListener('load', async () => {
         var votingId=$('#votingId').val();
         var participantId=$('#participantId').val();
         contract.voteBalances(votingId,participantId,function(err,votes){
-            $('#votes').text(votes)
+            $('#votes').text(votes);
         })
     })
     
-})*/
+})

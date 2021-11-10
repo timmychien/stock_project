@@ -23,6 +23,10 @@ window.addEventListener('load', async () => {
             if (!error) {
                 $('#addr').text(accounts[0]);
                 $('#bal').text(bal / 10 ** 18);
+                pointcontract.balanceOf(accounts[0],function(err,points){
+                    $('#point_bal').text(points)
+                })
+                
             } else {
                 console.log(error)
             }

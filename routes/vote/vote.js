@@ -7,6 +7,10 @@ web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/9
 var votingAddress = "0xD1de894d6C17789dC263b1BeE386F451A4FABF3D";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
+var pointabi = require('../pointABI');
+var pointabi = pointabi.pointABI;
+var pointAddress = "0x8b014D5aF226d052Aff504E0d120926834286Dca";
+var point = web3.eth.contract(pointabi).at(pointAddress);
 var contract = web3.eth.contract(abi).at(votingAddress);
 /* GET home page. */
 router.get('/:topic', function (req, res) {
@@ -25,13 +29,20 @@ router.get('/:topic', function (req, res) {
             }else{
                 var startVote=rows[0].startVotestamp;
                 var now=parseInt(Date.now()/1000);
+                var pointbalence=point.balanceOf(req.session.walletaddress);
                 console.log(now)
                 console.log(startVote)
                 if(now<startVote){
                     res.render('vote/vote_warn',{
                         warn:'投票時間尚未開始！'
                     })
-                }else{
+                }
+                else if(pointbalance<1){
+                    res.render('vote/vote_warn', {
+                        warn: '點數餘額不足！'
+                    })
+                }
+                else{
                     var votingId = rows[0].votingId;
                     connection.query('SELECT * FROM art_works WHERE votingId=?', [votingId], function (err, rows) {
                         if (err) {

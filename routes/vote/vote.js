@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+//var redis=require('redis');
+//var client=redis.createClient();
 var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
@@ -29,7 +31,7 @@ router.get('/:topic', function (req, res) {
             }else{
                 var startVote=rows[0].startVotestamp;
                 var now=parseInt(Date.now()/1000);
-                var pointbalence=point.balanceOf(req.session.walletaddress);
+                var pointbalance=point.balanceOf(req.session.walletaddress);
                 console.log(now)
                 console.log(startVote)
                 if(now<startVote){
@@ -70,6 +72,16 @@ router.get('/:topic', function (req, res) {
     
 });
 router.post('/:topic',function(req,res){
+    var votecount=req.session.votecount;
+    if(req.session.votecount===undefined){
+        req.session.votecount=0;
+    }
+    if(votecount==2){
+        res.render('vote/vote_warn', {
+            warn: '本日投票次數已達最大上限(2次)！'
+        })
+    }
+    console.log('votecount',req.session.votecount)
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
     var votingId=req.body['votingId'];
@@ -77,13 +89,15 @@ router.post('/:topic',function(req,res){
     var nftaddress=contract.getnftAddress.call(votingId,participantId);
     console.log(nftaddress)
     var voter=req.session.walletaddress;
+    //var votecount=client.hget(voter,'count');
+    //console.log('votecount:',votecount)
     var timestamp = parseInt(Date.now() / 1000);
-    var data = contract.vote.getData(votingId, participantId,voter,nftaddress,1,timestamp);
+    var data = contract.vote.getData(votingId, participantId, voter, nftaddress, 1, timestamp);
     var count = web3.eth.getTransactionCount(address);
-    var gasPrice = web3.eth.gasPrice;
+    var gasPrice = web3.eth.gasPrice.toNumber()*1.40;
     var gasLimit = 3000000;
     var rawTx = {
-        "from":address,
+        "from": address,
         "nonce": web3.toHex(count),
         "gasPrice": web3.toHex(gasPrice),
         "gasLimit": web3.toHex(gasLimit),
@@ -97,9 +111,12 @@ router.post('/:topic',function(req,res){
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
-    res.render('vote/vote_redirect',{
+    
+    req.session.votecount+=1;
+    res.render('vote/vote_redirect', {
         hash: 'https://rinkeby.etherscan.io/tx/' + hash
     });
+    
 })
 
 module.exports = router;

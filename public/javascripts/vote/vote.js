@@ -29,11 +29,16 @@ window.addEventListener('load', async () => {
         })
     })
     web3.eth.getAccounts(function(err,accounts){
-        var votingId=$('#votingId').val();
-        var participantId=$('#participantId').val();
-        contract.voteBalances(votingId,participantId,function(err,votes){
-            $('#votes').text(votes);
-        })
+        if(!err){
+            var votingId = $('input[id=votingId]').val();
+            var participantId = $('input[id=participantId]').val();
+            contract.voteBalances(votingId, participantId, function (err, votes) {
+                $('dd[id=votes]').text(votes);
+            })
+        }else{
+            console.log(err)
+        }
+        
     })
     
 })

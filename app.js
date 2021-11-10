@@ -73,7 +73,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:"123456"}));
+app.use(session({ secret: "123456", maxAge: Date.now() +86400*1000}));
 app.use(function(req,res,next){
   req.connection=pool;
   next();

@@ -1,4 +1,4 @@
-var address ="0x87E6e489980f91F345af85d7EFb70c87B99233cd";
+var address = "0x87E6e489980f91F345af85d7EFb70c87B99233cd";
 var votingABI = [
     {
         "inputs": [],

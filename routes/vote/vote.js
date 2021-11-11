@@ -6,12 +6,12 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var votingAddress = "0xD1de894d6C17789dC263b1BeE386F451A4FABF3D";
+var votingAddress = "0x87E6e489980f91F345af85d7EFb70c87B99233cd";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
 var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
-var pointAddress = "0x8b014D5aF226d052Aff504E0d120926834286Dca";
+var pointAddress = "0x47f84209fcebA2C948C89bEC445a6bD034eb942E";
 var point = web3.eth.contract(pointabi).at(pointAddress);
 var contract = web3.eth.contract(abi).at(votingAddress);
 /* GET home page. */
@@ -57,7 +57,7 @@ router.get('/:topic', function (req, res) {
                             res.render('vote/vote', {
                                 title: '投票',
                                 topic: topic,
-                                data: data,
+                                //data: data,
                                 email: req.session.email,
                                 role: req.session.role
                             });

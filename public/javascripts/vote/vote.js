@@ -28,6 +28,7 @@ window.addEventListener('load', async () => {
             }
         })
     })
+    
     web3.eth.getAccounts(function(err,accounts){
         if(!err){
             var votingId = $('input[id=votingId]').val();

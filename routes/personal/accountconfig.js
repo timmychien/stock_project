@@ -6,7 +6,7 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
 var abi = require('../pointABI');
 var abi = abi.pointABI;
-var pointAddress = "0x8b014D5aF226d052Aff504E0d120926834286Dca";
+var pointAddress = "0x47f84209fcebA2C948C89bEC445a6bD034eb942E";
 var contract = web3.eth.contract(abi).at(pointAddress);
 /* GET home page. */
 router.get('/', function (req, res) {

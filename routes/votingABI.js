@@ -335,6 +335,31 @@ var votingABI = [
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_votingId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "participantId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address payable",
+                "name": "contractowner",
+                "type": "address"
+            }
+        ],
+        "name": "deleteworks",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "constant": true,
         "inputs": [
             {
@@ -351,46 +376,34 @@ var votingABI = [
         "name": "getParticipant",
         "outputs": [
             {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "VotingId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "NFTName",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "NFTSymbol",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "URI",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "NFTAddress",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "author",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "votes",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct NFTVoting.Candidate",
+                "internalType": "string",
                 "name": "",
-                "type": "tuple"
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
         "payable": false,
@@ -540,12 +553,12 @@ var votingABI = [
             },
             {
                 "internalType": "address",
-                "name": "nftAddress",
+                "name": "voter",
                 "type": "address"
             },
             {
                 "internalType": "address",
-                "name": "voter",
+                "name": "nftAddress",
                 "type": "address"
             },
             {

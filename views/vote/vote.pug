@@ -12,21 +12,22 @@
   include ../navigator.pug
 <h1>投票區</h1>
 <h2>主題:#{topic}</h2>
+//<input type="hidden" id="votingId" name="votingId" value=#{votingId}>
 if(data)
   each x in data
     <div class="container">
       <form action=""method="post">
-        <img src=#{x.uri} width="360"height="250">
-        <input type="hidden" id="votingId" name="votingId" value=#{x.votingId}>
-        <input type="hidden" id="participantId" name="participantId" value=#{x.participantId}>
+        <img src=#{x[4]} width="360"height="250">
         <label for="author">作者:</label><br>
         <dd id="author"name="author">#{x.author}</dd>
         <label for="name">作品名稱:</label><br>
-        <dd id="name"name="name">#{x.name}</dd>
+        <dd id="name"name="name">#{x[0]}</dd>
         <label for="symbol">作品代號:</label><br>
-        <dd id="symbol">#{x.symbol}</dd>
+        <dd id="symbol">#{x[1]}</dd>
         <label for="votes">票數:</label>
-        <dd id="votes"name="votes"></dd>
+        <dd id="votes"name="votes">#{x[5]}</dd>
+        <input type="hidden" id="votingId" name="votingId" value=#{votingId}>
+        <input type="hidden" id="participantId" name="participantId" value=#{x[6]}>
         <input type="submit" value="投票">
         <button id="buy"><a>購買</a></button>
       </form>

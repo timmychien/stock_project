@@ -1,4 +1,4 @@
-
+/*
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -32,14 +32,31 @@ window.addEventListener('load', async () => {
     web3.eth.getAccounts(function(err,accounts){
         if(!err){
             var votingId = $('input[id=votingId]').val();
-            var participantId = $('input[id=participantId]').val();
-            contract.voteBalances(votingId, participantId, function (err, votes) {
-                $('dd[id=votes]').text(votes);
-            })
-        }else{
+            contract.getTotalParticipant(votingId,function(err,totalcounts){
+                if(!err){
+                    for (var i = 1; i <= totalcounts; i++) {
+                        contract.getParticipant(votingId, i,function(err,info){
+                            if(!err){
+                                document.getElementById("votingId").value = votingId;
+                                document.getElementById("participantId").value = i;
+                                document.getElementById("author").value = info[4];
+                                document.getElementById("name").value = info[0];
+                                document.getElementById("symbol").value = info[1];
+                                document.getElementById("votes").value = info[5].toNumber();
+                            }
+                            else{
+                                console.log(err)
+                            }
+                        });
+                        
+                    }
+                }
+                else {console.log(err)}
+            });
+            }else{
             console.log(err)
         }
         
     })
     
-})
+})*/

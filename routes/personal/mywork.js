@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
     //var name=req.session.userfirstname+req.session.userlastname;
     var walletaddress=req.session.walletaddress
     pool.getConnection(function(err,connection){
-        connection.query('SELECT * FROM art_works WHERE authoraddress=?,available=0', [walletaddress],function(err,rows){
+        connection.query('SELECT * FROM art_works WHERE authoraddress=? AND available=?', [walletaddress,0],function(err,rows){
             if (err) {
                 res.render('error', {
                     message: err.message,

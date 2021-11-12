@@ -9,11 +9,11 @@ web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/9
 var votingAddress = "0x87E6e489980f91F345af85d7EFb70c87B99233cd";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
+var contract = web3.eth.contract(abi).at(votingAddress);
 //var pointabi = require('../pointABI');
 //var pointabi = pointabi.pointABI;
 //var pointAddress = "0x47f84209fcebA2C948C89bEC445a6bD034eb942E";
 //var point = web3.eth.contract(pointabi).at(pointAddress);
-var contract = web3.eth.contract(abi).at(votingAddress);
 /* GET home page. */
 /*router.get('/:topic/:votingId', function (req, res) {
     if(!req.session.email){
@@ -77,7 +77,7 @@ var contract = web3.eth.contract(abi).at(votingAddress);
 router.get('/:topic/:votingId', function (req, res) {
     var topic = req.params.topic;
     var votingId=req.params.votingId;
-    var pool=req.connection;
+    //var pool=req.connection;
     /*pool.getConnection(function (err, connection) {
         connection.query('SELECT * FROM voting WHERE topic=?', [topic], function (err, rows) {
             if (err) {
@@ -97,7 +97,8 @@ router.get('/:topic/:votingId', function (req, res) {
                     data[i - 1][6] = i;
                 }
                 res.render('vote/vote', {
-                    votingId:votingId,
+                    topic: topic,
+                    votingId: votingId,
                     email: req.session.email,
                     data: data
                 });

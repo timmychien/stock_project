@@ -209,6 +209,21 @@ var pointABI = [
         "inputs": [
             {
                 "internalType": "address",
+                "name": "operator",
+                "type": "address"
+            }
+        ],
+        "name": "addOperator",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
                 "name": "spender",
                 "type": "address"
             },

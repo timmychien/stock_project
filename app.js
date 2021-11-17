@@ -63,6 +63,22 @@ pool.getConnection(function(err){
   }
   console.log('connection success');
 });
+//var nowtime = parseInt(Date.now() / 1000);
+if ((parseInt(Date.now() / 1000)-57600)%86400==0){
+  pool.getConnection(function (err, connection) {
+    connection.query('UPDATE  member_info SET votecount=0', function (err, rows) {
+      if (err) {
+        res.render('error', {
+          message: err.message,
+          error: err
+        })
+      } else {
+        console.log('votecount reset');
+      }
+    })
+  })
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

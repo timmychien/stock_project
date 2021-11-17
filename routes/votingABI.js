@@ -257,6 +257,41 @@ var votingABI = [
                 "type": "uint256"
             },
             {
+                "internalType": "uint256",
+                "name": "participantId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "buyAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "buyer",
+                "type": "address"
+            }
+        ],
+        "name": "buy",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_votingId",
+                "type": "uint256"
+            },
+            {
                 "internalType": "string",
                 "name": "_NFTName",
                 "type": "string"
@@ -554,11 +589,6 @@ var votingABI = [
             {
                 "internalType": "address",
                 "name": "voter",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "nftAddress",
                 "type": "address"
             },
             {

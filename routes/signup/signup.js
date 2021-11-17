@@ -9,7 +9,7 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var votingAddress = "0x87E6e489980f91F345af85d7EFb70c87B99233cd";
+var votingAddress = "0xA37A3C77EDeC40581321e6bd67f616Cad462bbA0";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);

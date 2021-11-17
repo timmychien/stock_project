@@ -1,4 +1,4 @@
-var address = "0x47f84209fcebA2C948C89bEC445a6bD034eb942E";
+var address = "0xbB14F175BE09a31c6551A9985251f1da6Ce7fAa3";
 var pointABI = [
     {
         "anonymous": false,
@@ -204,6 +204,21 @@ var pointABI = [
         ],
         "name": "Transfer",
         "type": "event"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "operator",
+                "type": "address"
+            }
+        ],
+        "name": "addOperator",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "constant": false,

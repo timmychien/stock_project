@@ -6,7 +6,7 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var votingAddress = "0x87E6e489980f91F345af85d7EFb70c87B99233cd";
+var votingAddress = "0xA37A3C77EDeC40581321e6bd67f616Cad462bbA0";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
@@ -153,13 +153,13 @@ router.post('/:topic/:votingId',function(req,res){
     console.log('votecount',req.session.votecount)
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
-    var nftaddress=contract.getnftAddress.call(votingId,participantId);
-    console.log(nftaddress)
+    //var nftaddress=contract.getnftAddress.call(votingId,participantId);
+    //console.log(nftaddress)
     var voter=req.session.walletaddress;
     //var votecount=client.hget(voter,'count');
     //console.log('votecount:',votecount)
     var timestamp = parseInt(Date.now() / 1000);
-    var data = contract.vote.getData(votingId, participantId, voter, nftaddress, 1, timestamp);
+    var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber()*2;
     var gasLimit = 3000000;
@@ -181,20 +181,24 @@ router.post('/:topic/:votingId',function(req,res){
     req.session.votecount+=1;
     //var votes=contract.voteBalances(votingId,participantId).toNumber();
     //console.log(votes)
-    /*
+    
     pool.getConnection(function(err,connection){
-        connection.query('UPDATE artworks SET votes=? WHERE votingId=?AND participantId=?',[votes,votingId,participantId],function(err,rows){
-            console.log('votes updated.')
-            res.render('vote/vote_redirect', {
-                hash: 'https://rinkeby.etherscan.io/tx/' + hash
-            });
+        connection.query('UPDATE  member_info SET votecount=votecount+1 WHERE address=?',[voter],function(err,rows){
+            if (err) {
+                res.render('error', {
+                    message: err.message,
+                    error: err
+                })
+            }else{
+                console.log('votecount updated.')
+                res.render('vote/vote_redirect', {
+                    hash: 'https://rinkeby.etherscan.io/tx/' + hash
+                });
+            }
+            
         })
         connection.release();
-    })*/
-    res.render('vote/vote_redirect', {
-        hash: 'https://rinkeby.etherscan.io/tx/' + hash
-    });
-    
+    })
     
 })
 

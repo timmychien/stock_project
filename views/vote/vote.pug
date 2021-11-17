@@ -29,8 +29,15 @@ if(data)
         <input type="hidden" id="votingId" name="votingId" value=#{votingId}>
         <input type="hidden" id="participantId" name="participantId" value=#{x[6]}>
         <input type="submit" value="投票">
-        <button id="buy"><a>購買</a></button>
       </form>
+      <br>
+      <form action="/buy" method="post">
+        <input type="hidden" id="votingId" name="votingId" value=#{votingId}>
+        <input type="hidden" id="participantId" name="participantId" value=#{x[6]}>
+        <input type="submit" value="購買">
+      </form>
+
+      
     </div>
 <script src="/javascripts/vote/vote.js"></script>
 <script src="/javascripts/vote/abi.js"></script>

@@ -102,19 +102,16 @@ router.get('/:topic/:votingId', function (req, res) {
                     email: req.session.email,
                     data: data
                 });
-                /*pool.getConnection(function(err,connection){
-                    connection.query('SELECT * FROM art_works WHERE votingId=? AND available=?',[votingId,1],function(err,rows){
+                /*
+                pool.getConnection(function(err,connection){
+                    connection.query('SELECT votecount FROM member_info WHERE address=?',[req.session.walletaddress],function(err,rows){
                         if (err) {
                             res.render('error', {
                                 message: err.message,
                                 error: err
                             })
                         } else {
-                            var data=rows;
-                            res.render('vote/vote', {
-                                email: req.session.email,
-                                data: data
-                            });
+                            var votecount=rows[0].votecount;
                     }
                     })
                     
@@ -138,30 +135,91 @@ router.get('/:topic/:votingId', function (req, res) {
 router.post('/:topic/:votingId',function(req,res){
     var votingId=req.body['votingId'];
     var participantId = req.body['participantId'];
+    var voter = req.session.walletaddress;
     var pool=req.connection;
     console.log(votingId)
     console.log(participantId)
-    var votecount=req.session.votecount;
-    if(req.session.votecount===undefined){
-        req.session.votecount=0;
-    }
-    else if(votecount==2){
-        res.render('vote/vote_warn', {
-            warn: '本日投票次數已達最大上限(2次)！'
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT votecount FROM member_info WHERE address=?', [voter], function (err, rows) {
+            if (err) {
+                res.render('error', {
+                    message: err.message,
+                    error: err
+                })
+            } 
+            var votecount = rows[0].votecount;
+            if (votecount == 2) {
+                res.render('vote/vote_warn', {
+                    warn: '本日投票次數已達最大上限(2次)！'
+                })
+            }
+            console.log('votecount', votecount)
+
         })
-    }
-    console.log('votecount',req.session.votecount)
+        var address = process.env.PLATFORM_ADDR;
+        var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+        //var nftaddress=contract.getnftAddress.call(votingId,participantId);
+        //console.log(nftaddress)
+        //var votecount=client.hget(voter,'count');
+        //console.log('votecount:',votecount)
+        var timestamp = parseInt(Date.now() / 1000);
+        var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
+        var count = web3.eth.getTransactionCount(address);
+        var gasPrice = web3.eth.gasPrice.toNumber() * 2;
+        var gasLimit = 3000000;
+        var rawTx = {
+            "from": address,
+            "nonce": web3.toHex(count),
+            "gasPrice": web3.toHex(gasPrice),
+            "gasLimit": web3.toHex(gasLimit),
+            "to": votingAddress,
+            "value": 0x0,
+            "data": data,
+            "chainId": 0x04
+        }
+        var tx = new Tx(rawTx, { chain: 'rinkeby' });
+        tx.sign(privkey);
+        var serializedTx = tx.serialize();
+        var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
+        console.log(hash)
+        //var votes=contract.voteBalances(votingId,participantId).toNumber();
+        //console.log(votes)
+
+        pool.getConnection(function (err, connection) {
+            connection.query('UPDATE  member_info SET votecount=votecount+1 WHERE address=?', [voter], function (err, rows) {
+                if (err) {
+                    res.render('error', {
+                        message: err.message,
+                        error: err
+                    })
+                } else {
+                    console.log('votecount updated.')
+                    res.render('vote/vote_redirect', {
+                        hash: 'https://rinkeby.etherscan.io/tx/' + hash
+                    });
+                }
+
+            })
+            connection.release();
+        })
+        connection.release()
+
+    })    
+    
+    
+})
+/*
+router.post('/:topic/:votingId/buy',function(req,res){
+    var votingId_buy = req.body['votingId_buy'];
+    var participantId_buy = req.body['participantId_buy'];
+    console.log(votingId_buy)
+    console.log(participantId_buy)
+    var buyer = req.session.walletaddress;
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
-    //var nftaddress=contract.getnftAddress.call(votingId,participantId);
-    //console.log(nftaddress)
-    var voter=req.session.walletaddress;
-    //var votecount=client.hget(voter,'count');
-    //console.log('votecount:',votecount)
-    var timestamp = parseInt(Date.now() / 1000);
-    var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
+    var data = contract.buy.getData(votingId_buy, participantId_buy, 1, 1, buyer);
     var count = web3.eth.getTransactionCount(address);
-    var gasPrice = web3.eth.gasPrice.toNumber()*2;
+    var gasPrice = web3.eth.gasPrice.toNumber() * 2;
     var gasLimit = 3000000;
     var rawTx = {
         "from": address,
@@ -178,28 +236,8 @@ router.post('/:topic/:votingId',function(req,res){
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
-    req.session.votecount+=1;
-    //var votes=contract.voteBalances(votingId,participantId).toNumber();
-    //console.log(votes)
-    
-    pool.getConnection(function(err,connection){
-        connection.query('UPDATE  member_info SET votecount=votecount+1 WHERE address=?',[voter],function(err,rows){
-            if (err) {
-                res.render('error', {
-                    message: err.message,
-                    error: err
-                })
-            }else{
-                console.log('votecount updated.')
-                res.render('vote/vote_redirect', {
-                    hash: 'https://rinkeby.etherscan.io/tx/' + hash
-                });
-            }
-            
-        })
-        connection.release();
-    })
-    
-})
-
+    res.render('vote/buy_redirect', {
+        hash: 'https://rinkeby.etherscan.io/tx/' + hash
+    });
+})*/
 module.exports = router;

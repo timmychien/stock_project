@@ -22,6 +22,7 @@ var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
 var voteRouter=require('./routes/vote/vote');
+var buyRouter=require('./routes/vote/buy');
 //個人專區
 var myinfoRouter=require('./routes/personal/myinfo');
 var myworkRouter=require('./routes/personal/mywork');
@@ -108,6 +109,7 @@ app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);
 app.use('/vote',voteRouter);
+app.use('/buy', buyRouter);
 //個人專區
 app.use('/myinfo',myinfoRouter);
 app.use('/mywork',myworkRouter);

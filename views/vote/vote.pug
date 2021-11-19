@@ -34,6 +34,8 @@ if(data)
       <form action="/buy" method="post">
         <input type="hidden" id="votingId_buy" name="votingId_buy" value=#{votingId}>
         <input type="hidden" id="participantId_buy" name="participantId_buy" value=#{x[6]}>
+        <label for="buyamount">購買數量:</label><br>
+        <input type="text" id="buyamount" name="buyamount">
         <input type="submit" value="購買">
       </form>
 

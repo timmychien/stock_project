@@ -13,6 +13,7 @@ var nodemailer = require('nodemailer');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signRouter = require('./routes/sign');
+var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var verifyRouter = require('./routes/verify/verify');
@@ -103,6 +104,7 @@ app.use(function(req,res,next){
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/sign',signRouter);
+app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);
 app.use('/verify',verifyRouter);

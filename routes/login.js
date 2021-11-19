@@ -39,7 +39,7 @@ router.post('/',function(req,res,next){
                         req.session.home_address=rows[0].home_address;
                         req.session.cellphone=rows[0].cellphone;
                         req.session.englishname=rows[0].englishname;
-                        req.session.pk=row[0].privkey;
+                        req.session.pk=rows[0].privkey;
                         res.redirect('/');
                     }
                 });

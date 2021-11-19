@@ -15,12 +15,13 @@ router.get('/', function (req, res) {
 router.post('/',function(req,res){
     var votingId_buy = req.body['votingId_buy'];
     var participantId_buy = req.body['participantId_buy'];
+    var amount=require=req.body['buyamount'];
     console.log(votingId_buy)
     console.log(participantId_buy)
     var buyer = req.session.walletaddress;
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
-    var data = contract.buy.getData(votingId_buy, participantId_buy, 1, 1, buyer);
+    var data = contract.buy.getData(votingId_buy, participantId_buy, 1, amount, buyer);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;
     var gasLimit = 3000000;

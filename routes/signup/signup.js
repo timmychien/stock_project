@@ -33,7 +33,7 @@ router.post('/:topic',function(req,res){
     var nftname=req.body['name'];
     var nftsymbol=req.body['symbol'];
     var author = req.session.userfirstname+req.session.userlastname;
-    var uri=req.body['uri'];
+    var uri=req.body['ipfsuri'];
     console.log(req.body)
     console.log(author)
     var authoraddress = req.session.walletaddress;

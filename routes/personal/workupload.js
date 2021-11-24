@@ -1,36 +1,6 @@
 var express = require('express');
 var router = express.Router();
 require('dotenv').config();
-const multer=require('multer');
-const pinataApikey=process.env.PINATA_APIKEY;
-const pinatasecret=process.env.PINATA_APISECRET;
-const fs=require('fs');
-const FormData=require('form-data');
-const pinataSDK=require('@pinata/sdk');
-//const { path } = require('../../app');
-const { default: axios } = require('axios');
-require('body-parser');
-const pinata=pinataSDK(pinataApikey,pinatasecret);
-/*
-const imageStorage=multer.diskStorage({
-    destination:'../uploads',
-    filename:(req,file,cb)=>{
-        cb(null,file.fieldname+path.extname(file.originalname))
-    }
-});
-const imageUpload=multer({
-    storage:imageStorage,
-    limits:{
-        fileSize:1000000
-    },
-    fileFilter(req,file,cb){
-        if (!file.originalname.match(/\.(png|jpg)$/)) {
-            // upload only png and jpg format
-            return cb(new Error('Please upload a Image'))
-        }
-        cb(undefined, true)
-    }
-})*/
 /* GET home page. */
 router.get('/', function (req, res) {
     if (!req.session.email) {
@@ -49,33 +19,31 @@ router.post('/',function(req,res){
     var authoraddress=req.session.walletaddress;
     var name=req.body['name'];
     var symbol=req.body['symbol'];
-    var uri=req.body['image'];
-    var readableStreamForFile=fs.createReadStream('./uploads/'+uri);
-    var options={
-        pinataMetadata:{
-            name:name,
-            keyvalues:{
-                customKey1:author,
-                custonKey2:symbol
-            }
-        },
-        pinataOptions:{
-            cidVersion:0
-        }
-    };
-    var ipfsuri=pinata.pinFileToIPFS(readableStreamForFile,options);
-    consolg.loe(ipfsuri)
+    var uri=req.body['ipfsuri'];
+    console.log(uri)
     var pool=req.connection;
     pool.getConnection(function(err,connection){
-        connection.query('INSERT INTO art_works (votingId,participantId,name,symbol,author,uri,authoraddress,available)',[0,0,name,symbol,author,ipfsuri,authoraddress,0],function(err,rows){
+        connection.query('SELECT * FROM art_works WHERE name=? AND,symbol=?',[name,symbol],function(err,rows){
             if (err) {
-                res.redirect('/sign');
                 console.log(err)
-            }else{
-                console.log('upload success')
-                req.redirect('/');
+            }
+            if(rows==1){
+                res.render('personal/workupload',{
+                    warn:"此名稱與代號已被使用！"
+                })
+            }
+            else{
+                connection.query('INSERT INTO art_works (votingId,participantId,name,symbol,author,uri,authoraddress,available)VALUES(?,?,?,?,?,?,?,?)', [0, , name, symbol, author, uri, authoraddress, 0], function (err, rows) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log('upload success')
+                        res.redirect('/');
+                    }
+                })
             }
         })
+        connection.release();
     })
 })
 module.exports = router;

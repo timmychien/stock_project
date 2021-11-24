@@ -15,11 +15,14 @@ h2{
   position: justify;
   font-size:24px;
   padding: 2em 2em 2em;
-  max-width: 450px;
+  max-width: 600px;
   margin: 50px auto 0;
   box-shadow: 0 0 1em #222;
   border-radius: 2px;
 }
+  input[type="text"]{
+    width:100%
+  }
   input[type="submit"]{
     display: block;
     margin: 0 auto;

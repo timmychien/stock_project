@@ -38,7 +38,9 @@ router.post('/',function(req,res){
                         console.log(err)
                     } else {
                         console.log('upload success')
-                        res.redirect('/');
+                        res.render('personal/workupload_redirect',{
+                            uri:uri
+                        })
                     }
                 })
             }

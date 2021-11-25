@@ -60,9 +60,10 @@ window.addEventListener('load', async () => {
     })
     
 })*/
+/*
 $('#buyform').hide();
 
 $('#buybutton').click(function () {
     $('#buyform').show();
     $('#buybutton').hide();
-})
+})*/

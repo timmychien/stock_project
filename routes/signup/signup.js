@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 require('dotenv').config();
-const fs = require('fs');
-const ipfsClient = require("ipfs-http-client");
-//const { create, globSource } = require('ipfs-http-client')
-const ipfs = ipfsClient.create("https://ipfs.infura.io:5001");
 var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
@@ -38,13 +34,6 @@ router.post('/:topic',function(req,res){
     console.log(author)
     var authoraddress = req.session.walletaddress;
     console.log(authoraddress)
-    //var image=req.files;
-    //var file_name = req.file.filename;
-    //var file_path = req.file.path;
-    //file.mv('.../uploads'+filename);
-    //let File=fs.readFileSync(image,'utf-8');
-    //let Buffer=new Buffer(File);
-    //var uri=ipfs.files.add(Buffer);
     console.log(uri)
     var pool = req.connection;
     pool.getConnection(function (err, connection) {

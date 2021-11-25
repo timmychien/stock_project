@@ -14,20 +14,22 @@
 if(data)
   each x in data
     <div class="container">
-      <form action="" method="post">
-      <img src=#{x.uri} width="360"height="240">
-      <label for="topic">主題:</label><br>
-      <dd id="topic">#{x.topic}</dd>
+    <form action="" method="post">
+      <img src=#{x.uri} name="uri" width="360"height="240">
+      <input type="hidden" name="uri" value="#{x.uri}">
       <label for="name">作品名稱:</label><br>
-      <dd id="name">#{x.name}</dd>
+      <dd>#{x.name}</dd>
+      <input type="hidden" id="name" name="name" value="#{x.name}">
       <label for="symbol">作品代號:</label><br>
-      <dd id="symbol">#{x.symbol}</dd>
+      <dd>#{x.symbol}</dd>
+      <input type="hidden" id="symbol" name="symbol" value="#{x.symbol}">
       <label for="signup">報名活動:</label><br>
-      <select>
-        each topic in topics
-          <option>#{topic.topic}</option>
+      <select type="text" name="topicselect" id="topicselect">
+        each data in topics
+          <option>#{data.topic}</option>
       </select>
       <input type="submit" value="確定報名">
+    </form>
     </div>
 <script src="/javascripts/personal/mywork.js"></script>
 </body>

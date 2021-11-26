@@ -3,9 +3,6 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    if (req.session.verified == 0) {
-        res.redirect('/verify');
-    }
     res.render('login', { title: '登入' });
 });
 router.post('/',function(req,res,next){
@@ -40,6 +37,9 @@ router.post('/',function(req,res,next){
                         req.session.cellphone=rows[0].cellphone;
                         req.session.englishname=rows[0].englishname;
                         req.session.pk=rows[0].privkey;
+                        if (req.session.verified == 0) {
+                            res.redirect('/verify');
+                        }
                         res.redirect('/');
                     }
                 });

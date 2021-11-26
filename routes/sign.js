@@ -43,7 +43,6 @@ router.post('/',function(req,res){
                         res.redirect('/sign');
                         console.log(err)
                     }else{
-                        req.session.verified=verified;
                         req.session.email=email;
                         console.log('insert success')
                         res.render('sign_redirect',{pk:pk});

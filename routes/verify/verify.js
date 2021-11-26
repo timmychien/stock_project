@@ -5,7 +5,7 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
 /* GET home page. */
 router.get('/', function (req, res) {
-    if(req.session.verified==0){
+    if(req.session.isverified==0){
         res.render('verify/verify', {
             title: 'Verify',
             email: req.session.email,

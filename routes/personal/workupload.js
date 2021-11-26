@@ -6,6 +6,10 @@ router.get('/', function (req, res) {
     if (!req.session.email) {
         res.redirect('/login');
     }
+    if (req.session.isverified == 0) {
+        console.log('need verify')
+        res.redirect('/verify');
+    }
     res.render('personal/workupload', {
         title: '作品上傳',
         email: req.session.email,

@@ -14,6 +14,10 @@ router.get('/', function (req, res) {
     if (!req.session.email) {
         res.redirect('/login');
     }
+    if (req.session.isverified == 0) {
+        console.log('need verify')
+        res.redirect('/verify');
+    }
     var pool=req.connection;
     //var name=req.session.userfirstname+req.session.userlastname;
     var walletaddress=req.session.walletaddress;

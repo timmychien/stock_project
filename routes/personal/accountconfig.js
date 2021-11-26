@@ -13,6 +13,10 @@ router.get('/', function (req, res) {
     if (!req.session.email) {
         res.redirect('/login');
     }
+    if (req.session.isverified == 0) {
+        console.log('need verify')
+        res.redirect('/verify');
+    }
     res.render('personal/accountconfig', {
         title: '兌換代幣',
         walletaddress:req.session.walletaddress,

@@ -10,7 +10,7 @@ var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
 /* GET home page. */
 router.get('/', function (req, res) {
-
+    
 });
 router.post('/',function(req,res){
     var votingId_buy = req.body['votingId_buy'];

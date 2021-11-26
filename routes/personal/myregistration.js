@@ -6,6 +6,10 @@ router.get('/', function (req, res) {
     if (!req.session.email) {
         res.redirect('/login');
     }
+    if (req.session.isverified == 0) {
+        console.log('need verify')
+        res.redirect('/verify');
+    }
     else{
         var pool=req.connection
         pool.getConnection(function(err,connection){

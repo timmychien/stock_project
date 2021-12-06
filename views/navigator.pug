@@ -14,16 +14,14 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                //<a class="nav-item nav-link active" href="/">首頁 <span class="sr-only">(current)</span></a>
-                //<a class="nav-item nav-link" href="/sign">註冊</a>
                 if(role=='admin')
                     <li class="dropdown">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown"role="button" aria-haspopup="true"aria-expanded="false">管理者<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-item nav-link" href="/createvote">創建活動</a></li>
-                            </li><a class="nav-item nav-link" href="/workconfig">作品管理</a></li>
-                        <ul>
-                        <li>
+                            <li><a class="nav-item" href="/createvote">創建活動</a></li>
+                            <li><a class="nav-item" href="/workconfig">作品管理</a></li>
+                        </ul>
+                    </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle nav-link" data-toggle="dropdown"role="button" aria-haspopup="true"aria-expanded="false">活動總覽<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -42,7 +40,7 @@
                         <li><a class="nav-item" href="/exchangetoken">兌換代幣</a></li>
                     </ul>
                 </li>
-                <i class="fa fa-user-circle fa-lg" aria-hidden="false"style="color:white"></i>
+                <i class="fa fa-user-circle fa-2x" aria-hidden="false"style="color:white"></i>
                 if(!email)
                     <li><a class="nav-item nav-link" href="/login">登入</a><li>
                 else

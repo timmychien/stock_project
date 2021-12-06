@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
         console.log('need verify')
         res.redirect('/verify');
     }
-    res.render('personal/accountconfig', {
+    res.render('personal/exchangetoken', {
         title: '兌換代幣',
         walletaddress:req.session.walletaddress,
         email: req.session.email,

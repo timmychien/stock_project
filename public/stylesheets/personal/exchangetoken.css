@@ -1,39 +1,73 @@
 body {
-  background-color: white;
+  background-color: gray;
   font-family: serif;
   font-size: 28px;
 }
-h1{
-  text-align:center;
-  font-size:60px;
+.container{
+  width: 100%;
+  text-align: center;
 }
-h2{
+form{
   text-align:center;
-  font-size:40px;
+}
+form input[id="address"]{
+  width: 40%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color:#D0D0D0;
+}
+form input[id="points"]{
+  width: 20%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color:#D0D0D0;
+}
+form input[id="tochange"]{
+  width: 20%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color:#D0D0D0;
+}
+form input[id='confirm']{
+  width: 20%;
+  border-radius:30px;
+  display: block;
+  margin: 0 auto;
+  color:white;
+  background-color:gray;
 }
 
-.container{
-  position: justify;
-  font-size:24px;
-  text-align:center;
-  padding: 2em 2em 2em;
-  max-width: 600px;
-  margin: 50px auto 0;
-  box-shadow: 0 0 1em #222;
-  border-radius: 2px;
+form label[for="title"]{
+  color:#666666;
+  font-size:48px;
 }
-    label{
-        font-size:30px;
-    }
-    dd[id="points"]{
-        text-align:center;
-        font-size:30px;
-    }
-    dd[id="arrow"]{
-        text-align:center;
-        font-size:50px;
-    }
-    input[id="tochange"]{
-        text-align:center;
-        font-size:30px;
-    }
+form label[for="email"]{
+  color:#666666;
+  font-size:28px;
+}
+form label[for="userpass"]{
+  color:#666666;
+  font-size:28px;
+}
+i{
+  text-align:center;
+}
+a{
+  color: #666666;
+}
+p{
+  text-align:center;
+  color: #666666;
+}

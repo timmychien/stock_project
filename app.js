@@ -32,7 +32,7 @@ var mycollectionRouter=require('./routes/personal/mycollection');
 //var myfavoriteRouter=require('./routes/personal/myfavorite');
 var myregistrationRouter=require('./routes/personal/myregistration');
 var workuploadRouter=require('./routes/personal/workupload');
-var accountconfigRouter=require('./routes/personal/accountconfig');
+var exchangetokenRouter=require('./routes/personal/exchangetoken');
 var app = express();
 require('dotenv').config();
 /*
@@ -123,7 +123,7 @@ app.use('/mywork',myworkRouter);
 app.use('/mycollection',mycollectionRouter);
 app.use('/workupload',workuploadRouter);
 //app.use('/myfavorite',myfavoriteRouter);
-app.use('/accountconfig',accountconfigRouter);
+app.use('/exchangetoken',exchangetokenRouter);
 app.use('/myregistration',myregistrationRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,4 +1,10 @@
+$('#sendSign').hide();
 $('#signform').hide();
+function handleChange(checkbox) {
+    if (checkbox.checked == true) {
+        $('#sendSign').show();
+    }
+}
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -25,15 +31,19 @@ window.addEventListener('load', async () => {
             console.log(error)
         }
     })
-    
     $('#sendSign').click(function () {
         web3.eth.getAccounts(function (error, accounts) {
             var term=web3.sha3("茲同意以下條款:");
-            if (!error) {
+            var walletbackend=$('#address').val();
+            if (accounts[0] != walletbackend) {
+                alert('您目前連接的錢包錯誤！')
+            }
+            if (!error && accounts[0] == walletbackend) {
                 web3.eth.sign(accounts[0],term,function(err,sig){
                     if(!err){
                         $('#term').hide();
-                        $('#button').hide();
+                        $('#sendSign').hide();
+                        $('#forgetkey').hide();
                         $('#signform').show();
                         $('#signature').val(sig);
                     }else{

@@ -44,6 +44,8 @@ router.post('/',function(req,res){
                         console.log(err)
                     }else{
                         req.session.email=email;
+                        req.session.walletaddress=address;
+                        req.session.isverified=0;
                         console.log('insert success')
                         res.render('sign_redirect',{pk:pk});
                     }

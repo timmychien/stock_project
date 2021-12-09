@@ -4,14 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Redirecting</title>
-    <link rel="stylesheet" href="/stylesheets/sign_redirect.css">
 </head>
-
 <body>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/sign_redirect.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    include ./navigator.pug
+    <br>
+    <br>
+    <br>
     <div class="container">
-        <i class="fa fa-check-circle-o fa-5x"></i><h1>註冊成功!<h1>
+        <i class="fa fa-check-circle-o fa-5x" aria-hidden="true"><h1>註冊成功!</h1></i>
         <hr>
         <br>
         <br>
@@ -20,7 +24,7 @@
         <label for="pk">私鑰</label>
         <input type="text" id="pk" name="pk" size="" value=#{pk} readonly><br>
         <p>請將您的私鑰匯入MetaMask中<p>
-        <a href="/">查看匯入教學 &rArr;<a>
+        <a href="/" id="video">查看匯入教學 &rArr;<a>
         <br>
         <input type="checkbox" id="pkinput" name="pkinput" onchange='handleChange(this)'>
         <label for="pkinput">已將私鑰匯入到MetaMask</label><br>

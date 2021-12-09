@@ -1,3 +1,4 @@
+const { default: Wallet } = require('ethereumjs-wallet');
 var express = require('express');
 var router = express.Router();
 var Web3 = require('web3');
@@ -9,7 +10,8 @@ router.get('/', function (req, res) {
         res.render('verify/verify', {
             title: 'Verify',
             email: req.session.email,
-            role: req.session.role
+            role: req.session.role,
+            walletaddress:req.session.walletaddress
         });
     }
     else{

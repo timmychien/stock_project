@@ -1,31 +1,46 @@
 body {
-  background-color: gray;
+  background: #384047;
   font-family: serif;
   font-size: 28px;
 }
 .container{
-  background-color: white;
-  font-size:24px;
-  padding: 4em 10em 4em;
-  max-width: 1120px;
-  margin: 50px auto 0;
-  box-shadow: 0 0 1em #222;
-  border-radius: 2px;
-}
-label{
-  text-align:center;
+  width: 100%;
+  text-align: center;
 }
 textarea{
-  text-align: center;
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
-.wrapper{
-  text-align:center;
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
 }
-form{
-  text-align:center;
-}
-button{
+button[id="sendSign"]{
+  width: 20%;
+  border-radius:30px;
   display: block;
   margin: 0 auto;
+  color:white;
+  background-color:gray;
+}
+button[id="forgetkey"]{
+  width: 20%;
+  border-radius:30px;
+  display: block;
+  margin: 0 auto;
+  color:white;
+  background-color:gray;
+}
+form input[id='submit']{
+  width: 20%;
+  border-radius:30px;
+  display: block;
+  margin: 0 auto;
+  color:white;
+  background-color:gray;
+}
+a{
+  color: white;
 }

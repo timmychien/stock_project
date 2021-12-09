@@ -13,7 +13,7 @@ div[class="wallet_info"]{
   padding: 2em 2em 2em;
   max-width: 550px;
   margin-left: auto; 
-  margin-right: 0;
+  margin-right: 3%;
   box-shadow: 0 0 1em #222;
   border-radius: 2px;
 }

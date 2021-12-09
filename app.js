@@ -67,7 +67,7 @@ pool.getConnection(function(err){
   console.log('connection success');
 });
 setInterval(function(){
-  if (((parseInt(Date.now() / 1000) - 57600) % 86400 >= 0) && ((parseInt(Date.now() / 1000) - 57600) % 86400 <120)) {
+  if (((parseInt(Date.now() / 1000) - 57600) % 86400 >= 0) && ((parseInt(Date.now() / 1000) - 57600) % 86400 <60)) {
     pool.getConnection(function (err, connection) {
       connection.query('UPDATE  member_info SET votecount=0', function (err, rows) {
         if (err) {

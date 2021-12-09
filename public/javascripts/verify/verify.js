@@ -44,6 +44,8 @@ window.addEventListener('load', async () => {
                         $('#term').hide();
                         $('#sendSign').hide();
                         $('#forgetkey').hide();
+                        $('label[for=accept], input#accept').hide();
+                        $('.header').hide();
                         $('#signform').show();
                         $('#signature').val(sig);
                     }else{

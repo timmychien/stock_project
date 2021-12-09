@@ -13,11 +13,14 @@
   <br>
   <br>
   <br>
+  <div class="header">
+    <i class="fa fa-info-circle fa-lg" aria-hidden="false"></i><label>請詳閱以下服務條款</label>
+  </div>
   <div class="container">
     <textarea id="term"form="sign" rows="10" cols="50">茲同意以下條款:</textarea>
     <br>
     <input type="checkbox" id="accept" name="accept" onchange='handleChange(this)'>
-    <label for="accept">我已閱讀並同意以上使用條款</label><br>
+    <label for="accept">我已閱讀並同意以上服務條款</label><br>
     <input type="hidden" id="address" value=#{walletaddress}>
     <button type="button" id="sendSign"><a>點我驗證<a></button>
     <form action="" method="post" id="signform">

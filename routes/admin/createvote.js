@@ -36,6 +36,7 @@ router.post('/',function(req,res){
     var startVoteStamp = parseInt(Math.round(startVote.getTime()))/1000;
     var endVote = new Date(endVoteTime);
     var endVoteStamp = parseInt(Math.round(endVote.getTime()))/1000;
+    var image =req.body['ipfsuri'];
     var pool=req.connection;
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
@@ -61,7 +62,7 @@ router.post('/',function(req,res){
     console.log(hash)
     pool.getConnection(function (err, connection){
         var votingId = contract.getTotalVoting().toNumber() + 1;
-        connection.query('INSERT INTO Voting(votingId,topic,startAdd,endAdd,startVote,endVote,startAddstamp,endAddstamp,startVotestamp,endVotestamp)VALUES(?,?,?,?,?,?,?,?,?,?)',[votingId,topic,startAddTime,endAddTime,startVoteTime,endVoteTime,startAddStamp,endAddStamp,startVoteStamp,endVoteStamp],function(err,rows){
+        connection.query('INSERT INTO Voting(votingId,topic,startAdd,endAdd,startVote,endVote,startAddstamp,endAddstamp,startVotestamp,endVotestamp,image)VALUES(?,?,?,?,?,?,?,?,?,?,?)',[votingId,topic,startAddTime,endAddTime,startVoteTime,endVoteTime,startAddStamp,endAddStamp,startVoteStamp,endVoteStamp,image],function(err,rows){
             if(err){
                 res.render('error',{
                     message:err.message,

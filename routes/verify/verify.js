@@ -24,7 +24,7 @@ router.post('/',function(req,res){
     console.log(signature)
     var pool=req.connection;
     pool.getConnection(function(err,connection){
-        connection.query('UPDATE  member_info SET isverified=?, sig=? WHERE email=?',[1,signature,req.session.email],function(err,rows){
+        connection.query('UPDATE member_info SET isverified=?, sig=? WHERE email=?',[1,signature,req.session.email],function(err,rows){
             if(err){
                 res.render('error', {
                     message: err.message,

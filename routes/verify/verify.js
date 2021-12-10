@@ -31,7 +31,7 @@ router.post('/',function(req,res){
                     error: err
                 })
             }else{
-                req.session.verified =1;
+                req.session.verified=1;
                 console.log('update success')
                 res.render('verify/verify_redirect');
             }

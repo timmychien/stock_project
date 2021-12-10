@@ -28,6 +28,7 @@ router.post('/',function(req,res){
     var endAddTime=req.body['endAddTime'];
     var startVoteTime = req.body['startVoteTime'];
     var endVoteTime = req.body['endVoteTime'];
+    var image = req.body['ipfsuri'];
     var startAdd = new Date(startAddTime);
     var startAddStamp = parseInt(Math.round(startAdd.getTime()))/1000;
     var endAdd =new Date(endAddTime);
@@ -36,7 +37,7 @@ router.post('/',function(req,res){
     var startVoteStamp = parseInt(Math.round(startVote.getTime()))/1000;
     var endVote = new Date(endVoteTime);
     var endVoteStamp = parseInt(Math.round(endVote.getTime()))/1000;
-    var image =req.body['ipfsuri'];
+    console.log(image)
     var pool=req.connection;
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');

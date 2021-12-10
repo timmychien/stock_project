@@ -12,18 +12,29 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   include ../navigator.pug
   <h1>報名總覽<h1>
+  <br>
     if (data)
       each x in data
         <div class=info>
-          <div class="container">
+          <div class="container-left">
+            <img src=#{x.image} width="540"height="409">
+          </div>
+          <div class="container-right">
             <form action="" method="post">
+              <br>
+              <button id="open">開放報名中</button>
+              <br>
+              <br>
               <label for="topic">活動主題:</label><br>
               <dd>#{x.topic}</dd>
-              <hr>
+              <br>
               <label for="signup-time">報名期間:</label><br>
               <dd>#{x.startAdd}~#{x.endAdd}</dd>
               <input type="hidden" name="topic" id="topic" value=#{x.topic}>
+              <br>
               <input type="submit"id="signup"value="點我報名">
+              <br>
+              <br>
             </form>
           </div>
         </div>

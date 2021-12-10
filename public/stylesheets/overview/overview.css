@@ -4,15 +4,47 @@ body {
   font-size: 28px;
 }
 h1{
-  text-align:center;
+  margin-left:30px;
+  text-align:left;
   font-size:60px;
 }
-.container{
+button[id="open"]{
+  background-color:#46A3FF;
+  margin-left:30px;
+  text-align:left;
+  font-size:40px;
+  color:white;
+  border-radius:8px;
+}
+.container-left{
+  margin-left:30px;
+  max-width:540px;
+  float:left;
+  border-top: black solid 1px;
+  border-right: black solid 1px;
+  border-left: black solid 1px;
+  border-bottom: black solid 1px;
   position: justify;
+  left:75%;
+}
+.container-right{
+  max-width:400px;
   font-size:24px;
-  padding: 2em 2em 2em;
-  max-width: 400px;
-  margin: 50px auto 0;
-  box-shadow: 0 0 1em #222;
-  border-radius: 2px;
+  float:left;
+  padding: 0 1em 0;
+  border-top: black solid 1px;
+  border-right: black solid 1px;
+  border-left: black solid 1px;
+  border-bottom: black solid 1px;
+  text-align:center;
+  position: justify;
+  left:75%;
+}
+form input[type='submit']{
+  width: 60%;
+  border-radius:30px;
+  display: block;
+  margin: 0 auto;
+  color:white;
+  background-color:gray;
 }

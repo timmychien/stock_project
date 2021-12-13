@@ -21,18 +21,20 @@ input[id='pointbal']{
   border-radius:30px;
   background-color:white;
   text-align:center;
+  font-size:32px;
 }
 button[id="exchangetoken"]{
   width: 15%;
-  border-radius:18px;
+  border-radius:24px;
   position: absolute;
-  top: 0;
-  right: 150px;
+  top: 4px;
+  right: 175px;
   cursor: pointer;
   color:white;
   z-index: 2;
   background-color:gray;
   text-align:center;
+  font-size:26px;
 }
 button a{
   color:white;

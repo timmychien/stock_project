@@ -5,8 +5,10 @@
 </head>
 <body>
     <link rel="stylesheet" href="/stylesheets/navigator.css">
+    <script src="/javascripts/pointabi.js"></script>
     <script src="/javascripts/navigator.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-inverse" >
         <a class="navbar-brand" href="#">Navbar</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -33,11 +35,15 @@
                 <li><a class="nav-item nav-link" href="#">作品</a><li>
             </ul>
             <ul class="nav navbar-nav ml-auto text-center">
-                <i class="fa fa-user-circle fa-2x" aria-hidden="false"style="color:white"></i>
                 if(!email)
                     <li><a class="nav-item nav-link" href="/login">登入</a><li>
                 else
                     //<li><a class="nav-item nav-link" href="/logout">登出</a><li>
+                    <div class="pointbalance">
+                        <input type="text" id="pointbal" name="pointbal"readonly/>
+                        <button id="exchangetoken"><a href="/exchangetoken">+</a></button>
+                    </div>
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="false"style="color:white"></i>
                     <li class="dropdown">
                     <a class="dropdown-toggle nav-link"data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false" href="/logout">登出</a>
                         <ul class="dropdown-menu">

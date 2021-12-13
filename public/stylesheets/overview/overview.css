@@ -8,17 +8,10 @@ h1{
   text-align:left;
   font-size:60px;
 }
-button[id="open"]{
-  background-color:#46A3FF;
-  margin-left:30px;
-  text-align:left;
-  font-size:40px;
-  color:white;
-  border-radius:8px;
-}
+
 .container-left{
   margin-left:30px;
-  max-width:540px;
+  max-width:500px;
   float:left;
   border-top: black solid 1px;
   border-right: black solid 1px;
@@ -28,7 +21,7 @@ button[id="open"]{
   left:75%;
 }
 .container-right{
-  max-width:400px;
+  max-width:560px;
   font-size:24px;
   float:left;
   padding: 0 1em 0;
@@ -37,8 +30,14 @@ button[id="open"]{
   border-left: black solid 1px;
   border-bottom: black solid 1px;
   text-align:center;
-  position: justify;
   left:75%;
+}
+.container-right button[id="open"]{
+  background-color:#46A3FF;
+  text-align:center;
+  font-size:40px;
+  color:white;
+  border-radius:8px;
 }
 form input[type='submit']{
   width: 60%;

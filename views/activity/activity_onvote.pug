@@ -21,7 +21,7 @@
           <br>
           <br>
           <div class="container-left">
-            <img src=#{x.image} width="900"height="635">
+            <img src=#{x.image} width="900"height="631">
           </div>
           <div class="container-right">
             <form action="" method="post">
@@ -32,11 +32,11 @@
               <label for="topic">活動主題:</label><br>
               <dd>#{x.topic}</dd>
               <br>
-              <label for="signup-time">報名期間:</label><br>
-              <dd>#{x.startAdd}~#{x.endAdd}</dd>
+              <label for="vote-time">投票期間:</label><br>
+              <dd>#{x.startVote}~#{x.endVote}</dd>
               <input type="hidden" name="topic" id="topic" value=#{x.topic}>
               <br>
-              <input type="submit"id="signup"value="點我報名">
+              <input type="submit"id="signup"value="點我投票">
               <br>
               <br>
             </form>

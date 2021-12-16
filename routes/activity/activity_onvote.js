@@ -3,28 +3,33 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    var pool = req.connection;
-    pool.getConnection(function (err, connection) {
-        var now = parseInt(Date.now() / 1000);
-        connection.query('SELECT * FROM voting WHERE startVotestamp<? AND endVotestamp>?', [now, now], function (err, rows) {
-            if (err) {
-                res.render('error', {
-                    message: err.message,
-                    error: err
-                })
-            }
-            else {
-                var data = rows;
-                res.render('activity/activity', {
-                    title: '投票中活動',
-                    data: data,
-                    email: req.session.email,
-                    role: req.session.role
-                });
-            }
+    if(!req.session.email){
+        res.redirect('/login');
+    }
+    else{
+        var pool = req.connection;
+        pool.getConnection(function (err, connection) {
+            var now = parseInt(Date.now() / 1000);
+            connection.query('SELECT * FROM voting WHERE startVotestamp<? AND endVotestamp>?', [now, now], function (err, rows) {
+                if (err) {
+                    res.render('error', {
+                        message: err.message,
+                        error: err
+                    })
+                }
+                else {
+                    var data = rows;
+                    res.render('activity/activity_onvote', {
+                        title: '投票中活動',
+                        data: data,
+                        email: req.session.email,
+                        role: req.session.role
+                    });
+                }
+            })
+            connection.release();
         })
-        connection.release();
-    })
+    }
 
 });
 router.post('/', function (req, res) {

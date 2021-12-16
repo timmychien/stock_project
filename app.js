@@ -19,12 +19,15 @@ var logoutRouter = require('./routes/logout');
 var verifyRouter = require('./routes/verify/verify');
 var createVoteRouter = require('./routes/admin/createvote');
 var workConfigRouter=require('./routes/admin/workconfig');
-var activityRouter=require('./routes/activity/activity');
 var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
 var voteRouter=require('./routes/vote/vote');
 var buyRouter=require('./routes/vote/buy');
+//activities
+var activityRouter = require('./routes/activity/activity');
+var openactivityRouter = require('./routes/activity/activity_open');
+var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //個人專區
 var myinfoRouter=require('./routes/personal/myinfo');
 var myworkRouter=require('./routes/personal/mywork');
@@ -101,17 +104,19 @@ app.use(function(req,res,next){
   next();
 })
 
-//router
+/*router*/
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/sign',signRouter);
 app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);
-app.use('/verify',verifyRouter);
+app.use('/verify',verifyRouter)
 app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
+//activities
 app.use('/activity',activityRouter);
+//works
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);

@@ -27,5 +27,8 @@ router.get('/', function (req, res) {
     })
 
 });
-
+router.post('/', function (req, res) {
+    var signup_topic = req.body['topic'];;
+    res.redirect('/signup/' + signup_topic);
+})
 module.exports = router;

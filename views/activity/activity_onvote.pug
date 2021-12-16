@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<title>活動總覽</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/activity/activity.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  include ../navigator.pug
+  <div class="overview">
+    <br>
+    <br>
+    <label for="search">&nbsp;&nbsp;&nbsp;&nbsp;活動總覽</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="search" name="search" placeholder="搜尋"><button id="all_activity"><a href="/activity">所有活動</a></button><button id="open_activity"><a href="/activity/open">開放報名</a></button><button id="onvote_activity"><a href="/activity/onvote">投票中</a></button>
+  </div>
+  if (data)
+      each x in data
+        <div class=info>
+          <br>
+          <br>
+          <div class="container-left">
+            <img src=#{x.image} width="900"height="635">
+          </div>
+          <div class="container-right">
+            <form action="" method="post">
+              <br>
+              <button id="open">投票進行中</button>
+              <br>
+              <br>
+              <label for="topic">活動主題:</label><br>
+              <dd>#{x.topic}</dd>
+              <br>
+              <label for="signup-time">報名期間:</label><br>
+              <dd>#{x.startAdd}~#{x.endAdd}</dd>
+              <input type="hidden" name="topic" id="topic" value=#{x.topic}>
+              <br>
+              <input type="submit"id="signup"value="點我報名">
+              <br>
+              <br>
+            </form>
+          </div>
+        </div>
+<script src="/javascripts/activity/activity.js"></script>
+</body>
+</html>

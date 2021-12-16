@@ -116,6 +116,8 @@ app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
 //activities
 app.use('/activity',activityRouter);
+app.use('/activity_open',openactivityRouter);
+app.use('/activity_onvote', onvoteactivityRouter);
 //works
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);

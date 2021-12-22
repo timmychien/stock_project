@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
-
+var Web3 = require('web3');
+const web3 = new Web3();
+web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
+var pointabi = require('../pointABI');
+var pointabi = pointabi.pointABI;
+var pointAddress = "0xbB14F175BE09a31c6551A9985251f1da6Ce7fAa3";
+var point = web3.eth.contract(pointabi).at(pointAddress);
 /* GET home page. */
 router.get('/', function (req, res) {
     if(!req.session.email){

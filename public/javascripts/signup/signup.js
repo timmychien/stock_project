@@ -1,3 +1,4 @@
+$('#preview').hide();
 function previewFile() {
     var preview = document.querySelector('img');
     var file = document.querySelector('input[type=file]').files[0];
@@ -7,6 +8,8 @@ function previewFile() {
     }, false);
     if (file) {
         reader.readAsDataURL(file);
+        $('label[for="imageupload"]').hide();
+        $('#preview').show();
     }
 }
 const ipfs = window.IpfsHttpClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' });

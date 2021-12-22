@@ -12,33 +12,36 @@
   include ../navigator.pug
 <h1>投票區</h1>
 <h2>主題:#{topic}</h2>
-//<input type="hidden" id="votingId" name="votingId" value=#{votingId}>
+<br>
 if(data)
   each x in data
-    <div class="container">
-      <form action=""method="post">
-        <img src=#{x[4]} width="360"height="250">
-        <label for="author">作者:</label><br>
-        <dd id="author"name="author">#{x.author}</dd>
-        <label for="name">作品名稱:</label><br>
-        <dd id="name"name="name">#{x[0]}</dd>
-        <label for="symbol">作品代號:</label><br>
-        <dd id="symbol">#{x[1]}</dd>
-        <label for="votes">票數:</label>
-        <dd id="votes"name="votes">#{x[5]}</dd>
-        <input type="hidden" id="votingId" name="votingId" value=#{votingId}>
-        <input type="hidden" id="participantId" name="participantId" value=#{x[6]}>
-        <input type="submit" value="投票">
-      </form>
-      <br>
-      <form action="/buy" method="post" id="buyform">
+    <div class="overview">
+      <div class="container-left">
+        <img src=#{x[2]} width="900"height="635">
+      </div>
+      </div class="container-right">
+        <form action=""method="post">
+          <label for="author">作者:</label><br>
+          <dd id="author"name="author">#{x[4]}</dd><br>
+          <label for="name">作品名稱:</label><br>
+          <dd id="name"name="name">#{x[0]}</dd><br>
+          <label for="symbol">作品代號:</label><br>
+          <dd id="symbol">#{x[1]}</dd><br>
+          <label for="votes">票數:</label>
+          <dd id="votes"name="votes">#{x[5]}</dd>
+          <input type="hidden" id="votingId" name="votingId" value=#{votingId}>
+          <input type="hidden" id="participantId" name="participantId" value=#{x[6]}>
+          <input type="submit" value="投票">
+        </form>
+      </div>
+      //<form action="/buy" method="post" id="buyform">
         <input type="hidden" id="votingId_buy" name="votingId_buy" value=#{votingId}>
         <input type="hidden" id="participantId_buy" name="participantId_buy" value=#{x[6]}>
         <label for="buyamount">購買數量:</label><br>
         <input type="number" id="buyamount" name="buyamount"><br>
         <br>
         <input type="submit" value="確認購買">
-      </form>
+      //</form> 
     </div>
 <script src="/javascripts/vote/vote.js"></script>
 <script src="/javascripts/vote/abi.js"></script>

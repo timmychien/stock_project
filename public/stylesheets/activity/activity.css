@@ -47,6 +47,7 @@ button[id="onvote_activity"]{
   border-top: black solid 2px;
   border-left: black solid 2px;
   border-bottom: black solid 2px;
+  box-shadow: 0 0 1em #222;
   position: justify;
   left:75%;
 }
@@ -58,6 +59,7 @@ button[id="onvote_activity"]{
   border-top: black solid 2px;
   border-right: black solid 2px;
   border-bottom: black solid 2px;
+  box-shadow: 0 0 1em #222;
   text-align:center;
   position: justify;
   left:75%;

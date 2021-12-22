@@ -26,9 +26,7 @@
           <div class="container-right">
             <form action="" method="post">
               <br>
-              if (x.startVotestamp>now)
-                <button id="onvote">投票中</button>
-              <button id="open">開放報名</button>
+              <button id="status">#{x.status}</button>
               <br>
               <br>
               <label for="topic">活動主題:</label><br>
@@ -45,6 +43,6 @@
           </div>
         </div>
 <script src="/javascripts/activity/activity.js"></script>
-<script>var now = parseInt(Date.now() / 1000);</script>
+<script >
 </body>
 </html>

@@ -67,7 +67,7 @@ button[id="onvote_activity"]{
 .container-right label[for="topic"]{
   text-align:center;
 }
-.container-right button[id="open"]{
+.container-right button[id="status"]{
   background-color:#46A3FF;
   text-align:center;
   font-size:40px;

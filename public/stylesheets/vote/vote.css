@@ -11,6 +11,20 @@ h2{
   text-align:center;
   font-size:40px;
 }
+h2[id="info"]{
+  text-align:center;
+  font-size:28px;
+}
+h2[id="checkvote"]{
+  text-align:center;
+  font-size:28px;
+}
+label[for="info"]{
+  font-size:18px;
+}
+span{
+  font-size:18px;
+}
 .container-left{
   margin-left:20%;
   max-width:900px;
@@ -24,24 +38,25 @@ h2{
   left:75%;
 }
 .container-right{
-  max-width:700px;
-  font-size:32px;
+  width:500px;
+  height:668px;
+  font-size:22px;
   float:left;
   padding: 0 1em 0;
   border-top: black solid 2px;
   border-right: black solid 2px;
   border-bottom: black solid 2px;
   box-shadow: 0 0 1em #222;
-  text-align:center;
   position: justify;
   left:75%;
 }
-.container-right label{
-  text-align:center;
-}
-.container-right dd {
-  text-align:center;
-}
 .container-right input[type="submit"]{
+  margin-left:35%;
+  border-radius:8px;
   text-align:center;
+}
+
+button{
+  border-radius:8px;
+  background:gray;
 }

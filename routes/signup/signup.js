@@ -85,7 +85,7 @@ router.post('/:topic',function(req,res){
                     var participantId=contract.getTotalParticipant(votingId).toNumber()+1;
                     console.log(participantId)
                     pool.getConnection(function (err, connection) {
-                        connection.query('INSERT INTO art_works(votingId,participantId,topic,name,symbol,author,uri,authoraddress,available)VALUES(?,?,?,?,?,?,?,?,?)', [votingId, participantId,topic,nftname, nftsymbol, author,uri,authoraddress,1], function (err, rows) {
+                        connection.query('INSERT INTO art_works(votingId,participantId,topic,name,symbol,author,uri,authoraddress,available,promote)VALUES(?,?,?,?,?,?,?,?,?,?)', [votingId, participantId,topic,nftname, nftsymbol, author,uri,authoraddress,1,1], function (err, rows) {
                             if (err) {
                                 res.render('error', {
                                 message: err.message,

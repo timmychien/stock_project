@@ -12,7 +12,7 @@ var contract=web3.eth.contract(abi).at(votingAddress);
 /* GET home page. */
 router.get('/', function (req, res) {
     if(!req.session.email){
-        res.redirect('/login')
+        res.redirect('/')
     }else{
         res.render('admin/createvote', {
             title: 'Express',

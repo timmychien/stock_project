@@ -37,7 +37,7 @@ router.post('/',function(req,res){
                 })
             }
             else{
-                connection.query('INSERT INTO art_works (votingId,participantId,name,symbol,author,uri,authoraddress,available)VALUES(?,?,?,?,?,?,?,?)', [0,0, name, symbol, author, uri, authoraddress, 0], function (err, rows) {
+                connection.query('INSERT INTO art_works (votingId,participantId,name,symbol,author,uri,authoraddress,available,promote)VALUES(?,?,?,?,?,?,?,?,?)', [0,0, name, symbol, author, uri, authoraddress, 0,0], function (err, rows) {
                     if (err) {
                         console.log(err)
                     } else {

@@ -11,10 +11,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   include ./navigator.pug
   <br>
-  <h1>請使用<a href="https://www.google.com/chrome/">chrome</a>開啟</h1>
-  <h1>點我下載<a href="https://metamask.io/">Metamask</a>錢包</h1>
-  <br>
   <div class="wallet_info">
+    <h1>請使用<a href="https://www.google.com/chrome/">chrome</a>開啟</h1>
+    <h1>點我下載<a href="https://metamask.io/">Metamask</a>錢包</h1>
     <h2 id="info">目前連接錢包資訊</h2>
     <hr>
     <label>地址:</label><br>
@@ -28,7 +27,30 @@
     <label>點數餘額:</label><br>
       <a id="point_bal"></a>點
     <hr>
-  <div>
+  </div>
+  <div class="promote_info">
+    <h1>熱門作品</h1>
+    if (promote_data)
+      each x in promote_data
+        <div class=info>
+          <br>
+          <br>
+          <div class="container-left">
+            <img src=#{x.uri} width="697"height="408">
+          </div>
+          <div class="container-right">
+            <br>
+            <label for="name">作品名稱:</label><br>
+            <dd>#{x.name}</dd>
+            <br>
+            <label for="author">創作者:</label><br>
+            <dd>#{x.author}</dd>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+  </div>
 <script src="/javascripts/pointabi.js"></script>
 <script src="/javascripts/index.js"></script>
 </body>

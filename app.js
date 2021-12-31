@@ -19,6 +19,7 @@ var logoutRouter = require('./routes/logout');
 var verifyRouter = require('./routes/verify/verify');
 var createVoteRouter = require('./routes/admin/createvote');
 var workConfigRouter=require('./routes/admin/workconfig');
+var promoteRouter=require('./routes/admin/promote');
 var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
@@ -137,8 +138,10 @@ app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);
 app.use('/verify',verifyRouter)
+/*admin*/
 app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
+app.use('/promote',promoteRouter);
 //activities
 app.use('/activity',activityRouter);
 app.use('/activity_open',openactivityRouter);
@@ -154,7 +157,6 @@ app.use('/myinfo',myinfoRouter);
 app.use('/mywork',myworkRouter);
 app.use('/mycollection',mycollectionRouter);
 app.use('/workupload',workuploadRouter);
-//app.use('/myfavorite',myfavoriteRouter);
 app.use('/exchangetoken',exchangetokenRouter);
 app.use('/myregistration',myregistrationRouter);
 // catch 404 and forward to error handler

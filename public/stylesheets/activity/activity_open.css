@@ -40,9 +40,14 @@ button[id="onvote_activity"]{
   text-align:center;
   font-size:32px;
 }
+.info{
+  display: flex;
+}
 .container-left{
+  flex: 1;
   margin-left:20%;
   max-width:900px;
+  height: auto;
   float:left;
   border-top: black solid 2px;
   border-left: black solid 2px;

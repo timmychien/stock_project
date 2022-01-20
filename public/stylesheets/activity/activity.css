@@ -40,9 +40,14 @@ button[id="onvote_activity"]{
   text-align:center;
   font-size:32px;
 }
+.info{
+  display: flex;
+}
 .container-left{
-  margin-left:20%;
+  flex: 1;
   max-width:900px;
+  margin-left:20%;
+  height: auto;
   float:left;
   border-top: black solid 2px;
   border-left: black solid 2px;
@@ -53,7 +58,7 @@ button[id="onvote_activity"]{
 }
 .container-right{
   max-width:700px;
-  font-size:32px;
+  font-size:24px;
   float:left;
   padding: 0 1em 0;
   border-top: black solid 2px;

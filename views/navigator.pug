@@ -5,12 +5,10 @@
 </head>
 <body>
     <link rel="stylesheet" href="/stylesheets/navigator.css">
-    <script src="/javascripts/pointabi.js"></script>
-    <script src="/javascripts/navigator.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-inverse" >
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">Navbar</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="nav navbar-nav text-center">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +38,7 @@
                     <li><a class="nav-item nav-link" href="/login">登入</a><li>
                 else
                     <div class="pointbalance">
-                        <input type="text" id="pointbal" name="pointbal"readonly/>
+                        <input type="text" id="pointbal" name="pointbal" readonly/>
                         <button id="exchangetoken"><a href="/exchangetoken">+</a></button>
                     </div>
                     <i class="fa fa-user-circle fa-2x" aria-hidden="false"style="color:white"></i>
@@ -59,5 +57,7 @@
             </ul>
         </div>
     </nav>
+<script src="/javascripts/pointabi.js"></script>
+<script src="/javascripts/navigator.js"></script>
 </body>
 </html>

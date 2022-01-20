@@ -36,11 +36,7 @@ form label[for="email"]{
   color:#666666;
   font-size:28px;
 }
-form label[for="userfirstname"]{
-  color:#666666;
-  font-size:28px;
-}
-form label[for="userlastname"]{
+form label[for="name"]{
   color:#666666;
   font-size:28px;
 }

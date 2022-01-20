@@ -35,7 +35,6 @@ var buyRouter = require('./routes/works/buy');
 var myinfoRouter=require('./routes/personal/myinfo');
 var myworkRouter=require('./routes/personal/mywork');
 var mycollectionRouter=require('./routes/personal/mycollection');
-//var myfavoriteRouter=require('./routes/personal/myfavorite');
 var myregistrationRouter=require('./routes/personal/myregistration');
 var workuploadRouter=require('./routes/personal/workupload');
 var exchangetokenRouter=require('./routes/personal/exchangetoken');

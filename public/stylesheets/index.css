@@ -37,7 +37,7 @@ body {
   float:left;
   padding: 0 0 4em;
   border-top: black solid 2px;
-  position: justify;
+  /*position: justify;*/
   left:75%;
 }
 .container-right{
@@ -52,7 +52,7 @@ body {
   border-bottom: black solid 2px;
   box-shadow: 0 0 1em #222;
   text-align:center;
-  position: justify;
+  /*position: justify;*/
   left:75%;
 }
 .container-right dd{

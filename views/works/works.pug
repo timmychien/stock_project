@@ -14,33 +14,20 @@
     <br>
     <br>
     <label for="search">&nbsp;&nbsp;&nbsp;&nbsp;活動作品</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="search" name="search" placeholder="搜尋">
-  if (data)
+    if (data)
       each x in data
         <br>
         <br>
         <div class=info>
-          <div class="container-left">
-            <img src=#{x.image} width=100% height=auto>
-          </div>
-          <div class="container-right">
-            <form action="" method="post">
-              <br>
-              <button id="status">#{x.status}</button>
-              <br>
-              <br>
-              <label for="topic">活動主題:</label><br>
-              <dd>#{x.topic}</dd>
-              <br>
-              <label for="signup-time">報名期間:</label><br>
-              <dd>#{x.startAdd}~#{x.endAdd}</dd>
-              <label for="vote-time">投票期間:</label><br>
-              <dd>#{x.startVote}~#{x.endVote}</dd>
-              <input type="hidden" name="topic" id="topic" value=#{x.topic}>
-              <br>
-              <input type="submit"id="signup"value="點我報名">
-              <br>
-              <br>
-            </form>
+          <div class="container">
+            <img src=#{x.uri} width="100%" height="60%">
+            <br>
+            <br>
+            <label for="author">作者</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" placeholder="100 points" style="text-align:center"readonly>
+            <dd>#{x.author}</dd>
+            <label for="name">作品名稱</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-heart fa-2x" aria-hidden="true" style="color:gray"><a href="/"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color:gray"></a></i>
+            <dd>#{x.name}</dd>
+            <br>
           </div>
         </div>
 <script src="/javascripts/works/works.js"></script>

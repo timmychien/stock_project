@@ -3,12 +3,20 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('works/works', {
-        title: 'Works',
-        email: req.session.email,
-        role: req.session.role,
-        walletaddress: req.session.walletaddress
-    });
+    var pool=req.connection;
+    pool.getConnection(function(err,connection){
+        connection.query('SELECT * FROM art_works',function(err,rows){
+            var data=rows;
+            res.render('works/works', {
+                data:data,
+                title: 'Works',
+                email: req.session.email,
+                role: req.session.role,
+                walletaddress: req.session.walletaddress
+            });
+        })
+    })
+    
             
 })
 

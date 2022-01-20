@@ -24,3 +24,32 @@ router.get('/:votingId/:participantId', function (req, res) {
         })
     })
 });
+router.post('/:votingId/:participantId',function(req,res){
+    var buyAmount=req.body['amount'];
+    var votingId = req.params.votingId;
+    var participantId = req.params.participantId;
+    var address = process.env.PLATFORM_ADDR;
+    var buyer = req.session.walletaddress;
+    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    var data = contract.buy.getData(votingId, participantId,10,buyAmount,buyer);
+    var count = web3.eth.getTransactionCount(address);
+    var gasPrice = web3.eth.gasPrice.toNumber() * 20;
+    var gasLimit = 3000000;
+    var rawTx = {
+        "from": address,
+        "nonce": web3.toHex(count),
+        "gasPrice": web3.toHex(gasPrice),
+        "gasLimit": web3.toHex(gasLimit),
+        "to": votingAddress,
+        "value": 0x0,
+        "data": data,
+        "chainId": 0x04
+    }
+    var tx = new Tx(rawTx, { chain: 'rinkeby' });
+    tx.sign(privkey);
+    var serializedTx = tx.serialize();
+    var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
+    console.log(hash)
+    res.redirect('/');
+})
+module.exports = router;

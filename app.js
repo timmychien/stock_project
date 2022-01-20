@@ -142,7 +142,7 @@ app.use('/activity_open',openactivityRouter);
 app.use('/activity_onvote', onvoteactivityRouter);
 //works
 app.use('/works',worksRouter);
-app.use('/buy', buyRouter);
+app.use('/works/buy', buyRouter);
 
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);

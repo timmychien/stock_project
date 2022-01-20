@@ -1,0 +1,62 @@
+body {
+  background-color: white;
+  font-family: serif;
+  font-size: 28px;
+}
+h1{
+  text-align:center;
+  font-size:60px;
+}
+h2{
+  text-align:center;
+  font-size:40px;
+}
+h2[id="info"]{
+  text-align:center;
+  font-size:28px;
+}
+h2[id="checkvote"]{
+  text-align:center;
+  font-size:28px;
+}
+label[for="info"]{
+  font-size:18px;
+}
+span{
+  font-size:18px;
+}
+.container-left{
+  margin-left:20%;
+  max-width:900px;
+  float:left;
+  border-top: black solid 2px;
+  border-left: black solid 2px;
+  border-right: black solid 2px;
+  border-bottom: black solid 2px;
+  box-shadow: 0 0 1em #222;
+  position: justify;
+  left:75%;
+}
+.container-right{
+  width:500px;
+  height:668px;
+  font-size:22px;
+  float:left;
+  padding: 0 1em 0;
+  border-top: black solid 2px;
+  border-right: black solid 2px;
+  border-bottom: black solid 2px;
+  box-shadow: 0 0 1em #222;
+  position: justify;
+  left:75%;
+}
+.container-right input[type="submit"]{
+  margin-left:35%;
+  border-radius:8px;
+  text-align:center;
+}
+
+button{
+  border-radius:8px;
+  background:gray;
+}

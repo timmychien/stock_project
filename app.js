@@ -29,6 +29,8 @@ var buyRouter=require('./routes/vote/buy');
 var activityRouter = require('./routes/activity/activity');
 var openactivityRouter = require('./routes/activity/activity_open');
 var onvoteactivityRouter = require('./routes/activity/activity_onvote');
+//works
+var worksRouter=require('./routes/works/works');
 //個人專區
 var myinfoRouter=require('./routes/personal/myinfo');
 var myworkRouter=require('./routes/personal/mywork');
@@ -39,13 +41,6 @@ var workuploadRouter=require('./routes/personal/workupload');
 var exchangetokenRouter=require('./routes/personal/exchangetoken');
 var app = express();
 require('dotenv').config();
-/*
-var pool=mysql.createPool({
-  host: "127.0.0.1",
-  user: "root",
-  password: process.env.DB_PASS,
-  database: "user"
-})*/
 var pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -138,7 +133,7 @@ app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);
 app.use('/verify',verifyRouter)
-/*admin*/
+//admin
 app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
 app.use('/promote',promoteRouter);
@@ -147,6 +142,7 @@ app.use('/activity',activityRouter);
 app.use('/activity_open',openactivityRouter);
 app.use('/activity_onvote', onvoteactivityRouter);
 //works
+app.use('/works',worksRouter);
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);

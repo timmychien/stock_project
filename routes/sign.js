@@ -14,8 +14,7 @@ router.post('/',function(req,res){
     var email=req.body['email'];
     var userpass=req.body['userpass'];
     var passcheck=req.body['passcheck'];
-    var userfirstname = req.body['userfirstname'];
-    var userlastname = req.body['userlastname'];
+    var name=req.body['name'];
     var cellphone=req.body['cellphone'];
     var homeaddress=req.body['homeaddress'];
     var pool=req.connection;
@@ -38,7 +37,7 @@ router.post('/',function(req,res){
                 var pk=addressData.getPrivateKeyString().replace('0x','');
                 var address = addressData.getAddressString();
                 var verified=0;
-                connection.query('INSERT INTO member_info(email,Lastname,Firstname,password,role,isverified,privkey,address,home_address,cellphone)VALUES(?,?,?,?,?,?,?,?,?,?)', [email , userlastname, userfirstname, userpass,'member',verified,pk,address,homeaddress,cellphone],function(err,rows){
+                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,home_address,cellphone)VALUES(?,?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,homeaddress,cellphone],function(err,rows){
                     if(err){
                         res.redirect('/sign');
                         console.log(err)

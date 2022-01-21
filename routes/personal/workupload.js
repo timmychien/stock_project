@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
 });
 router.post('/',function(req,res){
     //res.send(req.file)
-    var author=req.session.userfirstname+req.session.userlastname;
+    var author=req.session.name;
     var authoraddress=req.session.walletaddress;
     var name=req.body['name'];
     var symbol=req.body['symbol'];

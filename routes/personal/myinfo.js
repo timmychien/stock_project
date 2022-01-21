@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
     res.render('personal/myinfo', {
         title: '我的個人資料',
         email:req.session.email,
-        name:req.session.userfirstname+req.session.userlastname,
+        name:req.session.name,
         walletaddress:req.session.walletaddress,
         address:req.session.home_address,
         cellphone:req.session.cellphone,

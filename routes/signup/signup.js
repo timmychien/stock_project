@@ -28,7 +28,7 @@ router.post('/:topic',function(req,res){
     console.log(topic)
     var nftname=req.body['name'];
     var nftsymbol=req.body['symbol'];
-    var author = req.session.userfirstname+req.session.userlastname;
+    var author = req.session.name;
     var uri=req.body['ipfsuri'];
     console.log(req.body)
     console.log(author)

@@ -28,14 +28,12 @@ router.post('/',function(req,res,next){
                     if(rows.length==1){
                         req.session.email=req.body['email'];
                         req.session.userpass=req.body['userpass'];
-                        req.session.userfirstname=rows[0].Firstname;
-                        req.session.userlastname=rows[0].Lastname;
+                        req.session.name=rows[0].name;
                         req.session.role=rows[0].role;
                         req.session.walletaddress=rows[0].address;
                         req.session.home_address=rows[0].home_address;
                         req.session.isverified = rows[0].isverified;
                         req.session.cellphone=rows[0].cellphone;
-                        req.session.englishname=rows[0].englishname;
                         req.session.pk=rows[0].privkey;
                         if (req.session.isverified== 0) {
                             console.log('need verify')

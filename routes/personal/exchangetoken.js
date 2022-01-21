@@ -37,9 +37,10 @@ router.post('/',function(req,res){
         var address = process.env.PLATFORM_ADDR;
         var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
         var count = web3.eth.getTransactionCount(address);
+        //console.log(count)
         var data = contract.operatorMint.getData(toaddress, tochange, '0x', '0x', { from: address });
-        var gasPrice = web3.eth.gasPrice;
-        var gasLimit = 3000000;
+        var gasPrice = web3.eth.gasPrice*2;
+        var gasLimit = 8000000;
         var rawTx = {
             "from": address,
             "nonce": web3.toHex(count),

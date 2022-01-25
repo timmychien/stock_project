@@ -28,7 +28,7 @@ router.post('/',function(req,res,next){
                     if(rows.length==1){
                         req.session.email=req.body['email'];
                         req.session.userpass=req.body['userpass'];
-                        req.session.name=rows[0].name;
+                        req.session.name=rows[0].Name;
                         req.session.role=rows[0].role;
                         req.session.walletaddress=rows[0].address;
                         req.session.home_address=rows[0].home_address;

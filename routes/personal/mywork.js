@@ -19,7 +19,6 @@ router.get('/', function (req, res) {
         res.redirect('/verify');
     }
     var pool=req.connection;
-    //var name=req.session.userfirstname+req.session.userlastname;
     var walletaddress=req.session.walletaddress;
     var now = parseInt(Date.now() / 1000);
     pool.getConnection(function(err,connection){
@@ -48,13 +47,6 @@ router.get('/', function (req, res) {
                         });
                     }
                 })
-                /*
-                res.render('personal/mywork', {
-                    title: '我的作品',
-                    data:data,
-                    email: req.session.email,
-                    role: req.session.role,
-                });*/
             }
         })
         connection.release();

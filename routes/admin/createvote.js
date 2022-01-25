@@ -63,7 +63,7 @@ router.post('/',function(req,res){
     console.log(hash)
     pool.getConnection(function (err, connection){
         var votingId = contract.getTotalVoting().toNumber() + 1;
-        connection.query('INSERT INTO Voting(votingId,topic,startAdd,endAdd,startVote,endVote,startAddstamp,endAddstamp,startVotestamp,endVotestamp,image)VALUES(?,?,?,?,?,?,?,?,?,?,?)',[votingId,topic,startAddTime,endAddTime,startVoteTime,endVoteTime,startAddStamp,endAddStamp,startVoteStamp,endVoteStamp,image],function(err,rows){
+        connection.query('INSERT INTO Voting(votingId,topic,startAdd,endAdd,startVote,endVote,startAddstamp,endAddstamp,startVotestamp,endVotestamp,image,status)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',[votingId,topic,startAddTime,endAddTime,startVoteTime,endVoteTime,startAddStamp,endAddStamp,startVoteStamp,endVoteStamp,image,'開放報名中'],function(err,rows){
             if(err){
                 res.render('error',{
                     message:err.message,

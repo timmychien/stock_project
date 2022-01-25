@@ -1,3 +1,4 @@
+$('#preview').hide();
 function previewFile() {
     var preview = document.querySelector('img');
     var file = document.querySelector('input[type=file]').files[0];
@@ -7,9 +8,11 @@ function previewFile() {
     }, false);
     if (file) {
         reader.readAsDataURL(file);
+        $('label[for="imageupload"]').hide();
+        $('#preview').show();
     }
 }
-const ipfs = window.IpfsHttpClient({ host: 'ipfs.infura.io', port: '5001', protocol:'https'});
+const ipfs = window.IpfsHttpClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' });
 $("#imageupload").on("change", function () {
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -19,7 +22,7 @@ $("#imageupload").on("change", function () {
             console.log(err, result);
 
             //let link = "<a href='https://gateway.ipfs.io/ipfs/" + result[0].hash>'</a>;
-            let ipfsLink="https://gateway.ipfs.io/ipfs/" + result[0].hash;
+            let ipfsLink = "https://gateway.ipfs.io/ipfs/" + result[0].hash;
             //document.getElementById("link").innerHTML = link
             $('#ipfsuri').val(ipfsLink);
 

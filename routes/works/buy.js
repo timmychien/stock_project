@@ -50,6 +50,8 @@ router.post('/:votingId/:participantId',function(req,res){
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
-    res.redirect('/');
+    res.render('work/buy_redirect',{
+        hash:hash
+    })
 })
 module.exports = router;

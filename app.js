@@ -79,7 +79,7 @@ setInterval(function(){
       })
       connection.release();
       var now = parseInt(Date.now() / 1000);
-      connnection.query('SELECT * from voting',function(err,rows_1){
+      connection.query('SELECT * from voting',function(err,rows_1){
         if (err) {
           res.render('error', {
             message: err.message,

@@ -23,6 +23,7 @@ var promoteRouter=require('./routes/admin/promote');
 var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
+//var signupchooseRouter=require('./routes/signup/signup/choose');
 var voteRouter=require('./routes/vote/vote');
 //activities
 var activityRouter = require('./routes/activity/activity');
@@ -147,6 +148,7 @@ app.use('/works/buy', buyRouter);
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);
+//app.use('/signup/choose',signupchooseRouter);
 app.use('/vote',voteRouter);
 //個人專區
 app.use('/myinfo',myinfoRouter);

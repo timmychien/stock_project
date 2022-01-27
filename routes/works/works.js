@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
     }
     var pool=req.connection;
     pool.getConnection(function(err,connection){
-        connection.query('SELECT * FROM art_works',function(err,rows){
+        connection.query('SELECT * FROM art_works WHERE available=?',[1],function(err,rows){
             var data=rows;
             res.render('works/works', {
                 data:data,

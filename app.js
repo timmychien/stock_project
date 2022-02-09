@@ -17,9 +17,11 @@ var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var verifyRouter = require('./routes/verify/verify');
+//admin
 var createVoteRouter = require('./routes/admin/createvote');
 var workConfigRouter=require('./routes/admin/workconfig');
 var promoteRouter=require('./routes/admin/promote');
+var auditvendorRouter=require('./routes/admin/auditvendor');
 var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
@@ -39,6 +41,7 @@ var mycollectionRouter=require('./routes/personal/mycollection');
 var myregistrationRouter=require('./routes/personal/myregistration');
 var workuploadRouter=require('./routes/personal/workupload');
 var exchangetokenRouter=require('./routes/personal/exchangetoken');
+var applyforvendorRouter=require('./routes/apply/applyforvendor');
 var app = express();
 require('dotenv').config();
 var pool = mysql.createPool({
@@ -137,6 +140,7 @@ app.use('/verify',verifyRouter)
 app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
 app.use('/promote',promoteRouter);
+app.use('/auditvendor',auditvendorRouter);
 //activities
 app.use('/activity',activityRouter);
 app.use('/activity_open',openactivityRouter);
@@ -157,6 +161,7 @@ app.use('/mycollection',mycollectionRouter);
 app.use('/workupload',workuploadRouter);
 app.use('/exchangetoken',exchangetokenRouter);
 app.use('/myregistration',myregistrationRouter);
+app.use('/applyforvendor',applyforvendorRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

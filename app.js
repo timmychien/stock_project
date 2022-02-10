@@ -34,6 +34,8 @@ var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //works
 var worksRouter=require('./routes/works/works');
 var buyRouter = require('./routes/works/buy');
+var workvotedRounter=require('./routes/works/workvoted');
+var workboughtRouter=require('./routes/works/workbought')
 //個人專區
 var myinfoRouter=require('./routes/personal/myinfo');
 var myworkRouter=require('./routes/personal/mywork');
@@ -148,7 +150,8 @@ app.use('/activity_onvote', onvoteactivityRouter);
 //works
 app.use('/works',worksRouter);
 app.use('/works/buy', buyRouter);
-
+app.use('/workvoted',workvotedRounter);
+app.use('/workbought',workboughtRouter);
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);

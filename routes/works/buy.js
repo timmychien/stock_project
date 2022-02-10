@@ -31,7 +31,7 @@ router.post('/:votingId/:participantId',function(req,res){
     var address = process.env.PLATFORM_ADDR;
     var buyer = req.session.walletaddress;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
-    var data = contract.buy.getData(votingId, participantId,10,buyAmount,buyer);
+    var data = contract.buy.getData(votingId, participantId,2,buyAmount,buyer);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;
     var gasLimit = 3000000;

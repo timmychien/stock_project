@@ -34,6 +34,7 @@ var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //works
 var worksRouter=require('./routes/works/works');
 var buyRouter = require('./routes/works/buy');
+var voteworkRouter =require('./routes/works/vote');
 var workvotedRounter=require('./routes/works/workvoted');
 var workboughtRouter=require('./routes/works/workbought')
 //個人專區
@@ -150,6 +151,7 @@ app.use('/activity_onvote', onvoteactivityRouter);
 //works
 app.use('/works',worksRouter);
 app.use('/works/buy', buyRouter);
+app.use('/works/vote', voteworkRouter);
 app.use('/workvoted',workvotedRounter);
 app.use('/workbought',workboughtRouter);
 app.use('/overview_signup',signupoverviewRouter);

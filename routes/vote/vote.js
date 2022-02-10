@@ -136,6 +136,8 @@ router.post('/:topic/:votingId',function(req,res){
     var votingId=req.body['votingId'];
     var participantId = req.body['participantId'];
     var voter = req.session.walletaddress;
+    var address = process.env.PLATFORM_ADDR;
+    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
     var pool=req.connection;
     console.log(votingId)
     console.log(participantId)
@@ -152,61 +154,51 @@ router.post('/:topic/:votingId',function(req,res){
                 res.render('vote/vote_warn', {
                     warn: '本日投票次數已達最大上限(2次)！'
                 })
-            }
-            console.log('votecount', votecount)
-
-        })
-        var address = process.env.PLATFORM_ADDR;
-        var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
-        //var nftaddress=contract.getnftAddress.call(votingId,participantId);
-        //console.log(nftaddress)
-        //var votecount=client.hget(voter,'count');
-        //console.log('votecount:',votecount)
-        var timestamp = parseInt(Date.now() / 1000);
-        var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
-        var count = web3.eth.getTransactionCount(address);
-        var gasPrice = web3.eth.gasPrice.toNumber() * 2;
-        var gasLimit = 3000000;
-        var rawTx = {
-            "from": address,
-            "nonce": web3.toHex(count),
-            "gasPrice": web3.toHex(gasPrice),
-            "gasLimit": web3.toHex(gasLimit),
-            "to": votingAddress,
-            "value": 0x0,
-            "data": data,
-            "chainId": 0x04
-        }
-        var tx = new Tx(rawTx, { chain: 'rinkeby' });
-        tx.sign(privkey);
-        var serializedTx = tx.serialize();
-        var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
-        console.log(hash)
-        //var votes=contract.voteBalances(votingId,participantId).toNumber();
-        //console.log(votes)
-
-        pool.getConnection(function (err, connection) {
-            connection.query('UPDATE  member_info SET votecount=votecount+1 WHERE address=?', [voter], function (err, rows) {
-                if (err) {
-                    res.render('error', {
-                        message: err.message,
-                        error: err
-                    })
-                } else {
-                    console.log('votecount updated.')
-                    res.render('vote/vote_redirect', {
-                        hash: 'https://rinkeby.etherscan.io/tx/' + hash
-                    });
+                console.log('votecount', votecount)
+            }else{
+                var timestamp = parseInt(Date.now() / 1000);
+                var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
+                var count = web3.eth.getTransactionCount(address);
+                var gasPrice = web3.eth.gasPrice.toNumber() * 2;
+                var gasLimit = 3000000;
+                var rawTx = {
+                    "from": address,
+                    "nonce": web3.toHex(count),
+                    "gasPrice": web3.toHex(gasPrice),
+                    "gasLimit": web3.toHex(gasLimit),
+                    "to": votingAddress,
+                    "value": 0x0,
+                    "data": data,
+                    "chainId": 0x04
                 }
+                var tx = new Tx(rawTx, { chain: 'rinkeby' });
+                tx.sign(privkey);
+                var serializedTx = tx.serialize();
+                var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
+                console.log(hash)
+                //var votes=contract.voteBalances(votingId,participantId).toNumber();
+                //console.log(votes)
 
-            })
-            connection.release();
-        })
-        connection.release()
+                pool.getConnection(function (err, connection) {
+                    connection.query('UPDATE  member_info SET votecount=votecount+1 WHERE address=?', [voter], function (err, rows) {
+                        if (err) {
+                            res.render('error', {
+                                message: err.message,
+                                error: err
+                            })
+                        } else {
+                            console.log('votecount updated.')
+                            res.render('vote/vote_redirect', {
+                                hash: 'https://rinkeby.etherscan.io/tx/' + hash
+                            });
+                        }
 
-    })    
-    
-    
+                    })
+                    connection.release();
+                })
+            }
+        }) 
+    })
 })
 /*
 router.post('/:topic/:votingId/buy',function(req,res){

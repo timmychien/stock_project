@@ -1,20 +1,5 @@
-var address ="0x83b04027B5C85A54f1c6f6D9ECf9546A08C5c49F";
+var address ="0x074633F77544C5B0e8f02A534E3313E1fe61dc04";
 var votingABI = [
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "addOwner",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
     {
         "inputs": [],
         "payable": false,
@@ -187,208 +172,6 @@ var votingABI = [
         ],
         "name": "addVoting",
         "type": "event"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_votingId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "participantId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "buyAmount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "buyer",
-                "type": "address"
-            }
-        ],
-        "name": "buy",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_votingId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "_NFTName",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_NFTSymbol",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_URI",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_author",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "authorAddress",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "timestamp",
-                "type": "uint256"
-            }
-        ],
-        "name": "createCandidate",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_topic",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_startAddTime",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_endAddTime",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_startVoteTime",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_endVoteTime",
-                "type": "uint256"
-            }
-        ],
-        "name": "createVoting",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_votingId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "participantId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address payable",
-                "name": "contractowner",
-                "type": "address"
-            }
-        ],
-        "name": "deleteworks",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "newAddress",
-                "type": "address"
-            }
-        ],
-        "name": "setPointAddress",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_votingId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "participantId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "voter",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_votes",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "timestamp",
-                "type": "uint256"
-            }
-        ],
-        "name": "vote",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
     },
     {
         "constant": true,
@@ -570,6 +353,21 @@ var votingABI = [
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "addOwner",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "constant": true,
         "inputs": [
             {
@@ -596,6 +394,41 @@ var votingABI = [
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_votingId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "participantId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "buyAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "buyer",
+                "type": "address"
+            }
+        ],
+        "name": "buy",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "constant": true,
         "inputs": [
             {
@@ -617,86 +450,114 @@ var votingABI = [
         "type": "function"
     },
     {
-        "constant": true,
+        "constant": false,
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "_votingId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_NFTName",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_NFTSymbol",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_URI",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_author",
+                "type": "string"
+            },
+            {
                 "internalType": "address",
-                "name": "buyer",
+                "name": "authorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "createCandidate",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
                 "type": "address"
             }
         ],
-        "name": "getbuyCounts",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
-        "constant": true,
+        "constant": false,
         "inputs": [
             {
-                "internalType": "address",
-                "name": "buyer",
-                "type": "address"
+                "internalType": "string",
+                "name": "_topic",
+                "type": "string"
             },
             {
                 "internalType": "uint256",
-                "name": "buycount",
+                "name": "_startAddTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_endAddTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_startVoteTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_endVoteTime",
                 "type": "uint256"
             }
         ],
-        "name": "getbuyRecord",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
+        "name": "createVoting",
+        "outputs": [],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
-        "constant": true,
+        "constant": false,
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "votingId",
+                "name": "_votingId",
                 "type": "uint256"
             },
             {
                 "internalType": "uint256",
                 "name": "participantId",
                 "type": "uint256"
-            }
-        ],
-        "name": "getnftAddress",
-        "outputs": [
+            },
             {
-                "internalType": "address",
-                "name": "",
+                "internalType": "address payable",
+                "name": "contractowner",
                 "type": "address"
             }
         ],
+        "name": "deleteworks",
+        "outputs": [],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -837,6 +698,99 @@ var votingABI = [
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "buyer",
+                "type": "address"
+            }
+        ],
+        "name": "getbuyCounts",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "buyer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "buycount",
+                "type": "uint256"
+            }
+        ],
+        "name": "getbuyRecord",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "votingId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "participantId",
+                "type": "uint256"
+            }
+        ],
+        "name": "getnftAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             }
         ],
         "payable": false,
@@ -901,6 +855,27 @@ var votingABI = [
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "setPointAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "constant": true,
         "inputs": [],
         "name": "totalVoting",
@@ -913,6 +888,41 @@ var votingABI = [
         ],
         "payable": false,
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_votingId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "participantId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "voter",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_votes",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "vote",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {

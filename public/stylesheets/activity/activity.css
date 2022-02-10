@@ -47,7 +47,7 @@ button[id="onvote_activity"]{
   flex: 1;
   max-width:900px;
   margin-left:20%;
-  height: auto;
+  max-height: 700px;
   float:left;
   border-top: black solid 2px;
   border-left: black solid 2px;

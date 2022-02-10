@@ -9,9 +9,21 @@ var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
 router.get('/',function(req,res){
-
-    res.render('works/workted',{
-        topic:'已投票作品'
+    var voter = req.session.walletaddress;
+    var votecounts = contract.getVoteCounts.call(voter).toNumber();
+    var data = new Array();
+    for (var i = 1; i <= votecounts; i++) {
+        data[i - 1] = contract.getVoteRecord.call(voter, i);
+        data[i - 1][0] = data[i - 1][0].toNumber();
+        data[i - 1][1] = data[i - 1][1].toNumber();
+        data[i - 1][2] = data[i - 1][2].toNumber();
+    }
+    console.log(data)
+    res.render('works/workvoted',{
+        topic:'已投票作品',
+        data:data,
+        email: req.session.email,
+        role: req.session.role,
     })
 })
 module.exports = router;

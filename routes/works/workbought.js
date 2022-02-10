@@ -8,10 +8,20 @@ var votingAddress = "0x074633F77544C5B0e8f02A534E3313E1fe61dc04";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
-router.get('/',function(req,res){
-
-    res.render('works/workbought',{
-        topic:'已購買作品'
+router.get('/', function (req, res) {
+    var buyer = req.session.walletaddress;
+    var buycounts = contract.getbuyCounts.call(buyer).toNumber();
+    var data = new Array();
+    for (var i = 1; i <= buycounts; i++) {
+        data[i - 1] = contract.getBuyRecord.call(buyer, i);
+        data[i - 1][0] = data[i - 1][0].toNumber();
+        data[i - 1][1] = data[i - 1][1].toNumber();
+        data[i - 1][2] = data[i - 1][2].toNumber();
+    }
+    console.log(data)
+    res.render('works/workbought', {
+        topic: '已購買作品',
+        data: data
     })
 })
 module.exports = router;

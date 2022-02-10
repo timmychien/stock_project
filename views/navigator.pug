@@ -42,6 +42,14 @@
                     </ul></li>//
                 <li><a class="nav-item nav-link" href="/activity">活動</a><li>
                 <li><a class="nav-item nav-link" href="/works">作品</a><li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-link"data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false">作品<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-item" href="/works">作品總覽</a><li>
+                            <li><a class="nav-item" href="/workvoted">已投票作品</a><li>
+                            <li><a class="nav-item" href="/workbought">已購買作品</a><li>
+                        </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav ml-auto text-center">
                 if(!email)
@@ -53,16 +61,16 @@
                     </div>
                     <i class="fa fa-user-circle fa-2x" aria-hidden="false"style="color:white"></i>
                     <li class="dropdown">
-                    <a class="dropdown-toggle nav-link"data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false"></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="nav-item" href="/myinfo">個人資料</a></li>
-                            <li><a class="nav-item" href="/workupload">作品上傳</a></li>
-                            <li><a class="nav-item" href="/mywork">我的作品</a></li>
-                            <li><a class="nav-item" href="/myregistration">我的報名</a></li>
-                            <li><a class="nav-item" href="/mycollection">我的收藏</a></li>
-                            <li><a class="nav-item" href="/exchangetoken">兌換代幣</a></li>
-                            <li><a class="nav-item" href="/applyforvender">申請成為商家</a></li>
-                        </ul>
+                        <a class="dropdown-toggle nav-link"data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false"></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-item" href="/myinfo">個人資料</a></li>
+                                <li><a class="nav-item" href="/workupload">作品上傳</a></li>
+                                <li><a class="nav-item" href="/mywork">我的作品</a></li>
+                                <li><a class="nav-item" href="/myregistration">我的報名</a></li>
+                                <li><a class="nav-item" href="/mycollection">我的收藏</a></li>
+                                <li><a class="nav-item" href="/exchangetoken">兌換代幣</a></li>
+                                <li><a class="nav-item" href="/applyforvender">申請成為商家</a></li>
+                            </ul>
                     </li>
                     <li><a class="nav-item nav-link" href="/logout">登出</a><li>
             </ul>

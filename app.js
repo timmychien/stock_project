@@ -45,6 +45,7 @@ var mycollectionRouter=require('./routes/personal/mycollection');
 var myregistrationRouter=require('./routes/personal/myregistration');
 var workuploadRouter=require('./routes/personal/workupload');
 var exchangetokenRouter=require('./routes/personal/exchangetoken');
+var modifyInfoRouter=require('./routes/modify/modifyinfo');
 var applyforvendorRouter=require('./routes/apply/applyforvendor');
 var app = express();
 require('dotenv').config();
@@ -168,6 +169,7 @@ app.use('/mycollection',mycollectionRouter);
 app.use('/workupload',workuploadRouter);
 app.use('/exchangetoken',exchangetokenRouter);
 app.use('/myregistration',myregistrationRouter);
+app.use('/modifyinfo',modifyInfoRouter);
 app.use('/applyforvendor',applyforvendorRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

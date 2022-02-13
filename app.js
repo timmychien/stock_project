@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mysql=require('mysql2');
 var session = require('express-session');
+var cors=require('cors');
 var nodemailer = require('nodemailer');
 //router
 var indexRouter = require('./routes/index');
@@ -125,6 +126,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 app.use(session({ secret: "123456"}));
 app.use(function(req,res,next){
   req.connection=pool;

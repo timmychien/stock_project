@@ -10,5 +10,4 @@ router.get('/', function (req, res) {
         walletaddress: req.session.walletaddress
     });
 });
-
 module.exports = router;

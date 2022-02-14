@@ -47,6 +47,8 @@ var workuploadRouter=require('./routes/personal/workupload');
 var exchangetokenRouter=require('./routes/personal/exchangetoken');
 var modifyInfoRouter=require('./routes/modify/modifyinfo');
 var applyforvendorRouter=require('./routes/apply/applyforvendor');
+//vendor
+var worklistingRouter=require('./routes/vendor/worklisting');
 var app = express();
 require('dotenv').config();
 var pool = mysql.createPool({

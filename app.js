@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var multer = require("multer");
+//var multer = require("multer");
 //const upload = multer({ dest: './ public / uploads' });
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -48,7 +48,7 @@ var exchangetokenRouter=require('./routes/personal/exchangetoken');
 var modifyInfoRouter=require('./routes/modify/modifyinfo');
 var applyforvendorRouter=require('./routes/apply/applyforvendor');
 //vendor
-var worklistingRouter=require('./routes/vendor/worklisting');
+//var worklistingRouter=require('./routes/vendor/worklisting');
 var app = express();
 require('dotenv').config();
 var pool = mysql.createPool({

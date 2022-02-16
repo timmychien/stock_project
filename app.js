@@ -24,7 +24,6 @@ var auditvendorRouter=require('./routes/admin/auditvendor');
 var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
-//var signupchooseRouter=require('./routes/signup/signup/choose');
 var voteRouter=require('./routes/vote/vote');
 //activities
 var activityRouter = require('./routes/activity/activity');
@@ -114,7 +113,6 @@ setInterval(function(){
     })
   }
 },30000)
-//var nowtime = parseInt(Date.now() / 1000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -159,7 +157,6 @@ app.use('/workbought',workboughtRouter);
 app.use('/overview_signup',signupoverviewRouter);
 app.use('/overview_vote', voteoverviewRouter);
 app.use('/signup',signupRouter);
-//app.use('/signup/choose',signupchooseRouter);
 app.use('/vote',voteRouter);
 //個人專區
 app.use('/myinfo',myinfoRouter);

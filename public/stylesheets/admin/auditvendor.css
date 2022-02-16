@@ -1,0 +1,45 @@
+body {
+  background-color: white;
+  font-family: serif;
+  font-size: 28px;
+}
+.wallet_info{
+  position: justify;
+  font-size:24px;
+  width:500px;
+  padding: 2em 2em 2em;
+  margin-left: auto;
+  margin-right: 3%;
+  box-shadow: 0 0 1em #222;
+  border-radius: 2px;
+  float:right;
+}
+.wallet_info h1{
+  text-align:center;
+  font-size:30px;
+}
+.wallet_info h2{
+  text-align:center;
+  font-size:24px;
+}
+.promote_info{
+  margin-left:auto;
+  position: justify;
+  float:center;
+}
+.container{
+  height:500px;
+  font-size:28px;
+  width:500px;
+  padding: 0 1em 0;
+  border-top: black solid 2px;
+  border-right: black solid 2px;
+  border-bottom: black solid 2px;
+  box-shadow: 0 0 1em #222;
+  text-align:center;
+  /*position: justify;
+  left:75%;*/
+}
+.container-right dd{
+  font-size:24px;
+}

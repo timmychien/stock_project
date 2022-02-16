@@ -12,7 +12,7 @@ router.post('/',function(req,res){
     var pool=req.connection;
     var email=req.session.email;
     pool.getConnection(function(err,connection){
-        connection.query('UPDATE member_info SET role=? WHERE email=?',['vendor',email],function(err,rows){
+        connection.query('UPDATE member_info SET upgradeApply=? WHERE email=?',['true',email],function(err,rows){
             res.render('apply/apply_redirect');
         })
     })

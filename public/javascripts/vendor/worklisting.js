@@ -1,0 +1,3 @@
+$('#amountAdded').on("change", function () {
+    
+})

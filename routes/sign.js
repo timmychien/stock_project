@@ -37,7 +37,7 @@ router.post('/',function(req,res){
                 var pk=addressData.getPrivateKeyString().replace('0x','');
                 var address = addressData.getAddressString();
                 var verified=0;
-                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,home_address,cellphone)VALUES(?,?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,homeaddress,cellphone],function(err,rows){
+                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,home_address,cellphone)VALUES(?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,homeaddress,cellphone],function(err,rows){
                     if(err){
                         res.redirect('/sign');
                         console.log(err)

@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('vendor/workListing', {
-        title: 'Home',
+    res.render('vendor/addCollection', {
+        title: '新增商品集',
         email: req.session.email,
         role: req.session.role,
         walletaddress: req.session.walletaddress

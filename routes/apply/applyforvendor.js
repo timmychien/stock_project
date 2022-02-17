@@ -1,12 +1,19 @@
 var express = require('express');
 var router = express.Router();
 router.get('/',function(req,res){
-    res.render('apply/applyforvendor',{
-        title:'申請成為商家',
-        email: req.session.email,
-        role: req.session.role,
-        walletaddress: req.session.walletaddress
-    })
+    if (req.session.role == 'vendor') {
+        res.render('apply/apply_warn', {
+            warn: '此帳號已升級！'
+        })
+    }else{
+        res.render('apply/applyforvendor', {
+            title: '申請成為商家',
+            email: req.session.email,
+            role: req.session.role,
+            walletaddress: req.session.walletaddress
+        })
+    }
+    
 })
 router.post('/',function(req,res){
     var pool=req.connection;

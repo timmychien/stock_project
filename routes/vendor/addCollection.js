@@ -10,5 +10,8 @@ router.get('/', function (req, res) {
         walletaddress: req.session.walletaddress
     });
 });
-
+router.post('/', function (req, res) {
+    var name=req.body['name'];
+    var symbol=req.body['symbol'];
+})
 module.exports = router;

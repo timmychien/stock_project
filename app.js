@@ -47,6 +47,7 @@ var applyforvendorRouter=require('./routes/apply/applyforvendor');
 //vendor
 var addCollectionRouter=require('./routes/vendor/addCollection');
 var workListingRouter=require('./routes/vendor/workListing');
+var vendorCollectionRouter=require('./routes/vendor/vendorCollection');
 var app = express();
 require('dotenv').config();
 var pool = mysql.createPool({
@@ -171,6 +172,7 @@ app.use('/applyforvendor',applyforvendorRouter);
 //vendor
 app.use('/addCollection',addCollectionRouter);
 app.use('/workListing',workListingRouter);
+app.use('/vendorCollection',vendorCollectionRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

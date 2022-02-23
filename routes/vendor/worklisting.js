@@ -40,13 +40,13 @@ router.get('/:collection',function(req,res){
     })
 })
 router.post('/:collection',function(req,res){
-    var uriArr = new Array()
+    var uriArr = new Array();
     var collectionName=req.params.collection;
-    var uri = '"'+req.body['ipfsuri']+'"';
+    var uri = req.body['ipfsuri'];
     console.log(uri)
-    //let uri_ = uri.replace(/'/g, '"')
     //console.log(uri)
     uriArr.push(uri)
+    //var uriArr_=uriArr.replace(/'/g, '"');
     console.log(uriArr)
     /*
     var vendor = req.session.walletaddress;

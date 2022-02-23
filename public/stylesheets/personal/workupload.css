@@ -44,9 +44,9 @@ label[for="imageupload"]{
   left:75%;
 }
 input[type="text"]{
-    width:100%
-  }
-  input[type="submit"]{
-    display: block;
-    margin: 0 auto;
-  }
+  width:100%
+}
+input[type="submit"]{
+  display: block;
+  margin: 0 auto;
+}

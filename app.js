@@ -82,19 +82,15 @@ setInterval(function(){
       var now = parseInt(Date.now() / 1000);
       connection.query('SELECT * from voting',function(err,rows_1){
         if (err) {
-          res.render('error', {
-            message: err.message,
-            error: err
-          })
+          console.log(err)
+          //return;
         } else {
           for(var i=0;i<rows_1.length;i++){
             if(now>=rows_1[i].startVotestamp){
               connection.query('UPDATE  member_info SET status=? where votingId=?',['投票進行中',rows_1[i].votingId], function (err, rows_2) {
                 if (err) {
-                  res.render('error', {
-                    message: err.message,
-                    error: err
-                  })
+                  console.log(err)
+                  //return;
                 } else {
                   console.log('voting status update');
                 }

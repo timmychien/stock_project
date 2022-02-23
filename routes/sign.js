@@ -37,7 +37,8 @@ router.post('/',function(req,res){
                 var pk=addressData.getPrivateKeyString().replace('0x','');
                 var address = addressData.getAddressString();
                 var verified=0;
-                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,home_address,cellphone)VALUES(?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,homeaddress,cellphone],function(err,rows){
+                var code = Math.floor(Math.random() * (999999 - 111111) + 111111)
+                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,home_address,cellphone,votecount,verifycode)VALUES(?,?,?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,homeaddress,cellphone,0,code],function(err,rows){
                     if(err){
                         res.redirect('/sign');
                         console.log(err)
@@ -46,7 +47,28 @@ router.post('/',function(req,res){
                         req.session.walletaddress=address;
                         req.session.isverified=0;
                         console.log('insert success')
-                        res.render('sign_redirect',{pk:pk});
+                        var transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: process.env.EMAIL,
+                                pass: process.env.EMAIL_PASS
+                            }
+                        });
+                        var mailOptions = {
+                            from: process.env.EMAIL,
+                            to: email,
+                            subject: '帳號驗證碼',
+                            text: '驗證碼為:' + code.toString()
+                        };
+                        transporter.sendMail(mailOptions, function (err, info) {
+                            if (err) {
+                                console.log(err)
+                            } else {
+                                //console.log('send success:' + info.response)
+                                res.redirect('/emailverify');
+                            }
+                        })
+                        //res.render('sign_redirect',{pk:pk});
                     }
                 });
             }

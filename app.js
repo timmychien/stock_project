@@ -12,6 +12,7 @@ var nodemailer = require('nodemailer');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signRouter = require('./routes/sign');
+var emailVerifyRouter =require('./routes/emailverify');
 var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
@@ -56,15 +57,6 @@ var pool = mysql.createPool({
   password: process.env.DB_PASS,
   database: "user"
 })
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  secure: true,
-  auth: {
-    type: "OAuth2",
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASS
-  }
-});
 pool.getConnection(function(err){
   if(err){
     console.log('connection error');
@@ -97,7 +89,7 @@ setInterval(function(){
         } else {
           for(var i=0;i<rows_1.length;i++){
             if(now>=rows_1[i].startVotestamp){
-              connection.query('UPDATE  member_info SET status=投票進行中 where votingId=?',[rows_1[i].votingId], function (err, rows_2) {
+              connection.query('UPDATE  member_info SET status=? where votingId=?',['投票進行中',rows_1[i].votingId], function (err, rows_2) {
                 if (err) {
                   res.render('error', {
                     message: err.message,
@@ -137,6 +129,7 @@ app.use(function(req,res,next){
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/sign',signRouter);
+app.use('/emailverify',emailVerifyRouter);
 app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);

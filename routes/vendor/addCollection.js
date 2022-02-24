@@ -4,12 +4,15 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var vendorAddress = "0xD05B54bE26Fe772Dc574Fb5FECBcaa4D4BCD5179";
+var vendorAddress = "0x389e2bb2F9454Fa25eE18CBf8C0a3E065f9D21f4";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
 /* GET home page. */
 router.get('/', function (req, res) {
+    if (!req.session.email) {
+        res.redirect('/login')
+    }
     res.render('vendor/addCollection', {
         title: '新增商品集',
         email: req.session.email,

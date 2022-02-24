@@ -4,18 +4,21 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var vendorAddress = "0xD05B54bE26Fe772Dc574Fb5FECBcaa4D4BCD5179";
+var vendorAddress = "0x389e2bb2F9454Fa25eE18CBf8C0a3E065f9D21f4";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
 /* GET home page. */
 router.get('/', function (req, res) {
+    if (!req.session.email) {
+        res.redirect('/login')
+    }
     var pool=req.connection;
     var vendor=req.session.walletaddress;
     pool.getConnection(function(err,connection){
         connection.query('SELECT name FROM collectionlist WHERE vendor=?',[vendor],function(err,rows){
             var names=rows;
-            res.render('vendor/collectionListing', {
+            res.render('vendor/workListing', {
                 title: '商品上架',
                 names:names,
                 email: req.session.email,
@@ -40,21 +43,19 @@ router.get('/:collection',function(req,res){
     })
 })
 router.post('/:collection',function(req,res){
-    var uriArr = new Array();
+    //var uriArr = new Array();
     var collectionName=req.params.collection;
     var uri = req.body['ipfsuri'];
-    console.log(uri)
-    //console.log(uri)
-    uriArr.push(uri)
-    //var uriArr_=uriArr.replace(/'/g, '"');
-    console.log(uriArr)
-    /*
+    //uriArr.push(uri.join())
+    //console.log(uriArr)
+    //const obj = Array.from(uriArr)
+    //console.log(Array.from(uriArr))
     var vendor = req.session.walletaddress;
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
     var collectionAddr=contract.getaddress.call(vendor,collectionName);
     console.log(collectionAddr)
-    var data = contract.MintwithUnlimited.getData(collectionAddr,vendor,uriArr);
+    var data = contract.singleMint.getData(collectionAddr,vendor,uri);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;
     var gasLimit = 3000000;
@@ -72,7 +73,7 @@ router.post('/:collection',function(req,res){
     tx.sign(privkey);
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
-    console.log(hash)*/
+    console.log(hash)
     res.redirect('/');
 })
 module.exports = router;

@@ -25,15 +25,11 @@ router.get('/',function(req,res){
                     contracts.push(rows[i].contract);
                 }
             }
-            console.log(contracts)
             for(var idx=0;idx<contracts.length;idx++){
                 var contract = web3.eth.contract(abi).at(contracts[idx]);
                 //var bal = contract.balanceOf.call(vendor).toNumber();
                 var idlist = contract.tokenIdofOwnerByAddress.call(vendor);
                 var ids = new Array();
-                //var bal=contract.balanceOf.call(vendor);
-                //console.log(bal)
-                //console.log(ids)
                 for(var j=0;j<idlist.length;j++){
                     ids.push(idlist[j].toNumber());
                 }
@@ -42,10 +38,10 @@ router.get('/',function(req,res){
                     works.push([uri,contracts[idx],ids[id]]);
                 }
             }
-            console.log(works)
             res.render('vendor/vendorCollection', {
                 title: '我的商品集',
                 email: req.session.email,
+                role: req.session.role,
                 works: works
             })    
         });

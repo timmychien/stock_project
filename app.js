@@ -30,6 +30,8 @@ var voteRouter=require('./routes/vote/vote');
 var activityRouter = require('./routes/activity/activity');
 var openactivityRouter = require('./routes/activity/activity_open');
 var onvoteactivityRouter = require('./routes/activity/activity_onvote');
+//explore
+var exploreRouter =require('./routes/explore/explore');
 //works
 var worksRouter=require('./routes/works/works');
 var buyRouter = require('./routes/works/buy');
@@ -139,6 +141,8 @@ app.use('/auditvendor',auditvendorRouter);
 app.use('/activity',activityRouter);
 app.use('/activity_open',openactivityRouter);
 app.use('/activity_onvote', onvoteactivityRouter);
+//explore
+app.use('/explore',exploreRouter);
 //works
 app.use('/works',worksRouter);
 app.use('/works/buy', buyRouter);

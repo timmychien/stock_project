@@ -4,7 +4,7 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var vendorAddress = "0x389e2bb2F9454Fa25eE18CBf8C0a3E065f9D21f4";
+var vendorAddress = "0x34051C6c13957064C77A256b9ea7EE5F6684f4A8";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
     pool.getConnection(function(err,connection){
         connection.query('SELECT name FROM collectionlist WHERE vendor=?',[vendor],function(err,rows){
             var names=rows;
-            res.render('vendor/workListing', {
+            res.render('vendor/collectionListing', {
                 title: '商品上架',
                 names:names,
                 email: req.session.email,
@@ -54,7 +54,7 @@ router.post('/:collection',function(req,res){
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
     var collectionAddr=contract.getaddress.call(vendor,collectionName);
-    console.log(collectionAddr)
+    //console.log(collectionAddr)
     var data = contract.singleMint.getData(collectionAddr,vendor,uri);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;

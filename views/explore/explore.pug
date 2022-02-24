@@ -4,29 +4,37 @@
   <meta charset="utf-8">
 </head>
 <body>
-<title>已投票作品</title>
+<title>探索</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/works/workvoted.css">
+  <link rel="stylesheet" href="/stylesheets/explore/explore.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   include ../navigator.pug
   <br>
-  <h1>已投票作品</h1>
+  <h1>探索</h1>
   <div class="overview">
     <br>
-    <br>
-    if (data)
-      each x in data
+    if (works)
+      each work in works
         <br>
         <br>
         <div class=info>
           <div class="container">
-            <img src=#{x[3]} width="360"height="240">
-            <label for="amount">投票數:</label>
-            <dd>#{x[2]}</dd>
+            <form action="" method="post">
+                <img src=#{work[0]} width="400"height="240">
+                <label for="address">作品地址:</label>
+                <dd>#{work[1]}</dd>
+                <label for="id">作品ID:</label>
+                <dd>#{work[2]}</dd>
+                <label for="price">價格</label>
+                <dd>$2</dd>
+                <input type="hidden" name="contractaddress"value=#{work[1]} readonly>
+                <input type="hidden" name="tokenid" value=#{work[2]} readonly>
+                <input type="submit" value="購買">
+            </form>
           </div>
         </div>
   </div>
-<script src="/javascripts/works/workvoted.js"></script>
+<script src="/javascripts/explore/explore.js"></script>
 </body>
 </html>

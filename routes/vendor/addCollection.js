@@ -4,7 +4,7 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var vendorAddress = "0x389e2bb2F9454Fa25eE18CBf8C0a3E065f9D21f4";
+var vendorAddress = "0x34051C6c13957064C77A256b9ea7EE5F6684f4A8";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);

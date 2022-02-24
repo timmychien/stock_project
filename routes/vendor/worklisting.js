@@ -74,6 +74,7 @@ router.post('/:collection',function(req,res){
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
-    res.redirect('/');
+    //res.redirect('/');
+    res.render('vendor/list_redirect');
 })
 module.exports = router;

@@ -56,7 +56,7 @@ router.post('/', function (req, res) {
                         error: err
                     })
                 }else{
-                    res.redirect('/');
+                    res.render('vendor/add_redirect');
                 }
             })
             connection.release()

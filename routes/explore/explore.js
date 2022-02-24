@@ -66,6 +66,6 @@ router.post('/',function(req,res){
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
-    res.redirect('/');
+    res.render('explore/buy_redirect');
 })
 module.exports=router;

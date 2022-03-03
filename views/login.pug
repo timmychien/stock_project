@@ -15,25 +15,45 @@
   <br>
   <br>
   <div class="container">
-    <i class="fa fa-user-circle fa-5x" aria-hidden="true"style="color:black"></i>
-    <form action="" method="post">
-      <label for='title'>登入<h2>
-      <br>
-      <label for ="email">E-mail</label>
-      <br>
-      <input type="text" id="email" name="email"><br/>
-      <span class="warn">#{warn1}</span>
-      <br>
-      <label for="userpass">密碼</label>
-      <br>
-      <input type="password" id="userpass" name="userpass"><br/>
-      <span class="warn">#{warn2}</span>
-      <br>
-      <input type="submit" id="login" value="登入">
-    </form>
-  <br>
-    <p>還沒有帳號？<a id="sign" href="/sign">註冊</a></p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+          <label for='title'>登入</label>
+        </div>
+        
+        <div class="col-md-5">
+          <form action="" method="post">
+            <input class="textfield" type="text" id="email" name="email" placeholder="信箱"><br/>
+            <span class="warn">#{warn1}</span>
+            <br>
+            <input class="textfield" type="password" id="userpass" name="userpass" placeholder="密碼"><br/>
+            <span class="warn">#{warn2}</span>
+            <br>
+            <input class="btnAuthen" type="submit" id="login" value="登入">
+            <p>還沒有帳號？<a id="sign" href="/sign">註冊</a></p>
+          </form>
+        </div>
+    </div>
+
+  //-   <form action="" method="post">
+  //-     <label for='title'>登入</label>
+  //-     <br>
+  //-     <input class="textfield" type="text" id="email" name="email" placeholder="信箱"><br/>
+  //-     <span class="warn">#{warn1}</span>
+  //-     <br>
+  //-     <input class="textfield" type="password" id="userpass" name="userpass" placeholder="密碼"><br/>
+  //-     <span class="warn">#{warn2}</span>
+  //-     <br>
+  //-     <input class="btnAuthen" type="submit" id="login" value="登入">
+  //- <br>
+  //- <br>
+  //- <br>
+
+  //- </form>
+  //-   <p>還沒有帳號？<a id="sign" href="/sign">註冊</a></p>
   </div>
-<script src="/javascripts/login.js"></script>
+<script src="/javascripts/login.js">
+include ./footbar.pug
+</script>
 </body>
 </html>

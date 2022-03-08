@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Web3=require('web3');
 var Tx=require('ethereumjs-tx').Transaction;
+var Common = require('ethereumjs-common').default;
 require('dotenv').config();
 const web3=new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
@@ -9,6 +10,12 @@ var votingAddress ="0x395BC95612449BcdD740353BAd023c876552a425";
 var abi=require('../votingABI');
 var abi=abi.votingABI;
 var contract=web3.eth.contract(abi).at(votingAddress);
+const customCommon = Common.forCustomChain('mainnet', {
+    name: 'nft',
+    chainId: 13144,
+    networkId: 13144
+
+}, 'petersburg')
 /* GET home page. */
 router.get('/', function (req, res) {
     if(!req.session.email){
@@ -44,7 +51,7 @@ router.post('/',function(req,res){
     var count = web3.eth.getTransactionCount(address);
     var data = contract.createVoting.getData(topic, startAddStamp, endAddStamp, startVoteStamp, endVoteStamp, { from: address });
     //var gasPrice=web3.toWei(40,'gwei');
-    var gasPrice = web3.eth.gasPrice;
+    var gasPrice = 0;
     var gasLimit = 3000000;
     var rawTx = {
         "from": address,
@@ -54,9 +61,9 @@ router.post('/',function(req,res){
         "to": votingAddress,
         "value": 0x0,
         "data": data,
-        "chainId": 0x04
+        "chainId": 13144
     }
-    var tx = new Tx(rawTx, { chain: 'rinkeby' });
+    var tx = new Tx(rawTx, { common:customCommon });
     tx.sign(privkey);
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));

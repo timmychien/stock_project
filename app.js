@@ -89,7 +89,7 @@ setInterval(function(){
         } else {
           for(var i=0;i<rows_1.length;i++){
             if(now>=rows_1[i].startVotestamp){
-              connection.query('UPDATE  member_info SET status=? where votingId=?',['投票進行中',rows_1[i].votingId], function (err, rows_2) {
+              connection.query('UPDATE  voting SET status=? where votingId=?',['投票進行中',rows_1[i].votingId], function (err, rows_2) {
                 if (err) {
                   console.log(err)
                   //return;

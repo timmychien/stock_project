@@ -25,6 +25,7 @@ router.post('/', function (req, res) {
     var name=req.body['name'];
     var symbol=req.body['symbol'];
     var vendor=req.session.walletaddress;
+    /*
     var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
     var data = contract.createNFT.getData(name,symbol,vendor);
@@ -45,7 +46,7 @@ router.post('/', function (req, res) {
     tx.sign(privkey);
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
-    console.log(hash)
+    console.log(hash)*/
     setTimeout(function () {
         var nftaddress = contract.getaddress.call(vendor, name);
         pool.getConnection(function(err,connection){

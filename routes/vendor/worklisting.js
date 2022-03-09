@@ -3,8 +3,8 @@ var router = express.Router();
 var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var vendorAddress = "0x34051C6c13957064C77A256b9ea7EE5F6684f4A8";
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+var vendorAddress = "x749cc91223ECe3E2F533eA52760A9D3072da2165";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
@@ -42,6 +42,7 @@ router.get('/:collection',function(req,res){
         walletaddress: req.session.walletaddress
     })
 })
+/*
 router.post('/:collection',function(req,res){
     //var uriArr = new Array();
     var collectionName=req.params.collection;
@@ -76,5 +77,5 @@ router.post('/:collection',function(req,res){
     console.log(hash)
     //res.redirect('/');
     res.render('vendor/list_redirect');
-})
+})*/
 module.exports = router;

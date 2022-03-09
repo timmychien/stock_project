@@ -16,6 +16,7 @@
   <h1>商品上架</h1>
   <br>
   <h2>#{collection_name}</h2>
+  <input type="hidden" id="name" value=#{collection_name}>
   <br>
   <form action="" method="post">
     <div class="container">
@@ -30,8 +31,9 @@
     </div>
     <br>
     <input type="hidden" id="ipfsuri" name="ipfsuri" readonly>
-    <input type="submit" value="上傳">
+    <input type="button" id="upload" value="上傳">
   </form>
+<script src="/javascripts/vendorabi.js"></script>
 <script src="/javascripts/vendor/workListing.js"></script>
 </body>
 </html>

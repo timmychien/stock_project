@@ -3,8 +3,8 @@ var router = express.Router();
 var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var vendorAddress = "0x34051C6c13957064C77A256b9ea7EE5F6684f4A8";
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+var vendorAddress = "0x749cc91223ECe3E2F533eA52760A9D3072da2165";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
@@ -24,6 +24,7 @@ router.post('/', function (req, res) {
     var pool = req.connection;
     var name=req.body['name'];
     var symbol=req.body['symbol'];
+    //var nftaddress=req.body['addr'];
     var vendor=req.session.walletaddress;
     /*
     var address = process.env.PLATFORM_ADDR;
@@ -47,21 +48,27 @@ router.post('/', function (req, res) {
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)*/
-    setTimeout(function () {
-        var nftaddress = contract.getaddress.call(vendor, name);
-        pool.getConnection(function(err,connection){
-            connection.query('INSERT INTO collectionList(name,symbol,vendor,contract)VALUES(?,?,?,?)', [name, symbol, vendor, nftaddress],function(err,rows){
+    //var nftaddress = contract.getaddress.call(vendor, name);
+    //console.log(nftaddress)
+    res.render('vendor/add_redirect');
+    setTimeout(function(){
+        pool.getConnection(function (err, connection) {
+            var nftaddress = contract.getaddress.call(vendor, name);
+            console.log(nftaddress)
+            connection.query('INSERT INTO collectionList(name,symbol,vendor,contract)VALUES(?,?,?,?)', [name, symbol, vendor,nftaddress], function (err, rows) {
                 if (err) {
                     res.render('error', {
                         message: err.message,
                         error: err
                     })
-                }else{
-                    res.render('vendor/add_redirect');
+                } else {
+                    
                 }
             })
             connection.release()
         })
-    },8000)
+    },15000)
+    
+    
 })
 module.exports = router;

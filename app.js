@@ -11,12 +11,12 @@ var nodemailer = require('nodemailer');
 //router
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var signRouter = require('./routes/sign');
-var emailVerifyRouter =require('./routes/emailverify');
+var signRouter = require('./routes/sign/sign');
+var emailVerifyRouter =require('./routes/sign/emailverify');
 var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
-var verifyRouter = require('./routes/verify/verify');
+var verifyRouter = require('./routes/sign/verify');
 //admin
 var createVoteRouter = require('./routes/admin/createvote');
 var workConfigRouter=require('./routes/admin/workconfig');

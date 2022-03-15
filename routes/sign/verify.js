@@ -7,7 +7,7 @@ web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/9
 /* GET home page. */
 router.get('/', function (req, res) {
     if(req.session.isverified==0){
-        res.render('verify/verify', {
+        res.render('sign/verify', {
             title: 'Verify',
             email: req.session.email,
             role: req.session.role,
@@ -34,7 +34,7 @@ router.post('/',function(req,res){
                 //req.session.verified=1;
                 console.log('update success')
                 req.session.destroy()
-                res.render('verify/verify_redirect');
+                res.render('sign/verify_redirect');
             }
         })
     connection.release();

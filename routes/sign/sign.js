@@ -5,7 +5,7 @@ var nodemailer = require('nodemailer');
 require('dotenv').config();
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('sign', { 
+    res.render('sign/sign', { 
         title: '註冊',
         session:req.session.email
     });
@@ -27,10 +27,10 @@ router.post('/',function(req,res){
                 })
             }
             if(rows.length>=1){
-                res.render('sign',{warn:"此信箱已被註冊"})
+                res.render('sign/sign',{warn:"此信箱已被註冊"})
             }
             if (userpass != passcheck) {
-                res.render('sign', {passWarn: "與輸入密碼不符，請重新輸入" });
+                res.render('sign/sign', {passWarn: "與輸入密碼不符，請重新輸入" });
             }
             else{
                 let addressData = ethWallet['default'].generate();

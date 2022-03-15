@@ -6,38 +6,38 @@
 </head>
 <body>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/login.css">
+  <link rel="stylesheet" href="/stylesheets/sign/sign.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   
   // navbar
-  include ./navigator.pug
+  include ../navigator.pug
 
   // body
   <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3">
-          <label for='title'>登入</label>
+          <label for='title'>註冊</label>
         </div>
-        
+
         <div class="col-md-5">
           <form action="" method="post">
-            <input class="textfield" type="text" id="email" name="email" placeholder="信箱"><br/>
-            <span class="warn">#{warn1}</span>
-            <br>
+            <input class="textfield" type="text" id="name" name="name" placeholder="姓名"><br/>
+            <input class="textfield" type="text" id="email" name="email" placeholder="郵箱"><br/>
+            <span class="emailWarn">#{warn}</span>
             <input class="textfield" type="password" id="userpass" name="userpass" placeholder="密碼"><br/>
-            <span class="warn">#{warn2}</span>
-            <br>
-            <input class="btnAuthen" type="submit" id="login" value="登入">
-            <p>還沒有帳號？<a id="sign" href="/sign">註冊</a></p>
+            <input class="textfield" type="password" id="passcheck" name="passcheck" placeholder="確認密碼"><br/>
+            <span class="passWarn">#{passWarn}</span>
+            <input class="btnAuthen" type="submit" id="submit" value="註冊">
+            <p>已有帳號？<a id="sign" href="/login">登入</a></p>
           </form>
         </div>
     </div>
   </div>
 
   // footbar
-  include ./footbar.pug
+  include ../footbar.pug
 
-  <script src="/javascripts/login.js"></script>
+  <script src="/javascripts/sign/sign.js"></script>
 </body>
 </html>

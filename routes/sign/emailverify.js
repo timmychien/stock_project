@@ -14,11 +14,11 @@ router.post('/',function(req,res){
                 console.log(err)
             }else{
                 if(emailcode!=rows[0].verifycode){
-                    res.render('emailverify',{
+                    res.render('sign/emailverify',{
                         warn:'驗證碼錯誤，請重新輸入。'
                     })
                 }else{
-                    res.render('sign_redirect',{pk:rows[0].privkey});
+                    res.render('sign/sign_redirect',{pk:rows[0].privkey});
                 }
             }
         })

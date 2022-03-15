@@ -101,21 +101,4 @@ window.addEventListener('load', async () => {
         })
         return false;
     })
-    $('#addCollection').click(function () {
-        web3.eth.getAccounts(function (error, accounts) {
-            var name = $('#name').val();
-            var symbol = $('#symbol').val();
-            var vendor = accounts[0];
-            vendorcontract.createNFT(name, symbol, vendor, function (error, hash) {
-                if (!error) {
-                    $('#addCollection').hide();
-                    $('#check').show();
-                } else {
-                    console.log(error)
-                }
-            })
-        })
-        return false;
-    })
-
 })

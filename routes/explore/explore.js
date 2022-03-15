@@ -41,6 +41,7 @@ router.get('/',function(req,res){
     })
     
 })
+/*
 router.post('/',function(req,res){
     var tokenaddress=req.body['contractaddress'];
     var tokenid=req.body['tokenid'];
@@ -67,5 +68,5 @@ router.post('/',function(req,res){
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
     res.render('explore/buy_redirect');
-})
+})*/
 module.exports=router;

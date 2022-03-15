@@ -15,8 +15,8 @@ router.post('/',function(req,res){
     var userpass=req.body['userpass'];
     var passcheck=req.body['passcheck'];
     var name=req.body['name'];
-    var cellphone=req.body['cellphone'];
-    var homeaddress=req.body['homeaddress'];
+    //var cellphone=req.body['cellphone'];
+    //var homeaddress=req.body['homeaddress'];
     var pool=req.connection;
     pool.getConnection(function(err,connection){
         connection.query('SELECT email FROM member_info WHERE email=?',[email],function(err,rows){
@@ -38,7 +38,7 @@ router.post('/',function(req,res){
                 var address = addressData.getAddressString();
                 var verified=0;
                 var code = Math.floor(Math.random() * (999999 - 111111) + 111111)
-                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,home_address,cellphone,votecount,verifycode)VALUES(?,?,?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,homeaddress,cellphone,0,code],function(err,rows){
+                connection.query('INSERT INTO member_info(email,Name,password,role,isverified,privkey,address,votecount,verifycode)VALUES(?,?,?,?,?,?,?,?,?)', [email ,name, userpass,'member',verified,pk,address,0,code],function(err,rows){
                     if(err){
                         res.redirect('/sign');
                         console.log(err)

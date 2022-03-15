@@ -28,13 +28,14 @@
                 <dd>#{work[2]}</dd>
                 <label for="price">價格</label>
                 <dd>$2</dd>
-                <input type="hidden" name="contractaddress"value=#{work[1]} readonly>
-                <input type="hidden" name="tokenid" value=#{work[2]} readonly>
-                <input type="submit" value="購買">
+                <input type="hidden" name="contractaddress" id="contractaddress"value=#{work[1]} readonly>
+                <input type="hidden" name="tokenid" id="tokenid" value=#{work[2]} readonly>
+                <input type="button" id="buy" value="購買">
             </form>
           </div>
         </div>
   </div>
+<script src="/javascripts/vendorabi.js"></script>
 <script src="/javascripts/explore/explore.js"></script>
 </body>
 </html>

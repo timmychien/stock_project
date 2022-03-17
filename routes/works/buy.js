@@ -35,9 +35,11 @@ router.post('/:votingId/:participantId',function(req,res){
     var buyAmount=req.body['amount'];
     var votingId = req.params.votingId;
     var participantId = req.params.participantId;
-    var address = process.env.PLATFORM_ADDR;
+    //var address = process.env.PLATFORM_ADDR;
+    var address=req.session.walletaddress;
     var buyer = req.session.walletaddress;
-    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    //var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    var privkey = Buffer.from(req.session.pk, 'hex');
     var data = contract.buy.getData(votingId, participantId,2,buyAmount,buyer);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;
@@ -50,7 +52,7 @@ router.post('/:votingId/:participantId',function(req,res){
         "to": votingAddress,
         "value": 0x0,
         "data": data,
-        "chainId": 0x04
+        "chainId": 13144
     }
     var tx = new Tx(rawTx, { common: customCommon });
     tx.sign(privkey);

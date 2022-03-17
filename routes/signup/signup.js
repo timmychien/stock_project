@@ -4,11 +4,18 @@ require('dotenv').config();
 var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/991b420c343949d991d7de33d4d75717"));
-var votingAddress = "0x074633F77544C5B0e8f02A534E3313E1fe61dc04";
+var Common = require('ethereumjs-common').default;
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+var votingAddress = "0x395BC95612449BcdD740353BAd023c876552a425";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
+const customCommon = Common.forCustomChain('mainnet', {
+    name: 'nft',
+    chainId: 13144,
+    networkId: 13144
+
+}, 'petersburg')
 /* GET home page. */
 router.get('/:topic',function (req, res) {
     var topic=req.params.topic;
@@ -61,8 +68,10 @@ router.post('/:topic',function(req,res){
                         warn: '報名已截止!'
                     })
                 } else {
-                    var address=process.env.PLATFORM_ADDR;
-                    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+                    //var address=process.env.PLATFORM_ADDR;
+                    var address = req.session.walletaddress;
+                    //var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+                    var privkey = Buffer.from(req.session.pk, 'hex');
                     var count = web3.eth.getTransactionCount(address);
                     var nowtime = parseInt(Date.now() / 1000);
                     var data = contract.createCandidate.getData(votingId, nftname, nftsymbol, uri, author, authoraddress, nowtime, { from: address });
@@ -78,7 +87,7 @@ router.post('/:topic',function(req,res){
                         "data": data,
                         "chainId": 0x04
                     }
-                    var tx = new Tx(rawTx, { chain: 'rinkeby' });
+                    var tx = new Tx(rawTx, { common: customCommon });
                     tx.sign(privkey);
                     var serializedTx = tx.serialize();
                     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
@@ -122,7 +131,8 @@ router.get('/:topic/:address',function(req,res){
             } else {
                 var data = rows;
                 res.render('signup/choose_work',{
-                    data:data
+                    data:data,
+                    email: req.session.email
                 })
             }
         })
@@ -162,8 +172,10 @@ router.post('/:topic/:address',function(req,res){
                         warn: '報名已截止!'
                     })
                 } else {
-                    var address = process.env.PLATFORM_ADDR;
-                    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+                    //var address = process.env.PLATFORM_ADDR;
+                    var address = req.session.walletaddress;
+                    //var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+                    var privkey = Buffer.from(req.session.pk, 'hex');
                     var count = web3.eth.getTransactionCount(address);
                     var nowtime = parseInt(Date.now() / 1000);
                     var data = contract.createCandidate.getData(votingId, nftname, nftsymbol, uri, author, authoraddress, nowtime, { from: address });
@@ -179,7 +191,7 @@ router.post('/:topic/:address',function(req,res){
                         "data": data,
                         "chainId": 0x04
                     }
-                    var tx = new Tx(rawTx, { chain: 'rinkeby' });
+                    var tx = new Tx(rawTx, { common: customCommon });
                     tx.sign(privkey);
                     var serializedTx = tx.serialize();
                     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));

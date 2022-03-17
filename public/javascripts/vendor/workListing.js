@@ -1,3 +1,4 @@
+/*
 $('img[id="preview"]').hide();
 var uriarr =new Array();
 function previewFile() {
@@ -102,3 +103,4 @@ window.addEventListener('load', async () => {
         return false;
     })
 })
+*/

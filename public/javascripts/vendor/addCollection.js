@@ -1,3 +1,4 @@
+/*
 $('#check').hide();
 $('#notice').hide();
 $('#addr').hide();
@@ -57,4 +58,4 @@ window.addEventListener('load', async () => {
         return false;
     })
     
-})
+})*/

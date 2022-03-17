@@ -3,6 +3,7 @@ var router=express.Router();
 var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
+var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
 var vendorAddress = "0x749cc91223ECe3E2F533eA52760A9D3072da2165";
 var vendorabi = require('../vendorABI');
@@ -10,6 +11,12 @@ var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
 var collectionabi=require('../collectionABI');
 var collectionabi=collectionabi.collectionABI;
+const customCommon = Common.forCustomChain('mainnet', {
+    name: 'nft',
+    chainId: 13144,
+    networkId: 13144
+
+}, 'petersburg')
 router.get('/',function(req,res){
     var pool=req.connection;
     var works=new Array();
@@ -41,13 +48,12 @@ router.get('/',function(req,res){
     })
     
 })
-/*
 router.post('/',function(req,res){
     var tokenaddress=req.body['contractaddress'];
     var tokenid=req.body['tokenid'];
     var buyer = req.session.walletaddress;
-    var address = process.env.PLATFORM_ADDR;
-    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    var address = req.session.walletaddress;
+    var privkey = Buffer.from(req.session.pk, 'hex');
     var data = vendorcontract.buy.getData(buyer,2,tokenaddress,tokenid);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;
@@ -60,13 +66,13 @@ router.post('/',function(req,res){
         "to": vendorAddress,
         "value": 0x0,
         "data": data,
-        "chainId": 0x04
+        "chainId": 13144
     }
-    var tx = new Tx(rawTx, { chain: 'rinkeby' });
+    var tx = new Tx(rawTx, { common: customCommon });
     tx.sign(privkey);
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
     res.render('explore/buy_redirect');
-})*/
+})
 module.exports=router;

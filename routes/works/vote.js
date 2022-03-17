@@ -38,9 +38,11 @@ router.get('/:votingId/:participantId', function (req, res) {
 router.post('/:votingId/:participantId', function (req, res){
     var votingId = req.params.votingId;
     var participantId = req.params.participantId;
-    var address = process.env.PLATFORM_ADDR;
+    //var address = process.env.PLATFORM_ADDR;
+    var address=req.session.walletaddress;
     var voter = req.session.walletaddress;
-    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    //var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    var privkey = Buffer.from(req.session.pk, 'hex');
     var pool=req.connection;
     pool.getConnection(function (err, connection) {
         connection.query('SELECT votecount FROM member_info WHERE address=?', [voter], function (err, rows) {
@@ -71,7 +73,7 @@ router.post('/:votingId/:participantId', function (req, res){
                     "to": votingAddress,
                     "value": 0x0,
                     "data": data,
-                    "chainId": 0x04
+                    "chainId": 13144
                 }
                 var tx = new Tx(rawTx, { common: customCommon });
                 tx.sign(privkey);

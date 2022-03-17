@@ -143,8 +143,10 @@ router.post('/:topic/:votingId',function(req,res){
     var votingId=req.body['votingId'];
     var participantId = req.body['participantId'];
     var voter = req.session.walletaddress;
-    var address = process.env.PLATFORM_ADDR;
-    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    //var address = process.env.PLATFORM_ADDR;
+    var address=req.session.walletaddress;
+    //var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    var privkey = Buffer.from(req.session.pk, 'hex');
     var pool=req.connection;
     console.log(votingId)
     console.log(participantId)
@@ -176,7 +178,7 @@ router.post('/:topic/:votingId',function(req,res){
                     "to": votingAddress,
                     "value": 0x0,
                     "data": data,
-                    "chainId": 0x04
+                    "chainId": 13144
                 }
                 var tx = new Tx(rawTx, { common: customCommon });
                 tx.sign(privkey);

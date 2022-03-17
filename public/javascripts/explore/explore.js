@@ -1,4 +1,4 @@
-window.addEventListener('load', async () => {
+/*window.addEventListener('load', async () => {
     // Modern dapp browsers...
     if (window.ethereum) {
         window.web3 = new Web3(ethereum);
@@ -59,4 +59,4 @@ window.addEventListener('load', async () => {
         })
         return false;
     })
-})
+})*/

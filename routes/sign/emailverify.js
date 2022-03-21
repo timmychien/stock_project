@@ -1,7 +1,7 @@
 var express=require('express');
 var router=express.Router();
 router.get('/',function(req,res){
-    res.render('emailverify',{
+    res.render('sign/emailverify',{
         title:'信箱驗證'
     })
 })
@@ -18,7 +18,14 @@ router.post('/',function(req,res){
                         warn:'驗證碼錯誤，請重新輸入。'
                     })
                 }else{
-                    res.render('sign/sign_redirect',{pk:rows[0].privkey});
+                    connection.query('UPDATE member_info SET isverified =? WHERE email =?',[1,req.session.email],function(err,rows){
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            req.session.destroy();
+                            res.render('sign/verify_redirect');
+                        }
+                    })
                 }
             }
         })

@@ -37,7 +37,7 @@ router.post('/',function(req,res,next){
                         req.session.pk=rows[0].privkey;
                         if (req.session.isverified== 0) {
                             console.log('need verify')
-                            res.redirect('/verify');
+                            res.redirect('/emailverify');
                         }else{
                             res.redirect('/');
                         }

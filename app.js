@@ -16,7 +16,7 @@ var emailVerifyRouter =require('./routes/sign/emailverify');
 var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
-var verifyRouter = require('./routes/sign/verify');
+//var verifyRouter = require('./routes/sign/verify');
 //admin
 var createVoteRouter = require('./routes/admin/createvote');
 var workConfigRouter=require('./routes/admin/workconfig');
@@ -32,6 +32,8 @@ var openactivityRouter = require('./routes/activity/activity_open');
 var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //explore
 var exploreRouter =require('./routes/explore/explore');
+//resell
+var resellRouter=require('./routes/resell/resell');
 //works
 var worksRouter=require('./routes/works/works');
 var buyRouter = require('./routes/works/buy');
@@ -131,7 +133,7 @@ app.use('/emailverify',emailVerifyRouter);
 app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);
-app.use('/verify',verifyRouter)
+//app.use('/verify',verifyRouter)
 //admin
 app.use('/createvote',createVoteRouter);
 app.use('/workconfig',workConfigRouter);
@@ -143,6 +145,8 @@ app.use('/activity_open',openactivityRouter);
 app.use('/activity_onvote', onvoteactivityRouter);
 //explore
 app.use('/explore',exploreRouter);
+//resell
+app.use('/resell',resellRouter);
 //works
 app.use('/works',worksRouter);
 app.use('/works/buy', buyRouter);

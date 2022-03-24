@@ -5,7 +5,7 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var vendorAddress = "0xD4b742e0517A194283C5413A351ca5CB6c2F43Fd";
+var vendorAddress = "0xd0bbD01cd1e0580dA43031D99f0864c087040C2E";
 var vendorabi = require('../vendorABI');
 var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -29,11 +29,11 @@ router.get('/',function(req,res){
             for(var i=0;i<rows.length;i++){
                 var contract=web3.eth.contract(collectionabi).at(rows[i].contract);
                 var total=contract.totalSupply.call().toNumber();
-                var author=contract.author.call();
+                //var author=contract.author.call();
                 for(var id=1;id<=total;id++){
                     var owner=contract.ownerOf.call(id);
-                    var isonsell=vendorcontract.onsell.call(contract,id);
-                    if(owner==author&&owner!=user&&isonsell==true){
+                    var isonsell = vendorcontract.isOnSell.call(rows[i].contract,id).toString();
+                    if(owner!=user&&isonsell=='true'){
                         var uri=contract.tokenURI(id);
                         works.push([uri,rows[i].contract,id]);
                     }
@@ -54,6 +54,7 @@ router.post('/',function(req,res){
     var tokenid=req.body['tokenid'];
     var buyer = req.session.walletaddress;
     var address = req.session.walletaddress;
+    console.log(req.session.pk)
     var privkey = Buffer.from(req.session.pk, 'hex');
     var data = vendorcontract.buy.getData(buyer,2,tokenaddress,tokenid);
     var count = web3.eth.getTransactionCount(address);

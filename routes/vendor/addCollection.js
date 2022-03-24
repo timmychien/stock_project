@@ -5,7 +5,7 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var vendorAddress = "0xD4b742e0517A194283C5413A351ca5CB6c2F43Fd";
+var vendorAddress = "0xd0bbD01cd1e0580dA43031D99f0864c087040C2E";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
@@ -35,21 +35,21 @@ router.post('/', function (req, res) {
     var address = req.session.walletaddress;
     var vendor=req.session.walletaddress;
     
-    var address = process.env.PLATFORM_ADDR;
     var privkey = Buffer.from(req.session.pk, 'hex');
     var data = contract.createNFT.getData(name,symbol,vendor);
     var count = web3.eth.getTransactionCount(address);
-    var gasPrice = web3.eth.gasPrice.toNumber()*2;
+    var gasPrice = 0;
     var gasLimit = 3000000;
+    console.log(count)
     var rawTx = {
         "from": address,
-        "nonce": web3.toHex(count),
+        "nonce": web3.toHex(27),
         "gasPrice": web3.toHex(gasPrice),
         "gasLimit": web3.toHex(gasLimit),
         "to": vendorAddress,
         "value": 0x0,
         "data": data,
-        "chainId": 0x04
+        "chainId": 13144
     }
     var tx = new Tx(rawTx, { common: customCommon});
     tx.sign(privkey);
@@ -58,7 +58,6 @@ router.post('/', function (req, res) {
     console.log(hash)
     //var nftaddress = contract.getaddress.call(vendor, name);
     //console.log(nftaddress)
-    res.render('vendor/add_redirect');
     setTimeout(function(){
         pool.getConnection(function (err, connection) {
             var nftaddress = contract.getaddress.call(vendor, name);
@@ -70,7 +69,7 @@ router.post('/', function (req, res) {
                         error: err
                     })
                 } else {
-                    
+                    res.render('vendor/add_redirect');
                 }
             })
             connection.release()

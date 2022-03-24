@@ -31,8 +31,13 @@ label{
   position: justify;
   /*left:75%;*/
 }
-
-input[type="button"]{
+label[for="imageupload"]{
+  font-size:40px;
+  display: block;
+  text-align: center;
+  color:gray;
+}
+input[type="submit"]{
     display: block;
     margin: 0 auto;
 }

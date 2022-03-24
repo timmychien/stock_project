@@ -1,4 +1,4 @@
-/*
+
 $('img[id="preview"]').hide();
 var uriarr =new Array();
 function previewFile() {
@@ -32,6 +32,7 @@ $("#imageupload").on("change", function () {
     }
     reader.readAsArrayBuffer(this.files[0]);
 })
+/*
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
     if (window.ethereum) {

@@ -8,6 +8,7 @@ router.get("/", function (req, res) {
     title: "Home",
     new_arrival: new_arrival,
     activity_detail: activity_detail,
+    email: req.session.email
   });
 
   // var pool = req.connection;

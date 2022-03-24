@@ -74,10 +74,7 @@ setInterval(function(){
     pool.getConnection(function (err, connection) {
       connection.query('UPDATE  member_info SET votecount=0', function (err, rows) {
         if (err) {
-          res.render('error', {
-            message: err.message,
-            error: err
-          })
+          console.log(err)
         } else {
           console.log('votecount reset');
         }

@@ -32,7 +32,8 @@ router.get('/',function(req,res){
                 var author=contract.author.call();
                 for(var id=1;id<=total;id++){
                     var owner=contract.ownerOf.call(id);
-                    if(owner==author&&owner!=user){
+                    var isonsell=vendorcontract.onsell.call(contract,id);
+                    if(owner==author&&owner!=user&&isonsell==true){
                         var uri=contract.tokenURI(id);
                         works.push([uri,rows[i].contract,id]);
                     }

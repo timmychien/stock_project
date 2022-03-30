@@ -6,7 +6,7 @@ var Common = require('ethereumjs-common').default;
 require('dotenv').config();
 const web3=new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var votingAddress ="0x395BC95612449BcdD740353BAd023c876552a425";
+var votingAddress ="0x0F2e8bbD3F47475169A0599CD94eD7f6Ba68c012";
 var abi=require('../votingABI');
 var abi=abi.votingABI;
 var contract=web3.eth.contract(abi).at(votingAddress);
@@ -46,8 +46,8 @@ router.post('/',function(req,res){
     var endVoteStamp = parseInt(Math.round(endVote.getTime()))/1000;
     console.log(image)
     var pool=req.connection;
-    var address = process.env.PLATFORM_ADDR;
-    var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
+    var address = req.session.walletaddress;
+    var privkey = Buffer.from(req.session.pk, 'hex');
     var count = web3.eth.getTransactionCount(address);
     var data = contract.createVoting.getData(topic, startAddStamp, endAddStamp, startVoteStamp, endVoteStamp, { from: address });
     //var gasPrice=web3.toWei(40,'gwei');

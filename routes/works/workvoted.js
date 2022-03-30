@@ -4,7 +4,7 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var votingAddress = "0x395BC95612449BcdD740353BAd023c876552a425";
+var votingAddress = "0x0F2e8bbD3F47475169A0599CD94eD7f6Ba68c012";
 var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);

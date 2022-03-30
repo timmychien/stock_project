@@ -17,6 +17,7 @@ router.get('/', function (req, res) {
         walletaddress:req.session.walletaddress,
         address:req.session.home_address,
         cellphone:req.session.cellphone,
+        privkey:req.session.pk,
         role: req.session.role
     });
 

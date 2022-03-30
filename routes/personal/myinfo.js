@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
     }
     if (req.session.isverified == 0) {
         console.log('need verify')
-        res.redirect('/verify');
+        res.redirect('/emailverify');
     }
     res.render('personal/myinfo', {
         title: '我的個人資料',

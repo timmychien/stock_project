@@ -142,6 +142,7 @@ router.get('/:topic/:votingId', function (req, res) {
 router.post('/:topic/:votingId',function(req,res){
     var votingId=req.body['votingId'];
     var participantId = req.body['participantId'];
+    var pointpaid=req.body['pointpaid'];
     var voter = req.session.walletaddress;
     //var address = process.env.PLATFORM_ADDR;
     var address=req.session.walletaddress;
@@ -166,7 +167,7 @@ router.post('/:topic/:votingId',function(req,res){
                 console.log('votecount', votecount)
             }else{
                 var timestamp = parseInt(Date.now() / 1000);
-                var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
+                var data = contract.vote.getData(votingId, participantId, voter,timestamp,pointpaid);
                 var count = web3.eth.getTransactionCount(address);
                 var gasPrice = web3.eth.gasPrice.toNumber() * 2;
                 var gasLimit = 3000000;
@@ -185,8 +186,6 @@ router.post('/:topic/:votingId',function(req,res){
                 var serializedTx = tx.serialize();
                 var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
                 console.log(hash)
-                //var votes=contract.voteBalances(votingId,participantId).toNumber();
-                //console.log(votes)
 
                 pool.getConnection(function (err, connection) {
                     connection.query('UPDATE  member_info SET votecount=votecount+1 WHERE address=?', [voter], function (err, rows) {
@@ -198,7 +197,7 @@ router.post('/:topic/:votingId',function(req,res){
                         } else {
                             console.log('votecount updated.')
                             res.render('vote/vote_redirect', {
-                                hash: 'https://rinkeby.etherscan.io/tx/' + hash
+                                //hash: 'https://rinkeby.etherscan.io/tx/' + hash
                             });
                         }
 

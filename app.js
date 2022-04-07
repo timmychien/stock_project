@@ -21,6 +21,7 @@ var logoutRouter = require('./routes/logout');
 //var verifyRouter = require('./routes/sign/verify');
 //admin
 var createVoteRouter = require('./routes/admin/createvote');
+var airdropNFTRouter = require('./routes/admin/airdropNFT');
 var workConfigRouter=require('./routes/admin/workconfig');
 var promoteRouter=require('./routes/admin/promote');
 var auditvendorRouter=require('./routes/admin/auditvendor');
@@ -137,6 +138,7 @@ app.use('/logout',logoutRouter);
 //app.use('/verify',verifyRouter)
 //admin
 app.use('/createvote',createVoteRouter);
+app.use('/airdropNFT',airdropNFTRouter);
 app.use('/workconfig',workConfigRouter);
 app.use('/promote',promoteRouter);
 app.use('/auditvendor',auditvendorRouter);

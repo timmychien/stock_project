@@ -29,10 +29,14 @@
             <input type="hidden" id="participantId" name="participantId" value=#{x[6]}>
             <hr>
             <label for="info">重要資訊</label>
-            <h2 id="info">1枚xx幣=1次投票=1枚副本</h2>
-            <span id="info">為了感謝您的支持，每一次投票將會附贈作品副本一枚 每日相同作品可進行最多2次投票，2次投票機會消耗完以後，可支付(作品相應價格)購買作品副本,投票次數將會在每日00:00進行刷新</span>
+            <h2 id="info">1枚xx幣=1次投票</h2>
+            //<span id="info">為了感謝您的支持，每一次投票將會附贈作品副本一枚 每日相同作品可進行最多2次投票，2次投票機會消耗完以後，可支付(作品相應價格)購買作品副本,投票次數將會在每日00:00進行刷新</span>
             <br>
             <h2 id="checkvote">是否花費1枚XX幣為此作品投票?</h2>
+            <select id="poindpaid" name="pointpaid">
+              <option value="true">使用代幣投票</option>
+              <option value="false">不使用代幣投票</option>
+            </select>
             <input type="submit" value="投票">
             <button><a href="/activity_onvote">再考慮</a>
           </form>

@@ -35,6 +35,7 @@ router.post('/',function(req,res){
     var endAddTime=req.body['endAddTime'];
     var startVoteTime = req.body['startVoteTime'];
     var endVoteTime = req.body['endVoteTime'];
+    var airdropamount=req.body['airdropamount'];
     var image = req.body['ipfsuri'];
     var startAdd = new Date(startAddTime);
     var startAddStamp = parseInt(Math.round(startAdd.getTime()))/1000;
@@ -49,7 +50,7 @@ router.post('/',function(req,res){
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');
     var count = web3.eth.getTransactionCount(address);
-    var data = contract.createVoting.getData(topic, startAddStamp, endAddStamp, startVoteStamp, endVoteStamp, { from: address });
+    var data = contract.createVoting.getData(topic, address,startAddStamp, endAddStamp, startVoteStamp, endVoteStamp, airdropamount,{ from: address });
     //var gasPrice=web3.toWei(40,'gwei');
     var gasPrice = 0;
     var gasLimit = 3000000;
@@ -70,7 +71,7 @@ router.post('/',function(req,res){
     console.log(hash)
     pool.getConnection(function (err, connection){
         var votingId = contract.getTotalVoting().toNumber() + 1;
-        connection.query('INSERT INTO Voting(votingId,topic,startAdd,endAdd,startVote,endVote,startAddstamp,endAddstamp,startVotestamp,endVotestamp,image,status)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',[votingId,topic,startAddTime,endAddTime,startVoteTime,endVoteTime,startAddStamp,endAddStamp,startVoteStamp,endVoteStamp,image,'開放報名中'],function(err,rows){
+        connection.query('INSERT INTO Voting(votingId,topic,startAdd,endAdd,startVote,endVote,startAddstamp,endAddstamp,startVotestamp,endVotestamp,image,status,creator)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',[votingId,topic,startAddTime,endAddTime,startVoteTime,endVoteTime,startAddStamp,endAddStamp,startVoteStamp,endVoteStamp,image,'開放報名中',address],function(err,rows){
             if(err){
                 res.render('error',{
                     message:err.message,
@@ -79,7 +80,7 @@ router.post('/',function(req,res){
             }else{
                 console.log('Submit Success')
                 res.render('admin/submit_redirect',{
-                    hash:'https://rinkeby.etherscan.io/tx/'+hash
+                    //hash:'https://rinkeby.etherscan.io/tx/'+hash
                 });
             }
         })

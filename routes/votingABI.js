@@ -186,6 +186,32 @@ var votingABI = [
                 "type": "uint256"
             }
         ],
+        "name": "_airdroplist",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "name": "_buyHistory",
         "outputs": [
             {
@@ -258,6 +284,11 @@ var votingABI = [
                 "internalType": "uint256",
                 "name": "votes",
                 "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "airdropTotal",
+                "type": "uint256"
             }
         ],
         "payable": false,
@@ -279,6 +310,11 @@ var votingABI = [
                 "internalType": "string",
                 "name": "topic",
                 "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "creator",
+                "type": "address"
             },
             {
                 "internalType": "uint256",
@@ -309,6 +345,16 @@ var votingABI = [
                 "internalType": "uint256",
                 "name": "totalParticipant",
                 "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "airdropPerWorks",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isAirdropped",
+                "type": "bool"
             }
         ],
         "payable": false,
@@ -361,6 +407,26 @@ var votingABI = [
             }
         ],
         "name": "addOwner",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_votingId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "airdropNFT",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -508,6 +574,11 @@ var votingABI = [
                 "type": "string"
             },
             {
+                "internalType": "address",
+                "name": "_creator",
+                "type": "address"
+            },
+            {
                 "internalType": "uint256",
                 "name": "_startAddTime",
                 "type": "uint256"
@@ -526,34 +597,14 @@ var votingABI = [
                 "internalType": "uint256",
                 "name": "_endVoteTime",
                 "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_airdropAmount",
+                "type": "uint256"
             }
         ],
         "name": "createVoting",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_votingId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "participantId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address payable",
-                "name": "contractowner",
-                "type": "address"
-            }
-        ],
-        "name": "deleteworks",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -909,13 +960,13 @@ var votingABI = [
             },
             {
                 "internalType": "uint256",
-                "name": "_votes",
+                "name": "timestamp",
                 "type": "uint256"
             },
             {
-                "internalType": "uint256",
-                "name": "timestamp",
-                "type": "uint256"
+                "internalType": "bool",
+                "name": "pointPaid",
+                "type": "bool"
             }
         ],
         "name": "vote",

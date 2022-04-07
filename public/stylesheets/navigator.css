@@ -22,11 +22,11 @@ body {
 }
 
 .nav-link {
-  color: black !important;
-  width: 6.25rem;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 400;
+   color: black !important;
+   width: 7.3rem;
+   text-align: center;
+   font-size: 20px;
+   font-weight: 400;
   border-bottom: transparent solid 2px;
 }
 

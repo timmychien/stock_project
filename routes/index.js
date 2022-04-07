@@ -26,6 +26,8 @@ router.get("/", function (req, res) {
            title: 'Home',
            promote_data:promote_data,
            email: req.session.email,
+           new_arrival: new_arrival,
+           activity_detail: activity_detail,
            role: req.session.role,
            walletaddress: req.session.walletaddress
          });

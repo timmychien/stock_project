@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>#{title}</title>
 </head>
+head 
 
 <body>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -59,30 +60,34 @@
   //- </div>
   // promote_data
   <div class="container" id="promote">
-    <div class="row flex-nowrap overflow-hidden">  
-      if (promote_data)
-        each data in promote_data
-          <div class="col">
-            <img src=#{data.uri} width="400" height="540">
-            <p class="badge badge-pill author-lg">@#{data.author}<p>
-            <p for="name" id="NFTname">#{data.name}</p>
-            <p for="author" id="author" class="title-lg">#{data.author}</p>
-            <p for="description" id="description">#{data.description}</p>
-          </div>
-          <div class="col">
-            <div class="image-container">
-              <img src=#{data.uri} width="285" height="400">
-              <p class="badge badge-pill author-md">@someone<p>
+    <div class="row flex-nowrap overflow-hidden">
+      //- - for (var i=0; i<4; i++)
+      if(promote_data)
+        each val, index in promote_data
+          if (!index)
+            <div class="col">
+              <img src=#{val.uri} width="400" height="540">
+              <p class="badge badge-pill author-lg">#{val.author}<p>
+              <p for="name" id="NFTname">#{val.name}</p>
+              <p for="author" id="author" class="title-lg">#{val.title}</p>
+              <p for="description" id="description">img_description</p>
             </div>
-            <p for="name" id="NFTname"></p>
-            <p for="author" id="author" class="title-lg">#{data.author}</p>
-            <p for="description" id="description">#{data.description}</p>
-          </div>
+          else
+            <div class="col">
+              <div class="image-container">
+                <img src=#{val.uri} width="285" height="400">
+                <p class="badge badge-pill author-md">#{val.author}<p>
+              </div>
+              <p for="name" id="NFTname">#{val.name}</p>
+              <p for="author" id="author" class="title-lg">#{val.title}</p>
+              <p for="description" id="description">img_description</p>
+            </div>
     </div>
     <div class="row">
         <a class="ml-auto more" href="/activity">查看更多  <i class='fas fa-chevron-right'></i></a>   
     </div>
   </div>
+
   // activity detail carousel
   <div class="container">
     <h5 class="text-center mb-5">活動詳情</h5>
@@ -137,8 +142,7 @@
   <div class="container">
     <h5 class="text-center mb-5">最新上架</h5>
     <div class="row">
-      <a class="ml-auto m-3" href="/activity">查看更多  <i class='fas fa-chevron-right'></i></a>
-      // href 要改到 explore
+      <a class="ml-auto m-3" href="/explore">查看更多  <i class='fas fa-chevron-right'></i></a>
     </div>
     <div class="row">
       <div id="new-arrival-carousel" class="carousel slide w-100" data-ride="carousel">

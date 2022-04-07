@@ -113,13 +113,14 @@
                     <div class="col-5">
                       <label for="collection">商品集*</label><br>
                       // using dropdown?
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>選擇商品集</option>
-                        <option value="1">Collection 1</option>
-                        <option value="2">Collection 2</option>
-                        <option value="3">Collection 3</option>
-                        <option value="4"><a href="/addCollection">新增商品集</a></option>
-                      </select><br>
+                      each val in collections
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected>選擇商品集</option>
+                          <option value=#{val.name}>#{val.name}</option>
+                          //<option value="2">Collection 2</option>
+                          //<option value="3">Collection 3</option>
+                          <option value="4"><a href="/addCollection">新增商品集</a></option>
+                        </select><br>
                       <br>
                       <input class="textfield" type="text" id="name" name="name" placeholder="作品名稱*"><br>
                       <input class="textfield" type="text" id="symbol" name="symbol" placeholder="作品代號*"><br>
@@ -200,12 +201,12 @@
               <div class="col-4 explore-card">
                 <div>
                   <a href="explore_detail"><img src=#{val.uri} width="285" height="285"></a>
-                  <p class="badge badge-pill creator">#{val.creater}<p>
+                  <p class="badge badge-pill creator">#{val.vendorname}<p>
                 </div>
-                <p for="" id="" class="description">#{val.collection}</p>
+                <p for="" id="" class="description">#{val.description}</p>
                 <div class="row">
-                  <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.title}</div>
-                  <div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
+                  <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.name}</div>
+                  //<div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
                 </div>
               </div>
         </div>

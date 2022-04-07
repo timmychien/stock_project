@@ -3,19 +3,37 @@ var router = express.Router();
 require('dotenv').config();
 /* GET home page. */
 router.get('/', function (req, res) {
+    var pool=req.connection;
     if (!req.session.email) {
         res.redirect('/login');
     }
     if (req.session.isverified == 0) {
         console.log('need verify')
-        res.redirect('/verify');
+        res.redirect('/emailverify');
     }
-    res.render('personal/workupload', {
-        title: '作品上傳',
-        email: req.session.email,
-        role: req.session.role,
-    });
-
+    else{
+        var vendor = req.session.walletaddress;
+        pool.getConnection(function (err, connection) {
+            connection.query('SELECT * FROM collectionlist WHERE vendor=?', [vendor], function (err, rows) {
+                if (err) {
+                    console.log(err)
+                }
+                else{
+                    var collections=rows
+                    res.render('personal/workupload', {
+                        title: '我的商品集',
+                        email: req.session.email,
+                        role: req.session.role,
+                        collections:collections
+                    })
+                }
+                
+            });
+            connection.release();
+        })
+        
+    }
+    
 });
 router.post('/',function(req,res){
     //res.send(req.file)

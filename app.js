@@ -13,7 +13,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signRouter = require('./routes/sign/sign');
 var emailVerifyRouter =require('./routes/sign/emailverify');
-var forgetpwRouter=require('./routes/forgetpw');
+var forgetpwRouter=require('./routes/forgetpw/forgetpw');
+var resetpwRouter = require('./routes/forgetpw/resetpw');
 var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
@@ -89,7 +90,7 @@ setInterval(function(){
         } else {
           for(var i=0;i<rows_1.length;i++){
             if(now>=rows_1[i].startVotestamp){
-              connection.query('UPDATE  voting SET status=? where votingId=?',['投票進行中',rows_1[i].votingId], function (err, rows_2) {
+              connection.query('UPDATE voting SET status=? where votingId=?',['投票進行中',rows_1[i].votingId], function (err, rows_2) {
                 if (err) {
                   console.log(err)
                   //return;
@@ -129,6 +130,7 @@ app.use('/users', usersRouter);
 app.use('/sign',signRouter);
 app.use('/emailverify',emailVerifyRouter);
 app.use('/forgetpw',forgetpwRouter);
+app.use('/resetpw',resetpwRouter);
 app.use('/forgetpk',forgetpkRouter);
 app.use('/login',loginRouter);
 app.use('/logout',logoutRouter);

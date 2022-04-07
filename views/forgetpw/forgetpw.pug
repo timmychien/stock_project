@@ -11,31 +11,30 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   
   // navbar
-  include ./navigator.pug
+  include ../navigator.pug
 
   // body
   <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3">
-          <label for='title'>登入</label>
+          <label for='title'>忘記密碼</label>
         </div>
         <div class="col-md-5">
           <form action="" method="post">
+            <h2>請輸入您的信箱:</h2>
             <input class="textfield" type="text" id="email" name="email" placeholder="信箱"><br/>
             <span class="warn">#{warn1}</span>
             <br>
-            <input class="textfield" type="password" id="userpass" name="userpass" placeholder="密碼"><br/>
-            <span class="warn">#{warn2}</span>
-            <br>
-            <input class="btnAuthen" type="submit" id="login" value="登入">
+            <input class="btnAuthen" type="submit" id="login" value="確定">
             <p>還沒有帳號？<a id="sign" href="/sign">註冊</a></p>
-            <a href="forgetpw">忘記密碼?</a>
+            <a href="/forgetpw">忘記密碼？</a>
           </form>
         </div>
     </div>
   </div>
+
   // footbar
-  include ./footbar.pug
+  include ../footbar.pug
 
   <script src="/javascripts/login.js"></script>
 </body>

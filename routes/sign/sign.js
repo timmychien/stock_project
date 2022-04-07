@@ -55,7 +55,7 @@ router.post('/',function(req,res){
                             }
                         });
                         var mailOptions = {
-                            from: process.env.EMAIL,
+                            from: 'nftplatform<process.env.EMAIL>',
                             to: email,
                             subject: '帳號驗證碼',
                             text: '驗證碼為:' + code.toString()

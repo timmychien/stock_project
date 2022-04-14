@@ -24,6 +24,7 @@ $("#imageupload").on("change", function () {
             //let link = "<a href='https://gateway.ipfs.io/ipfs/" + result[0].hash>'</a>;
             let ipfsLink = "https://gateway.ipfs.io/ipfs/" + result[0].hash;
             //document.getElementById("link").innerHTML = link
+            console.log(ipfsLink)
             $('#ipfsuri').val(ipfsLink);
 
         })

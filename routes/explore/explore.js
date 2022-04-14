@@ -11,6 +11,10 @@ var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
 var collectionabi=require('../collectionABI');
 var collectionabi=collectionabi.collectionABI;
+var pointabi = require('../pointABI');
+var pointabi = pointabi.pointABI;
+var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
+var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
 const customCommon = Common.forCustomChain('mainnet', {
     name: 'nft',
     chainId: 13144,
@@ -18,6 +22,7 @@ const customCommon = Common.forCustomChain('mainnet', {
 
 }, 'petersburg')
 router.get('/',function(req,res){
+    var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
     var pool=req.connection;
     var works=new Array();
     var user=req.session.walletaddress;
@@ -35,12 +40,13 @@ router.get('/',function(req,res){
                     var isonsell = vendorcontract.isOnSell.call(rows[i].contract,id).toString();
                     if(owner!=user&&isonsell=='true'){
                         var uri=contract.tokenURI(id);
-                        works.push([uri,rows[i].contract,id]);
+                        works.push([uri,rows[i].name,rows[i].vendorname,rows[i].contract,id]);
                     }
                 }
             }
             res.render('explore/explore', {
                 email: req.session.email,
+                bal:bal,
                 role: req.session.role,
                 works: works
             })
@@ -49,7 +55,7 @@ router.get('/',function(req,res){
     })
     
 })
-router.post('/',function(req,res){
+/*router.post('/',function(req,res){
     var tokenaddress=req.body['contractaddress'];
     var tokenid=req.body['tokenid'];
     var buyer = req.session.walletaddress;
@@ -76,5 +82,5 @@ router.post('/',function(req,res){
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
     res.render('explore/buy_redirect');
-})
+})*/
 module.exports=router;

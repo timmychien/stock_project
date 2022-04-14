@@ -1,18 +1,78 @@
 var express = require('express');
 var router = express.Router();
+var Tx = require('ethereumjs-tx').Transaction;
+var Web3 = require('web3');
+const web3 = new Web3();
+var Common = require('ethereumjs-common').default;
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+var pointabi = require('../pointABI');
+var pointabi = pointabi.pointABI;
+var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
+var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
+var vendorAddress = "0xd0bbD01cd1e0580dA43031D99f0864c087040C2E";
+var vendorabi = require('../vendorABI');
+var vendorabi = vendorabi.vendorABI;
+var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
+var collectionabi = require('../collectionABI');
+var collectionabi = collectionabi.collectionABI;
+const customCommon = Common.forCustomChain('mainnet', {
+    name: 'nft',
+    chainId: 13144,
+    networkId: 13144
 
+}, 'petersburg')
 /* GET home page. */
-router.get("/", function (req, res) {
-    // workaround in local
-    res.render("explore/explore_detail", {
-        title: "nft_detail",
-        email: req.session.email
-    });
+router.get("/:contractaddress/:tokenid", function (req, res) {
+    var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
+    var pool=req.connection;
+    var contractaddress=req.params.contractaddress;
+    var tokenid=req.params.tokenid;
+    var contract=web3.eth.contract(collectionabi).at(contractaddress);
+    //var creator=contract.author.call();
+    var owner = contract.ownerOf.call(tokenid);
+    //var isonsell = vendorcontract.isOnSell.call(contractaddress, id).toString();
+    var uri = contract.tokenURI(tokenid);
+    pool.getConnection(function(err,connection){
+        connection.query('SELECT * FROM collectionlist WHERE contract=?',[contractaddress],function(err,rows){
+            if(err){
+                console.log(err)
+            }else{
+                var name=rows[0].name;
+                var symbol=rows[0].symbol;
+                var creator=rows[0].vendorname;
+                connection.query('SELECT * FROM member_info WHERE address=?',[owner],function(err,rows){
+                    if(err){
+                        console.log(err)
+                    }else{
+                        var ownername=rows[0].Name;
+                        res.render("explore/explore_detail", {
+                            title: "nft_detail",
+                            bal:bal,
+                            email: req.session.email,
+                            name:name,
+                            symbol:symbol,
+                            creator:creator,
+                            uri:uri,
+                            tokenid:tokenid,
+                            contractaddress:contractaddress,
+                            owner:ownername
+                        });
+                    }
+                })
+            }
+        })
+    })
+    //works.push([uri, rows[i].name, rows[i].vendorname, rows[i].contract, id]);
+    
 });
 
-router.post('/', function (req, res) {
-    var tokenaddress = req.body['contractaddress'];
-    var tokenid = req.body['tokenid'];
+router.post('/:contractaddress/:tokenid', function (req, res) {
+    //var tokenaddress = req.params.contractaddress;
+    //var tokenid = req.params.tokenid;
+    var tokenaddress=req.body['address'];
+    var tokenid=req.body['id'];
+    console.log(tokenaddress)
+    console.log(tokenid)
     var buyer = req.session.walletaddress;
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');

@@ -12,33 +12,28 @@
   
   // navigator
   include ../navigator.pug
-
-
   <h5 class="text-center my-5">NFT詳情</h5>
   <div class="container">
     <div class="row">
-        <div class="col">
-            <img src="https://dummyimage.com/1000x1000/8b9091/fff" class="img-fluid">
-        </div>
-        <div class="col">
-            <form action="" method="post">
-                <span class="badge badge-pill creator">持有者 someone</span>
-                <span class="badge badge-pill creator">創作者 someone</span>
-                <div>Monster</div>
-                <div>Monster #1</div>
-                <div>2 points</div>
-                <div>Detail Detail Detail Detail Detail Detail</div>
-                <input type="submit">
-            </form>
-        </div>
+      <div class="col">
+        <img src=#{uri} class="img-fluid">
+      </div>
+      <div class="col">
+        <form action="" method="post">
+          <span class="badge badge-pill creator">持有者 #{owner}</span>
+          <span class="badge badge-pill creator">創作者 #{creator}</span>
+          <div>#{name}</div>
+          <div>#{tokenid}</div>
+          <div>2 points</div>
+          <input type="submit" value="購買">
+          <input type="hidden" name="address" value=#{contractaddress}>
+          <input type="hidden" name="id" value=#{tokenid}>
+        </form>
+      </div>
     </div>
   </div>
-
-
   // footbar
-  include ../footbar.pug
-
-<script src="/javascripts/vendorabi.js"></script>
+include ../footbar.pug
 <script src="/javascripts/explore/explore_detail.js"></script>
 </body>
 </html>

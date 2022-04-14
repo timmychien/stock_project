@@ -54,16 +54,17 @@
               <div class="modal-body">
                 <form class="row" action="" method="post">
                   <div id="container-upload" class="col-6 text-center">
-                    <img src="" id="preview" width="300"height="300">
+                    //<img src="" id="preview" width="300"height="300">
                     <input type="file" id="imageupload" name="image" style="display:none;" onchange=previewFile()><br>
                     <i class="bi bi-upload" style="font-size: 5rem;"></i>
                     // todo: 有preview的時候上傳圖片不能位移
                     <label for="imageupload">上傳圖片</label>
                     <p>格式限制：jpg、gif、png</p>
                   </div>
-                  <input type="hidden" id="ipfsuri" name="ipfsuri" readonly>
+                  //<input type="hidden" id="ipfsuri" name="ipfsuri" readonly>
                   <div class="col-1"></div>
                   <div class="col-5">
+                    <input class="textfiled" type="text" id="ipfsuri" name="ipfsuri">
                     <input class="textfield" type="text" id="name" name="name" placeholder=#{title} disabled><br>
                     <span>#{warn}</span>
                     <input class="textfield" type="text" id="name" for="price" name="name" placeholder="價格        2" disabled><br>
@@ -95,7 +96,7 @@
   // footbar
   include ../footbar.pug
 
-<script src="/javascripts/vendorabi.js"></script>
-<script src="/javascripts/vendor/collection_detail.js"></script>
+//<script src="/javascripts/vendorabi.js"></script>
+//<script src="/javascripts/vendor/collection_detail.js"></script>
 </body>
 </html>

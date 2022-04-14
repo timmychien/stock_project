@@ -1,6 +1,13 @@
 var express = require("express");
 var router = express.Router();
-
+var Web3 = require('web3');
+const web3 = new Web3();
+var Common = require('ethereumjs-common').default;
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+var pointabi = require('./pointABI');
+var pointabi = pointabi.pointABI;
+var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
+var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
 /* GET home page. */
 router.get("/", function (req, res) {
   // workaround in local
@@ -21,9 +28,13 @@ router.get("/", function (req, res) {
            error: err
         })
        }else{
+         if(req.session.email){
+          var bal=pointcontract.balanceOf(req.session.walletaddress).toNumber();
+         }
          var promote_data=rows;
          res.render('index', {
            title: 'Home',
+           bal:bal,
            promote_data:promote_data,
            email: req.session.email,
            new_arrival: new_arrival,

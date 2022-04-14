@@ -35,6 +35,7 @@ var openactivityRouter = require('./routes/activity/activity_open');
 var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //explore
 var exploreRouter =require('./routes/explore/explore');
+var exploreDetailRouter = require("./routes/explore/explore_detail");
 //resell
 var resellRouter=require('./routes/resell/resell');
 //works
@@ -56,6 +57,8 @@ var applyforvendorRouter=require('./routes/apply/applyforvendor');
 var addCollectionRouter=require('./routes/vendor/addCollection');
 var workListingRouter=require('./routes/vendor/workListing');
 var vendorCollectionRouter=require('./routes/vendor/vendorCollection');
+var gooduploadRouter = require("./routes/vendor/goodupload");
+var collectionDetailRouter = require("./routes/vendor/collection_detail");
 var app = express();
 require('dotenv').config();
 var pool = mysql.createPool({
@@ -102,9 +105,9 @@ setInterval(function(){
             }
           }
         }
-      })
+      });
       connection.release();
-    })
+    });
   }
 },30000)
 
@@ -148,6 +151,7 @@ app.use('/activity_open',openactivityRouter);
 app.use('/activity_onvote', onvoteactivityRouter);
 //explore
 app.use('/explore',exploreRouter);
+app.use("/explore_detail", exploreDetailRouter);
 //resell
 app.use('/resell',resellRouter);
 //works
@@ -173,6 +177,8 @@ app.use('/applyforvendor',applyforvendorRouter);
 app.use('/addCollection',addCollectionRouter);
 app.use('/workListing',workListingRouter);
 app.use('/vendorCollection',vendorCollectionRouter);
+app.use("/goodupload", gooduploadRouter);
+app.use("/collection_detail", collectionDetailRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

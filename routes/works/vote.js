@@ -17,15 +17,15 @@ const customCommon = Common.forCustomChain('mainnet', {
 }, 'petersburg')
 router.get('/:votingId/:participantId', function (req, res) {
     var pool = req.connection;
-    var votingId=req.params.votingId;
-    var participantId=req.params.participantId;
+    var votingId = req.params.votingId;
+    var participantId = req.params.participantId;
     pool.getConnection(function (err, connection) {
         connection.query('SELECT * FROM voting WHERE votingId=?', [votingId], function (err, rows) {
             var topic = rows[0].topic;
             connection.query('SELECT * FROM art_works WHERE votingId=? AND participantId=?', [votingId, participantId], function (err, rows) {
                 var data = rows;
                 res.render('works/vote', {
-                    topic:topic,
+                    topic: topic,
                     data: data,
                     email: req.session.email,
                     role: req.session.role
@@ -35,15 +35,15 @@ router.get('/:votingId/:participantId', function (req, res) {
         connection.release();
     })
 });
-router.post('/:votingId/:participantId', function (req, res){
+router.post('/:votingId/:participantId', function (req, res) {
     var votingId = req.params.votingId;
     var participantId = req.params.participantId;
     //var address = process.env.PLATFORM_ADDR;
-    var address=req.session.walletaddress;
+    var address = req.session.walletaddress;
     var voter = req.session.walletaddress;
     //var privkey = Buffer.from(process.env.PRIV_KEY, 'hex');
     var privkey = Buffer.from(req.session.pk, 'hex');
-    var pool=req.connection;
+    var pool = req.connection;
     pool.getConnection(function (err, connection) {
         connection.query('SELECT votecount FROM member_info WHERE address=?', [voter], function (err, rows) {
             if (err) {
@@ -59,7 +59,7 @@ router.post('/:votingId/:participantId', function (req, res){
                 })
                 console.log('votecount', votecount)
             }
-            else{
+            else {
                 var timestamp = parseInt(Date.now() / 1000);
                 var data = contract.vote.getData(votingId, participantId, voter, 1, timestamp);
                 var count = web3.eth.getTransactionCount(address);
@@ -84,7 +84,7 @@ router.post('/:votingId/:participantId', function (req, res){
                     hash: hash
                 })
             }
-    })
+        })
     })
 })
 module.exports = router;

@@ -7,35 +7,133 @@
 <title>探索</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/explore/explore.css">
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+  // navigator
   include ../navigator.pug
-  <br>
-  <h1>探索</h1>
-  <div class="overview">
-    <br>
-    if (works)
-      each work in works
-        <br>
-        <br>
-        <div class=info>
-          <div class="container">
-            <form action="" method="post">
-                <img src=#{work[0]} width="400"height="240">
-                <label for="address">作品地址:</label>
-                <dd>#{work[1]}</dd>
-                <label for="id">作品ID:</label>
-                <dd>#{work[2]}</dd>
-                <label for="price">價格</label>
-                <dd>$2</dd>
-                <input type="hidden" name="contractaddress" id="contractaddress"value=#{work[1]} readonly>
-                <input type="hidden" name="tokenid" id="tokenid" value=#{work[2]} readonly>
-                <input type="submit" id="buy" value="購買">
-            </form>
+
+  // body-title
+  <div class="container-title">
+    <div class="row">
+      <h3 class="col-auto mr-auto">探索總覽</h3>
+      // sort by dropdown
+      <div class="col-auto">
+        <select class="selectpicker">
+          <option value="1" selected>最新</option>
+          <option value="2">價格：由高至低</option>
+          <option value="3">價格：由低至高</option>
+          <option value="4">最舊</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  // body-card
+  <div class="container-card">
+    <div class="row">
+      <div class="col-3">
+        <div id="accordionFilter" class="mb-3">
+          // filter
+          <div class="card">
+            <div class="card-header row" id="heading" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapse">
+              
+              <div class="col-auto mr-auto">篩選</div>
+              <div class="col-auto pr-0">〉</div>
+                
+            </div>
+
+            <div id="collapseFilter" class="collapse show" aria-labelledby="heading" data-parent="#accordionFilter">
+              <div class="card-body">
+                // search box
+                <div class="input-group align-items-center mb-3">
+                  <i class="fas fa-search"></i>
+                  <input type="search" id="form1" class="form-control" placeholder="搜尋作品或Collection名稱"/>
+                </div>
+                // radio
+                <div class="container-radio overflow-auto">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">Monster(13)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">CryptoPenguins(20)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">PandaMultiverse(15)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">LuckyCat(15)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">Monster(13)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">CryptoPenguins(20)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">PandaMultiverse(15)</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">LuckyCat(15)</label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+
+        <div id="accordionPrice">
+          // price filter
+          <div class="card">
+            <div class="card-header row" id="heading" data-toggle="collapse" data-target="#collapsePrice" aria-expanded="true" aria-controls="collapse">
+              <div class="col-auto mr-auto">價格</div>
+              <div class="col-auto pr-0">〉</div>
+          </div>
+            <div id="collapsePrice" class="collapse show" aria-labelledby="heading" data-parent="#accordionPrice">
+                // mix and max price
+                <div class="card-body">
+                  <div class="input-group align-items-center">
+                    <input type="text" id="min-price" class="form-control" placeholder="最小值"/>
+                    <div class="mx-3">至</div>
+                    <input type="text" id="max-price" class="form-control" placeholder="最大值"/>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          if (explore)
+            each val in explore
+              <div class="col-4 explore-card">
+                <div>
+                  <a href="explore_detail"><img src=#{val.uri} width="285" height="285"></a>
+                  <p class="badge badge-pill creator">#{val.creater}<p>
+                </div>
+                <p for="" id="" class="description">#{val.collection}</p>
+                <div class="row">
+                  <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.title}</div>
+                  <div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
   </div>
-<script src="/javascripts/vendorabi.js"></script>
+
+  // footbar
+  include ../footbar.pug
 <script src="/javascripts/explore/explore.js"></script>
 </body>
 </html>

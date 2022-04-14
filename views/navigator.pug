@@ -35,7 +35,6 @@
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown"role="button" aria-haspopup="true"aria-expanded="false">管理者<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="nav-item"><a class="nav-link" href="/createvote">創建活動</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/airdropNFT">活動空投</a></li>
                             <li class="nav-item"><a class="nav-link" href="/workconfig">作品管理</a></li>
                             <li class="nav-item"><a class="nav-link" href="/promote">推廣作品</a></li>
                             <li class="nav-item"><a class="nav-link" href="/auditvendor">商家審核</a></li>
@@ -43,12 +42,10 @@
                     </li>
 
                 // vendor only
-                if(role=='vendor')
+                //if(role=='vendor')
                     <li class="dropdown">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown"role="button" aria-haspopup="true"aria-expanded="false">商家<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link" href="/createvote">創建活動</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/airdropNFT">活動空投</a></li>
                             <li class="nav-item"><a class="nav-link" href="/addCollection">新增商品集</a></li>
                             <li class="nav-item"><a class="nav-link" href="/workListing">商品上架</a></li>
                         </ul>
@@ -62,11 +59,10 @@
                 //-     </ul>
                 //- </li>
                 // general
-                <li class="nav-item"><a class="nav-link" href="/activity">活動</a></li>
-                <li class="nav-item"><a class="nav-link" href="/overview_vote">投票</a></li>
-                <li class="nav-item"><a class="nav-link" href="/explore">探索</a></li>
+                <li class="nav-item"><a class="nav-link" href="/activity">活動</a><li>
+                <li class="nav-item"><a class="nav-link" href="/overview_vote">投票</a><li>
+                <li class="nav-item"><a class="nav-link" href="/explore">探索</a><li>
                 <li class="nav-item"><a class="nav-link" href="/resell">販售</a></li>
-
                 //- <li class="dropdown">
                 //-     <a class="dropdown-toggle nav-item nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false">作品<span class="caret"></span></a>
                 //-     <ul class="dropdown-menu">
@@ -79,10 +75,10 @@
 
             // right side
             <ul class="navbar-nav">
-                 if(!email)
+                if(!email)
                     <li class="nav-item"><a class="nav-link" href="/login">登入/註冊</a><li>
-                 else
-                    <li class="nav-item mr-4">
+                else
+                    <li class="nav-item mr-4">  
                         <div class="pointContainer">
                             // get point by abi
                             <div>50</div>
@@ -97,19 +93,31 @@
                             <i class="fas fa-user fa-lg"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg-right">
-                            <li><a class="dropdown-item" href="/myinfo">個人資料</a></li>
                             <li><a class="dropdown-item" href="/workupload">作品上傳</a></li>
                             <li><a class="dropdown-item" href="/mywork">我的作品</a></li>
                             <li><a class="dropdown-item" href="/myregistration">我的報名</a></li>
-                            <li><a class="dropdown-item" href="/mycollection">我的收藏</a></li>
-                            <li><a class="dropdown-item" href="/exchangetoken">兌換代幣</a></li>
+                            <li><a class="dropdown-item" href="/mycollection">個人收藏</a></li>
+                            <li><a class="dropdown-item" href="/goodupload">商品上架</a></li>
+                            <li><a class="dropdown-item" href="/exchangetoken">個人錢包</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/applyforvendor">升級成為會員</a></li>
+                            <li><a class="dropdown-item" href="/myinfo">帳號設定</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">登出</a><li>
+                            <li><a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">登出</a></li>
                         </ul>
                     </li>
             </ul>
+        </div>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" id="logoutModal-conten">
+                    <div class="modal-body" id="logoutModal-body">
+                        <div class="modal-text mb-3" id="logoutModal-text">是否確定登出？</div>
+                        <a class="btn btn-check" href="/logout" role="button">確認</a>
+                        <button type="button" class="btn" data-dismiss="modal" id="logout-cancel">取消</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 

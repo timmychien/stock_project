@@ -229,152 +229,28 @@ var collectionABI = [
         "name": "MetaData",
         "outputs": [
             {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "tokenId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "property1",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "property2",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "property3",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "property4",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "property5",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct ERC721Metadata.metadata",
+                "internalType": "uint256",
                 "name": "",
-                "type": "tuple"
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "player",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "tokenURI",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property1",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property2",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property3",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property4",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property5",
-                "type": "string"
-            }
-        ],
-        "name": "MintWithProperty",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "player",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "tokenURI",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "property1",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property2",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property3",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property4",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property5",
-                "type": "string"
-            }
-        ],
-        "name": "MintWithPropertyAndTokenID",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -570,6 +446,21 @@ var collectionABI = [
     {
         "constant": true,
         "inputs": [],
+        "name": "isOperator",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
         "name": "isOwner",
         "outputs": [
             {
@@ -707,6 +598,26 @@ var collectionABI = [
         "constant": false,
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "newPrice",
+                "type": "uint256"
+            }
+        ],
+        "name": "resetPrice",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "from",
                 "type": "address"
@@ -788,28 +699,18 @@ var collectionABI = [
             },
             {
                 "internalType": "string",
-                "name": "property1",
+                "name": "name",
                 "type": "string"
             },
             {
                 "internalType": "string",
-                "name": "property2",
+                "name": "description",
                 "type": "string"
             },
             {
-                "internalType": "string",
-                "name": "property3",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property4",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "property5",
-                "type": "string"
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
             }
         ],
         "name": "setMetaData",

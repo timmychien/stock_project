@@ -4,36 +4,6 @@ var vendorABI = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "nftaddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "author",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "tokenURI",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "batchMint",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "buyer",
 				"type": "address"
 			},
@@ -193,6 +163,11 @@ var vendorABI = [
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newPrice",
+				"type": "uint256"
 			}
 		],
 		"name": "relist",
@@ -218,6 +193,21 @@ var vendorABI = [
 				"internalType": "string",
 				"name": "tokenURI",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
 			}
 		],
 		"name": "singleMint",

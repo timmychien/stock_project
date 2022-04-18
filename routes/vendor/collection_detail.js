@@ -55,11 +55,14 @@ router.get("/:title/:contractaddress", function (req, res) {
 router.post("/:title/:contractaddress", function (req, res) {
     var tokenaddress = req.params.contractaddress;
     var ipfsuri=req.body['ipfsuri'];
+    var name=req.body['name'];
+    var description=req.body['description'];
+    var price=req.body['price'];
     console.log(ipfsuri);
     var vendor = req.session.walletaddress;
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, "hex");
-    var data = vendorcontract.singleMint.getData(tokenaddress,vendor,ipfsuri);
+    var data = vendorcontract.singleMint.getData(tokenaddress,vendor,ipfsuri,name,description,price);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = web3.eth.gasPrice.toNumber() * 2;
     var gasLimit = 3000000;
@@ -83,25 +86,3 @@ router.post("/:title/:contractaddress", function (req, res) {
 });
 
 module.exports = router;
-/*var goods = [
-    {
-        uri: "https://dummyimage.com/350x350/8b9091/fff",
-        collection: "DouJiang",
-        title: "yummy",
-    },
-    {
-        uri: "https://dummyimage.com/350x350/8b9091/fff",
-        collection: "Y-find",
-        title: "Manouria emys",
-    },
-    {
-        uri: "https://dummyimage.com/350x350/8b9091/fff",
-        collection: "Alpha",
-        title: "Lasiodora parahybana",
-    },
-    {
-        uri: "https://dummyimage.com/350x350/8b9091/fff",
-        collection: "Biodex",
-        title: "Crocodylus niloticus",
-    },
-];*/

@@ -103,9 +103,10 @@ router.get('/:address/:id',function(req,res){
 router.post('/:address/:id',function(req,res){
     var nftaddress=req.params.address;
     var tokenId=req.params.id;
+    var newPrice=req.body['newPrice'];
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');
-    var data = vendorcontract.relist.getData(nftaddress,tokenId,address);
+    var data = vendorcontract.relist.getData(nftaddress,tokenId,address,newPrice);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = 0;
     var gasLimit = 3000000;

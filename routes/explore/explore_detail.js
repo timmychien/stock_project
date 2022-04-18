@@ -33,36 +33,31 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
     //var isonsell = vendorcontract.isOnSell.call(contractaddress, id).toString();
     var uri = contract.tokenURI(tokenid);
     pool.getConnection(function(err,connection){
-        connection.query('SELECT * FROM collectionlist WHERE contract=?',[contractaddress],function(err,rows){
+        var metadata=contract.Metadata.call(tokenId);
+        var name=metadata[1];
+        var description=metadata[2];
+        var price=metadata[3].toNumber();
+        connection.query('SELECT * FROM member_info WHERE address=?',[owner],function(err,rows){
             if(err){
                 console.log(err)
             }else{
-                var name=rows[0].name;
-                var symbol=rows[0].symbol;
-                var creator=rows[0].vendorname;
-                connection.query('SELECT * FROM member_info WHERE address=?',[owner],function(err,rows){
-                    if(err){
-                        console.log(err)
-                    }else{
-                        var ownername=rows[0].Name;
-                        res.render("explore/explore_detail", {
-                            title: "nft_detail",
-                            bal:bal,
-                            email: req.session.email,
-                            name:name,
-                            symbol:symbol,
-                            creator:creator,
-                            uri:uri,
-                            tokenid:tokenid,
-                            contractaddress:contractaddress,
-                            owner:ownername
-                        });
-                    }
-                })
+                var ownername=rows[0].Name;
+                res.render("explore/explore_detail", {
+                    title: "nft_detail",
+                    bal: bal,
+                    email: req.session.email,
+                    name: name,
+                    description:description,
+                    price:price,
+                    creator: creator,
+                    uri: uri,
+                    tokenid: tokenid,
+                    contractaddress: contractaddress,
+                    owner: ownername
+                });
             }
         })
     })
-    //works.push([uri, rows[i].name, rows[i].vendorname, rows[i].contract, id]);
     
 });
 

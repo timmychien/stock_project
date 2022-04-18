@@ -5,7 +5,7 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var vendorAddress = "0xd0bbD01cd1e0580dA43031D99f0864c087040C2E";
+var vendorAddress = "0x7fDd60Cb32A4Db94EFfFe1611c588695f6e9E65b";
 var abi = require('../collectionABI');
 var abi = abi.collectionABI;
 var vendorabi = require('../vendorABI');

@@ -23,52 +23,52 @@ const customCommon = Common.forCustomChain('mainnet', {
 }, 'petersburg')
 /* GET home page. */
 router.get("/:contractaddress/:tokenid", function (req, res) {
-    if (!req.session.email) {
-        res.redirect("/login");
-    }
-    var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
-    var pool=req.connection;
-    var contractaddress=req.params.contractaddress;
-    var tokenid=req.params.tokenid;
-    var contract=web3.eth.contract(collectionabi).at(contractaddress);
-    //var creator=contract.author.call();
-    var owner = contract.ownerOf.call(tokenid);
+    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
+    var pool = req.connection;
+    var contractaddress = req.params.contractaddress;
+    var tokenId = req.params.tokenid;
+    var contract = web3.eth.contract(collectionabi).at(contractaddress);
+    var creator=contract.author.call();
+    var owner = contract.ownerOf.call(tokenId);
     //var isonsell = vendorcontract.isOnSell.call(contractaddress, id).toString();
-    var uri = contract.tokenURI(tokenid);
-    pool.getConnection(function(err,connection){
-        var metadata=contract.Metadata.call(tokenId);
-        var name=metadata[1];
-        var description=metadata[2];
-        var price=metadata[3].toNumber();
-        connection.query('SELECT * FROM member_info WHERE address=?',[owner],function(err,rows){
-            if(err){
+    var uri = contract.tokenURI(tokenId);
+    pool.getConnection(function (err, connection) {
+        var metadata = contract.MetaData.call(tokenId);
+        var name = metadata[1];
+        var description = metadata[2];
+        var price = metadata[3];
+        connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
+            if (err) {
                 console.log(err)
-            }else{
-                var ownername=rows[0].Name;
-                res.render("explore/explore_detail", {
-                    title: "nft_detail",
-                    bal: bal,
-                    email: req.session.email,
-                    name: name,
-                    description:description,
-                    price:price,
-                    creator: creator,
-                    uri: uri,
-                    tokenid: tokenid,
-                    contractaddress: contractaddress,
-                    owner: ownername
-                });
+            } else {
+                var ownername = rows[0].Name;
+                connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
+                    var creatorname=rows[0].Name;
+                    res.render("explore/explore_detail", {
+                        title: "nft_detail",
+                        bal: bal,
+                        email: req.session.email,
+                        name: name,
+                        description: description,
+                        price: price,
+                        creator: creatorname,
+                        uri: uri,
+                        tokenid: tokenId,
+                        contractaddress: contractaddress,
+                        owner: ownername
+                    });
+                });    
             }
         })
     })
-    
+
 });
 
 router.post('/:contractaddress/:tokenid', function (req, res) {
     //var tokenaddress = req.params.contractaddress;
     //var tokenid = req.params.tokenid;
-    var tokenaddress=req.body['address'];
-    var tokenid=req.body['id'];
+    var tokenaddress = req.body['address'];
+    var tokenid = req.body['id'];
     console.log(tokenaddress)
     console.log(tokenid)
     var buyer = req.session.walletaddress;

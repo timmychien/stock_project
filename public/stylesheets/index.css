@@ -3,60 +3,68 @@ body {
   font-family: serif;
   font-size: 28px;
 }
-.wallet_info{
+
+.wallet_info {
   position: justify;
-  font-size:20px;
-  width:500px;
+  font-size: 20px;
+  width: 500px;
   padding: 2em 2em 2em;
   margin-left: auto;
   margin-right: 3%;
   box-shadow: 0 0 1em #222;
   border-radius: 2px;
-  float:right;
+  float: right;
 }
-.wallet_info h1{
-  text-align:center;
-  font-size:30px;
+
+.wallet_info h1 {
+  text-align: center;
+  font-size: 30px;
 }
-.wallet_info h2{
-  text-align:center;
-  font-size:24px;
+
+.wallet_info h2 {
+  text-align: center;
+  font-size: 24px;
 }
-.promote_info{
-  margin-left:auto;
+
+.promote_info {
+  margin-left: auto;
   position: justify;
-  float:center;
+  float: center;
 }
-.promote_info h1{
-  margin-left:20%;
-  font-size:50px;
+
+.promote_info h1 {
+  margin-left: 20%;
+  font-size: 50px;
 }
-.container-left{
-  margin-left:20%;
-  max-width:700px;
-  float:left;
+
+.container-left {
+  margin-left: 20%;
+  max-width: 700px;
+  float: left;
   padding: 0 0 4em;
   border-top: black solid 2px;
   /*position: justify;*/
-  left:75%;
+  left: 75%;
 }
-.container-right{
-  max-width:700px;
-  height:410px;
-  font-size:28px;
-  width:200px;
-  float:left;
+
+.container-right {
+  max-width: 700px;
+  height: 410px;
+  font-size: 28px;
+  width: 200px;
+  float: left;
   padding: 0 1em 0;
   border-top: black solid 2px;
   border-right: black solid 2px;
   border-bottom: black solid 2px;
   box-shadow: 0 0 1em #222;
-  text-align:center;
+  text-align: center;
   /*position: justify;*/
-  left:75%;
+  left: 75%;
 }
-.container-right dd{
-  font-size:24px;
+
+.container-right dd {
+  font-size: 24px;
 }
 
 /* caroutel test */
@@ -72,18 +80,21 @@ body {
   transform: translateX(33.333%);
 }
 
-.carousel-inner .carousel-item-left.active, 
+.carousel-inner .carousel-item-left.active,
 .carousel-inner .carousel-item-prev {
   transform: translateX(-33.333%);
 }
 
 .carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left{ 
+.carousel-inner .carousel-item-left {
   transform: translateX(0);
 }
 
 .carousel-control-next,
-.carousel-control-prev /*, .carousel-indicators */ {
+.carousel-control-prev
+
+/*, .carousel-indicators */
+  {
   filter: invert(100%);
 }
 
@@ -146,7 +157,9 @@ h6 {
 a {
   font-weight: 300;
   color: #666666;
+  text-decoration: none;
 }
+
 a:hover {
   color: black;
   text-decoration: none;
@@ -175,6 +188,7 @@ a:hover {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 30px;
 }
+
 .author-lg {
   position: absolute;
   bottom: 100px;

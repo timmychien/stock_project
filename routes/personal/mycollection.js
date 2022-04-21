@@ -1,28 +1,26 @@
 var express = require("express");
-var router = express.Router(); var router = express.Router();
+var router = express.Router();
 
-
-/* GET home page. */		 /* GET home page. */
-router.get('/', function (req, res) {
+/* GET home page. */ /* GET home page. */
+router.get("/", function (req, res) {
     if (!req.session.email) {
-        res.redirect('/login');
+            res.redirect("/login");
     }
     if (req.session.isverified == 0) {
         if (req.session.isverified == 0) {
-            console.log('need verify')		     
-            res.redirect('/verify'); 
+            console.log("need verify");
+            res.redirect("/emailverify");
         }
     }
     res.render("personal/mycollection", {
-        title: '我的收藏品', title: "我的收藏品",
-        email: req.session.email, email: req.session.email,
-        role: req.session.role, role: req.session.role,
+        title: "我的收藏品",
+        email: req.session.email,
+        role: req.session.role,
         mycollections: mycollections,
-    }); 
-
+    });
 });
 
-module.exports = router; 
+module.exports = router;
 
 var mycollections = [
     {

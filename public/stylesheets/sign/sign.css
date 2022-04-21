@@ -3,11 +3,13 @@ body {
   font-family: serif;
   font-size: 16px;
 }
+
 .container {
   width: 100%;
   margin-top: 200px;
   margin-bottom: 200px;
 }
+
 label[for="title"] {
   margin-top: 155px;
   font-family: Noto Sans CJK TC;
@@ -18,9 +20,11 @@ label[for="title"] {
   letter-spacing: 0.15em;
   color: #000000;
 }
+
 form {
   text-align: center;
 }
+
 .textfield {
   height: 100%;
   width: 100%;
@@ -32,6 +36,7 @@ form {
   border: none;
   border-bottom: 1px solid #bab8b8;
 }
+
 .btnAuthen {
   /* button */
   width: 100%;
@@ -50,10 +55,12 @@ form {
   letter-spacing: 4.5px;
   color: #ffffff;
 }
+
 .btnAuthen:hover {
   /* grey-hover */
   background: #bab8b8 !important;
 }
+
 ::placeholder {
   text-align: left !important;
   /* Card-Exhibit-Body */
@@ -66,14 +73,21 @@ form {
   /* grey-hover */
   color: #bab8b8;
 }
+
 a {
   font-weight: 300;
   color: #666666;
 }
+
 a:hover {
   color: black;
 }
+
 p {
   font-weight: 300;
   color: #696969;
+}
+
+.warn {
+  color: red;
 }

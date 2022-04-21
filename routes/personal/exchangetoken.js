@@ -72,4 +72,4 @@ router.post("/", function (req, res) {
         res.render("personal/exchange_redirect");
     }
 });
-module.exports=router;
+module.exports = router;

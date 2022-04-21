@@ -15,7 +15,7 @@ window.onclick = function (event) {
         }
     }
 }
-
+/*
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -42,4 +42,4 @@ window.addEventListener('load', async () => {
         })
 
     })
-})
+})*/

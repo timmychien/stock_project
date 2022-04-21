@@ -9,6 +9,9 @@ var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
 router.get('/',function(req,res){
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     var voter = req.session.walletaddress;
     var votecounts = contract.getVoteCounts.call(voter).toNumber();
     var data = new Array();

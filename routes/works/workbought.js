@@ -10,6 +10,9 @@ var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
 router.get('/', function (req, res) {
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     var buyer = req.session.walletaddress;
     var buycounts = contract.getbuyCounts.call(buyer).toNumber();
     var data = new Array();
@@ -22,7 +25,10 @@ router.get('/', function (req, res) {
     console.log(data)
     res.render('works/workbought', {
         topic: '已購買作品',
-        data: data
+        data: data,
+        bal: bal,
+        email: req.session.email,
+        role: req.session.role,
     })
 })
 module.exports = router;

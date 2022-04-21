@@ -23,6 +23,9 @@ const customCommon = Common.forCustomChain('mainnet', {
 }, 'petersburg')
 /* GET home page. */
 router.get("/:contractaddress/:tokenid", function (req, res) {
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
     var pool=req.connection;
     var contractaddress=req.params.contractaddress;

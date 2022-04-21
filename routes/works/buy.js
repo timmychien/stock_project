@@ -25,6 +25,7 @@ router.get('/:votingId/:participantId', function (req, res) {
             var data=rows;
             res.render('works/buy',{
                 data:data,
+                bal:bal,
                 email:req.session.email,
                 role:req.session.role
             })

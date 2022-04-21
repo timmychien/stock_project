@@ -5,9 +5,7 @@ var router = express.Router(); var router = express.Router();
 /* GET home page. */		 /* GET home page. */
 router.get('/', function (req, res) {
     if (!req.session.email) {
-        if (!req.session.email) {
-            res.redirect('/login');
-        }
+        res.redirect('/login');
     }
     if (req.session.isverified == 0) {
         if (req.session.isverified == 0) {

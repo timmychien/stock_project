@@ -13,6 +13,7 @@ router.get('/', function (req, res) {
             res.render('works/works', {
                 data:data,
                 title: 'Works',
+                bal:bal,
                 email: req.session.email,
                 role: req.session.role,
                 walletaddress: req.session.walletaddress

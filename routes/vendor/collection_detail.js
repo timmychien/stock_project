@@ -19,6 +19,9 @@ const customCommon = Common.forCustomChain('mainnet', {
 }, 'petersburg')
 /* GET home page. */
 router.get("/:title/:contractaddress", function (req, res) {
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     // workaround in local
     var contractaddress=req.params.contractaddress;
     var title=req.params.title;

@@ -22,6 +22,9 @@ const customCommon = Common.forCustomChain('mainnet', {
 
 }, 'petersburg')
 router.get('/',function(req,res){
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
     var pool=req.connection;
     var works=new Array();

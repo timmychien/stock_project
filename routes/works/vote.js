@@ -26,6 +26,7 @@ router.get('/:votingId/:participantId', function (req, res) {
                 var data = rows;
                 res.render('works/vote', {
                     topic: topic,
+                    bal:bal,
                     data: data,
                     email: req.session.email,
                     role: req.session.role

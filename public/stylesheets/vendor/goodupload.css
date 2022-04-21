@@ -14,7 +14,8 @@ h2 {
     font-size: 40px;
 }
 
-label[for="imageupload"] {
+label[for="imageupload"],
+label[for="workimageupload"] {
     font-size: 32px;
     display: block;
     text-align: center;
@@ -161,6 +162,10 @@ input[type="text"] {
 }
 
 .modal-body-work {
+    padding: 4rem 4rem 1rem 4rem;
+}
+
+.modal-body-work {
     padding: 4rem 4rem 4rem 4rem;
 }
 
@@ -191,25 +196,6 @@ input[type="text"] {
     /* grey-hover */
     background: #bab8b8 !important;
 }
-
-
-.btn-cancel {
-    /* button */
-    width: 100%;
-    height: 48px;
-    background: white;
-    border: 1px black solid;
-    text-align: center;
-    letter-spacing: 4.5px;
-    color: black;
-}
-
-.btn-cancel:hover {
-    /* grey-hover */
-    color: #bab8b8 !important;
-    border: 1px #bab8b8 solid;
-}
-
 
 ::placeholder {
     text-align: left !important;
@@ -248,4 +234,8 @@ a {
 a:hover {
     color: black;
     text-decoration: none;
+}
+
+.explore-card {
+    margin-bottom: 2rem;
 }

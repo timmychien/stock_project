@@ -7,25 +7,31 @@
 </head>
 <body>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/sign/emailverify.css">
+  <link rel="stylesheet" href="/stylesheets/login.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   include ../navigator.pug
-  <br>
-  <br>
-  <br>
+  
+  // body
   <div class="container">
-    <form action="" method="post">
-      <span>驗證碼已寄到您的註冊信箱，請至信箱查看並輸入驗證碼</span>
-      <br>
-      <label for="emailcode">請輸入驗證碼:</label>   
-      <input type="text" name="emailcode" id="emailcode">
-      <p>#{warn}</p>
-      <br>
-      <br>
-      <input type="submit" id="login" value="確認">
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+          <label for='title'>信箱驗證</label>
+        </div>
+        <div class="col-md-5">
+          |驗證碼已寄到您的註冊信箱，請立即完成信箱驗證
+          <form action="" method="post">
+            <input class="textfield" type="text" name="emailcode" id="emailcode" placeholder="驗證碼">
+            <p class="warn">#{warn}</p>
+            <input type="submit" id="login" class="btnAuthen" value="確認">
+          </form>
+        </div>
+    </div>
   </div>
+  
+// footbar
+include ../footbar.pug
+
 <script src="/javascripts/sign/emailverify.js"></script>
 </body>
 </html>

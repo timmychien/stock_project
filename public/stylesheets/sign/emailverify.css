@@ -34,11 +34,10 @@ body {
   }
   .btnAuthen {
     /* button */
-    width: 100%;
+    width: 20%;
     height: 48px;
     background: #000000;
     border: none;
-    margin-top: 90px;
     margin-bottom: 24px;
     /* text */
     font-family: Noto Sans SC;

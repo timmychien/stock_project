@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 router.get('/',function(req,res){
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     if (req.session.role == 'vendor') {
         res.render('apply/apply_warn', {
             warn: '此帳號已升級！'

@@ -5,9 +5,13 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var vendorAddress = "0xd0bbD01cd1e0580dA43031D99f0864c087040C2E";
+var vendorAddress = "0x7fDd60Cb32A4Db94EFfFe1611c588695f6e9E65b";
 var vendorabi = require('../vendorABI');
 var vendorabi = vendorabi.vendorABI;
+var pointabi = require('../pointABI');
+var pointabi = pointabi.pointABI;
+var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
+var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
 var abi = require('../collectionABI');
 var abi = abi.collectionABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -22,6 +26,7 @@ router.get('/', function (req, res) {
     if (!req.session.email) {
         res.redirect('/login')
     }
+    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var pool=req.connection;
     var owner=req.session.walletaddress;
     //console.log(owner)
@@ -56,6 +61,7 @@ router.get('/', function (req, res) {
                     title: '我的藝術品',
                     email: req.session.email,
                     role: req.session.role,
+                    bal:bal,
                     walletaddress: req.session.walletaddress,
                     works: works
                 });
@@ -68,6 +74,13 @@ router.get('/', function (req, res) {
 router.post('/',function(req,res){
     var nftaddress=req.body['nftaddress'];
     var tokenId=req.body['tokenId'];
+    var newPrice = parseInt(req.body['newPrice']);
+    console.log(newPrice)
+    if(typeof(newPrice)!='number'){
+        res.render('resell/resell',{
+            warn:'請輸入整數數字'
+        })
+    }
     var address=req.session.walletaddress;
     var contract = web3.eth.contract(abi).at(nftaddress)
     var privkey = Buffer.from(req.session.pk, 'hex');
@@ -91,22 +104,26 @@ router.post('/',function(req,res){
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
     setTimeout(function () {
-        res.redirect('/resell/' + nftaddress + '/' + tokenId);
+        res.redirect('/resell/' + nftaddress + '/' + tokenId+'/'+newPrice);
     },5000)
    
 })
-router.get('/:address/:id',function(req,res){
+router.get('/:address/:id/:price',function(req,res){
+    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     res.render('resell/resell_redirect',{
-        email:req.session.email
+        email: req.session.email,
+        role: req.session.role,
+        bal: bal,
     })
 })
-router.post('/:address/:id',function(req,res){
+router.post('/:address/:id/:price',function(req,res){
     var nftaddress=req.params.address;
     var tokenId=req.params.id;
-    var newPrice=req.body['newPrice'];
+    //var newPrice=req.body['newPrice'];
+    var price=req.params.price;
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');
-    var data = vendorcontract.relist.getData(nftaddress,tokenId,address,newPrice);
+    var data = vendorcontract.relist.getData(nftaddress,tokenId,address,price);
     var count = web3.eth.getTransactionCount(address);
     var gasPrice = 0;
     var gasLimit = 3000000;

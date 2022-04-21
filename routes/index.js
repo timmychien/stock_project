@@ -8,18 +8,14 @@ var pointabi = require('./pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
+var collectionabi = require("./collectionABI");
+var collectionabi = collectionabi.collectionABI;
 /* GET home page. */
 router.get("/", function (req, res) {
-  // workaround in local
-  /*res.render("index", {
-    title: "Home",
-    new_arrival: new_arrival,
-    activity_detail: activity_detail,
-    email: req.session.email,
-    role:req.session.role
-  });*/
-
    var pool = req.connection;
+  if (req.session.email) {
+    var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
+  }
    pool.getConnection(function(err,connection){
      connection.query('SELECT * FROM art_works WHERE promote=1',function(err,rows){
        if (err) {
@@ -28,20 +24,50 @@ router.get("/", function (req, res) {
            error: err
         })
        }else{
-         if(req.session.email){
-          var bal=pointcontract.balanceOf(req.session.walletaddress).toNumber();
-         }
-         var promote_data=rows;
-         res.render('index', {
-           title: 'Home',
-           bal:bal,
-           promote_data:promote_data,
-           email: req.session.email,
-           new_arrival: new_arrival,
-           activity_detail: activity_detail,
-           role: req.session.role,
-           walletaddress: req.session.walletaddress
-         });
+         var promote_data = rows;
+         var collections=new Array();
+           connection.query(
+             "SELECT contract FROM collectionlist ",
+             function (err, rows) {
+               if (err) {
+                 console.log(err);
+               }
+               for (var i = 0; i < rows.length; i++) {
+                  var contract = web3.eth.contract(collectionabi).at(rows[i].contract);
+                  var total = contract.totalSupply.call().toNumber();
+                  //var author=contract.author.call();
+                  for (var id = 1; id <= total; id++) {
+                    var uri = contract.tokenURI(id);
+                    var collectionname = contract.name();
+                    var metadata = contract.MetaData.call(id);
+                    var name = metadata[1];
+                    //var description = metadata[2];
+                    var price = metadata[3];
+                      collections.push([
+                      uri,
+                      rows[i].vendorname,
+                      collectionname,
+                      name,
+                      price,
+                     ]);
+                  }
+                  var shuffledcollections = collections
+                   .map(value => ({ value, sort: Math.random() }))
+                   .sort((a, b) => a.sort - b.sort)
+                   .map(({ value }) => value)
+                  req.session.collections=shuffledcollections;
+                }
+               res.render('index', {
+                 title: 'Home',
+                 bal: bal,
+                 promote_data: promote_data,
+                 email: req.session.email,
+                 new_arrival: req.session.collections,
+                 activity_detail: activity_detail,
+                 role: req.session.role,
+                 walletaddress: req.session.walletaddress
+               });
+             });
        }
      })
      connection.release();
@@ -49,7 +75,7 @@ router.get("/", function (req, res) {
 });
 
 module.exports = router;
-
+/*
 var new_arrival = [
   {
     uri: "https://dummyimage.com/350x350/8b9091/fff",
@@ -100,7 +126,7 @@ var new_arrival = [
     title: "Coluber constrictor",
     price: 2,
   },
-];
+];*/
 
 var activity_detail = [
   {

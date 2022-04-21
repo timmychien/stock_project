@@ -35,7 +35,7 @@ router.get("/", function (req, res) {
         var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
         var pool = req.connection;
         var works = new Array();
-        var user = req.session.walletaddress;
+        //var user = req.session.walletaddress;
         pool.getConnection(function (err, connection) {
             connection.query(
                 "SELECT contract FROM collectionlist ",
@@ -54,7 +54,7 @@ router.get("/", function (req, res) {
                             var isonsell = vendorcontract.isOnSell
                                 .call(rows[i].contract, id)
                                 .toString();
-                            if (owner != user && isonsell == "true") {
+                            if (owner != req.session.walletaddress && isonsell == "true") {
                                 var uri = contract.tokenURI(id);
                                 var metadata = contract.MetaData.call(id);
                                 var name = metadata[1];

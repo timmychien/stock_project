@@ -25,9 +25,10 @@
             <dd>#{work[1]}</dd>
             <label for="id">作品ID:</label>
             <dd>#{work[2]}</dd>
-            <label for="price">價格</label>
-            <dd>$2</dd>
+            <label for="newPrice">欲出售價格</label>
             <form action="" method="post">
+              <input class="textfield" type="text" id="newPrice" name="newPrice">
+              <p>#{warn}</p>
                 <input type="hidden" name="nftaddress" value=#{work[1]}>
                 <input type="hidden" name="tokenId" value=#{work[2]}>
                 <input type="submit" value=點我販售>

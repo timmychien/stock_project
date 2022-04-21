@@ -101,7 +101,7 @@
                 <div>
                   <a href="explore_detail"><img src=#{val.uri} width="285" height="285"></a>
                 </div>
-                <p for="" id="" class="description">#{val.collection}</p>
+                <p for="" id="" class="description">#{val.description}</p>
               </div>
         </div>
       </div>
@@ -153,17 +153,17 @@
       <div class="col-3"></div>
       <div class="col">
         <div class="row">
-          if (collections)
-            each val in collections
+          if (works)
+            each val in works
               <div class="col-4 explore-card">
                 <div>
                   <a href="explore_detail"><img src=#{val.uri} width="285" height="285"></a>
-                  <p class="badge badge-pill creator">#{val.creater}<p>
+                  <p class="badge badge-pill creator">#{val.author}<p>
                 </div>
-                <p for="" id="" class="description">#{val.collection}</p>
+                <p for="" id="" class="description">#{val.description}</p>
                 <div class="row">
-                  <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.title}</div>
-                  <div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
+                  <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.name}</div>
+                  //<div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
                 </div>
               </div>
         </div>

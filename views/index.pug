@@ -69,8 +69,8 @@ head
               <img src=#{val.uri} width="400" height="540">
               <p class="badge badge-pill author-lg">#{val.author}<p>
               <p for="name" id="NFTname">#{val.name}</p>
-              <p for="author" id="author" class="title-lg">#{val.title}</p>
-              <p for="description" id="description">img_description</p>
+              //<p for="author" id="author" class="title-lg">#{val.title}</p>
+              <p for="description" id="description">#{val.description}</p>
             </div>
           else
             <div class="col">
@@ -79,8 +79,8 @@ head
                 <p class="badge badge-pill author-md">#{val.author}<p>
               </div>
               <p for="name" id="NFTname">#{val.name}</p>
-              <p for="author" id="author" class="title-lg">#{val.title}</p>
-              <p for="description" id="description">img_description</p>
+              //<p for="author" id="author" class="title-lg">#{val.}</p>
+              <p for="description" id="description">#{val.description}</p>
             </div>
     </div>
     <div class="row">
@@ -153,13 +153,13 @@ head
                 <div class="carousel-item active">
                   <div class="col-4">
                     <div>
-                      <img src=#{val.uri} width="350" height="350">
-                      <p class="badge badge-pill creator">#{val.creater}<p>
+                      <img src=#{val[0]} width="350" height="350">
+                      <p class="badge badge-pill creator">#{val[1]}<p>
                     </div>
-                    <p for="" id="" class="description">#{val.collection}</p>
+                    <p for="" id="" class="description">#{val[2]}</p>
                     <div class="row">
-                      <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.title}</div>
-                      <div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
+                      <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val[3]}</div>
+                      <div class="col-auto" for="" id="price"><p>$#{val[4]}</p></div>
                     </div>
                   </div>
                 </div>
@@ -167,13 +167,13 @@ head
                 <div class="carousel-item">
                   <div class="col-4">
                     <div>
-                      <img src=#{val.uri} width="350" height="350">
-                      <p class="badge badge-pill creator">#{val.creater}<p>
+                      <img src=#{val[0]} width="350" height="350">
+                      <p class="badge badge-pill creator">#{val[1]}<p>
                     </div>
-                    <p for="" id="" class="description">#{val.collection}</p>
+                    <p for="" id="" class="description">#{val[2]}</p>
                     <div class="row">
-                      <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val.title}</div>
-                      <div class="col-auto" for="" id="price"><p>#{val.price}</p></div>
+                      <div class="col-auto mr-auto" for="" id="" class="title-sm">#{val[3]}</div>
+                      <div class="col-auto" for="" id="price"><p>#{val[4]}</p></div>
                     </div>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
-var vendorAddress = "0xd0bbD01cd1e0580dA43031D99f0864c087040C2E";
+var vendorAddress = "0x7fDd60Cb32A4Db94EFfFe1611c588695f6e9E65b";
 var vendorabi = require('../vendorABI');
 var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -23,6 +23,9 @@ const customCommon = Common.forCustomChain('mainnet', {
 }, 'petersburg')
 /* GET home page. */
 router.get("/:contractaddress/:tokenid", function (req, res) {
+    if (!req.session.email) {
+        res.redirect("/login");
+    }
     var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var pool = req.connection;
     var contractaddress = req.params.contractaddress;
@@ -71,6 +74,13 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
     var tokenid = req.body['id'];
     console.log(tokenaddress)
     console.log(tokenid)
+    var contract = web3.eth.contract(collectionabi).at(tokenaddress);
+    var owner=contract.ownerOf(tokenid);
+    if(owner==req.session.walletaddress){
+        res.render('explore/explore_detail',{
+            warn: '您是作品擁有者或已販售本作品'
+        })
+    }
     var buyer = req.session.walletaddress;
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');

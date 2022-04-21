@@ -122,7 +122,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use(session({ secret: "123456"}));
+app.use(session({ secret: "123456",maxAge:3000}));
 app.use(function(req,res,next){
   req.connection=pool;
   next();

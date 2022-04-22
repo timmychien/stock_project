@@ -97,10 +97,12 @@
                             <li><a class="dropdown-item" href="/mywork">我的作品</a></li>
                             <li><a class="dropdown-item" href="/myregistration">我的報名</a></li>
                             <li><a class="dropdown-item" href="/mycollection">個人收藏</a></li>
-                            <li><a class="dropdown-item" href="/goodupload">商品上架</a></li>
+                            if(role=='vendor')
+                                <li><a class="dropdown-item" href="/goodupload">商品上架</a></li>
                             <li><a class="dropdown-item" href="/exchangetoken">個人錢包</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/applyforvendor">升級成為會員</a></li>
+                            if(role!='vendor')
+                                <li><a class="dropdown-item" href="/applyforvendor">升級成為會員</a></li>
                             <li><a class="dropdown-item" href="/myinfo">帳號設定</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">登出</a></li>

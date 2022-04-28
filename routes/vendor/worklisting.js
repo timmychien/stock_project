@@ -4,15 +4,15 @@ var Tx = require('ethereumjs-tx').Transaction;
 var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
-web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var vendorAddress = "0x7fDd60Cb32A4Db94EFfFe1611c588695f6e9E65b";
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
+var vendorAddress = "0xAc79aC8B2EF6d54dc241038b993f0eDC45434e93";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
 const customCommon = Common.forCustomChain('mainnet', {
     name: 'nft',
-    chainId: 13144,
-    networkId: 13144
+    chainId: 13330,
+    networkId: 13330
 
 }, 'petersburg')
 /* GET home page. */

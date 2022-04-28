@@ -3,16 +3,16 @@ var router = express.Router();
 var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
-web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
 var pointabi = require('./pointABI');
 var pointabi = pointabi.pointABI;
-var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";
+var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
 var collectionabi = require("./collectionABI");
 var collectionabi = collectionabi.collectionABI;
 /* GET home page. */
 router.get("/", function (req, res) {
-   var pool = req.connection;
+  var pool = req.connection;
   if (req.session.email) {
     var bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
   }

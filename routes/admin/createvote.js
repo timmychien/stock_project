@@ -5,15 +5,15 @@ var Tx=require('ethereumjs-tx').Transaction;
 var Common = require('ethereumjs-common').default;
 require('dotenv').config();
 const web3=new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
-var votingAddress ="0x0F2e8bbD3F47475169A0599CD94eD7f6Ba68c012";
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
+var votingAddress ="0x1265cF01155a42c78a5DF92cdc07B20d9d107ddF";
 var abi=require('../votingABI');
 var abi=abi.votingABI;
 var contract=web3.eth.contract(abi).at(votingAddress);
 const customCommon = Common.forCustomChain('mainnet', {
     name: 'nft',
-    chainId: 13144,
-    networkId: 13144
+    chainId: 13330,
+    networkId: 13330
 
 }, 'petersburg')
 /* GET home page. */

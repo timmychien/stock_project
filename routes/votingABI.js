@@ -704,27 +704,6 @@ var votingABI = [
                 "internalType": "address",
                 "name": "voter",
                 "type": "address"
-            }
-        ],
-        "name": "getVoteCounts",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "voter",
-                "type": "address"
             },
             {
                 "internalType": "uint256",
@@ -753,27 +732,6 @@ var votingABI = [
                 "internalType": "string",
                 "name": "",
                 "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "buyer",
-                "type": "address"
-            }
-        ],
-        "name": "getbuyCounts",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "payable": false,

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Web3 = require('web3');
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://besu-nft-f1da896e4e-node-f6ee1078.baas.twcc.ai"));
+web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
 var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x3321432994311cf7ee752971C8A8D67dF357fa43";

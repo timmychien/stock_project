@@ -15,7 +15,7 @@ var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
 var contract = web3.eth.contract(abi).at(vendorAddress);
 const customCommon = Common.forCustomChain('mainnet', {
-    name: 'nft',
+    name: 'nftproject',
     chainId: 13330,
     networkId: 13330
 

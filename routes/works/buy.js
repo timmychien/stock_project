@@ -10,7 +10,7 @@ var abi = require('../votingABI');
 var abi = abi.votingABI;
 var contract = web3.eth.contract(abi).at(votingAddress);
 const customCommon = Common.forCustomChain('mainnet', {
-    name: 'nft',
+    name: 'nftproject',
     chainId: 13330,
     networkId: 13330
 

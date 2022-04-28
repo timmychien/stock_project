@@ -10,7 +10,7 @@ var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var contract = web3.eth.contract(abi).at(vendorAddress);
 const customCommon = Common.forCustomChain('mainnet', {
-    name: 'nft',
+    name: 'nftproject',
     chainId: 13330,
     networkId: 13330
 

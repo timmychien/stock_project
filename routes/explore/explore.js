@@ -35,23 +35,27 @@ router.get("/", function (req, res) {
         var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
         var pool = req.connection;
         var works = new Array();
+        var collections=new Array();
         //var collections=new Array();
         //var user = req.session.walletaddress;
         pool.getConnection(function (err, connection) {
             connection.query(
-                "SELECT contract FROM collectionlist ",
+                "SELECT * FROM collectionlist ",
                 function (err, rows) {
                     if (err) {
                         console.log(err);
                     }
                     for (var i = 0; i < rows.length; i++) {
                         var contract = web3.eth.contract(collectionabi).at(rows[i].contract);
+                        var collectionName=rows[i].name;
+                        console.log(collectionName)
+                        var onsellAmount=vendorcontract.onSellAmount.call(rows[i].contract);
                         var total = contract.totalSupply.call().toNumber();
                         //var author=contract.author.call();
                         for (var id = 1; id <= total; id++) {
                             var owner = contract.ownerOf.call(id);
                             var isonsell = vendorcontract.isOnSell.call(rows[i].contract, id).toString();
-                            if (owner != req.session.walletaddress && isonsell == "true") {
+                            if (isonsell == "true") {
                                 var uri = contract.tokenURI(id);
                                 var metadata = contract.MetaData.call(id);
                                 var name = metadata[1];
@@ -60,12 +64,16 @@ router.get("/", function (req, res) {
                                 works.push([uri,name,rows[i].vendorname,rows[i].contract,description,price,id]);
                             }
                         }
+                        if (onsellAmount>0){
+                            collections.push([collectionName, onsellAmount]);
+                        }
+                        
                     }
                     res.render("explore/explore", {
                         email: req.session.email,
                         bal: bal,
                         role: req.session.role,
-                        collections: rows,
+                        collections: collections,
                         works: works,
                     });
                 }

@@ -48,7 +48,7 @@ router.get("/", function (req, res) {
                     for (var i = 0; i < rows.length; i++) {
                         var contract = web3.eth.contract(collectionabi).at(rows[i].contract);
                         var collectionName=rows[i].name;
-                        console.log(collectionName)
+                        //console.log(collectionName)
                         var onsellAmount=vendorcontract.onSellAmount.call(rows[i].contract);
                         var total = contract.totalSupply.call().toNumber();
                         //var author=contract.author.call();
@@ -92,7 +92,7 @@ router.post("/",function(req,res){
     //var user = req.session.walletaddress;
     pool.getConnection(function (err, connection) {
         connection.query(
-            "SELECT * FROM collectionlist WHERE name=?",[collectionname],
+            "SELECT * FROM collectionlist WHERE name IN (?)",([collectionname]),
             function (err, rows) {
                 if (err) {
                     console.log(err);
@@ -100,7 +100,7 @@ router.post("/",function(req,res){
                 for (var i = 0; i < rows.length; i++) {
                     var contract = web3.eth.contract(collectionabi).at(rows[i].contract);
                     var collectionName = rows[i].name;
-                    console.log(collectionName)
+                    //console.log(collectionName)
                     var onsellAmount = vendorcontract.onSellAmount.call(rows[i].contract);
                     var total = contract.totalSupply.call().toNumber();
                     //var author=contract.author.call();

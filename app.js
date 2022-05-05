@@ -36,6 +36,7 @@ var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //explore
 var exploreRouter =require('./routes/explore/explore');
 var exploreDetailRouter = require("./routes/explore/explore_detail");
+var exploreDetailDisabledRouter = require("./routes/explore/explore_detail_disabled");
 //resell
 var resellRouter=require('./routes/resell/resell');
 //works
@@ -152,6 +153,7 @@ app.use('/activity_onvote', onvoteactivityRouter);
 //explore
 app.use('/explore',exploreRouter);
 app.use("/explore_detail", exploreDetailRouter);
+app.use("/explore_detail_disabled",exploreDetailDisabledRouter);
 //resell
 app.use('/resell',resellRouter);
 //works

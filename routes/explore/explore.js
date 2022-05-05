@@ -53,7 +53,7 @@ router.get("/", function (req, res) {
                         var total = contract.totalSupply.call().toNumber();
                         //var author=contract.author.call();
                         for (var id = 1; id <= total; id++) {
-                            var owner = contract.ownerOf.call(id);
+                            //var owner = contract.ownerOf.call(id);
                             var isonsell = vendorcontract.isOnSell.call(rows[i].contract, id).toString();
                             if (isonsell == "true") {
                                 var uri = contract.tokenURI(id);
@@ -105,7 +105,7 @@ router.post("/",function(req,res){
                     var total = contract.totalSupply.call().toNumber();
                     //var author=contract.author.call();
                     for (var id = 1; id <= total; id++) {
-                        var owner = contract.ownerOf.call(id);
+                        //var owner = contract.ownerOf.call(id);
                         var isonsell = vendorcontract.isOnSell.call(rows[i].contract, id).toString();
                         if (isonsell == "true") {
                             var uri = contract.tokenURI(id);

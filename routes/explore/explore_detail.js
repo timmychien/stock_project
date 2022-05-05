@@ -47,19 +47,23 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
                 var ownername = rows[0].Name;
                 connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
                     var creatorname=rows[0].Name;
-                    res.render("explore/explore_detail", {
-                        title: "nft_detail",
-                        bal: bal,
-                        email: req.session.email,
-                        name: name,
-                        description: description,
-                        price: price,
-                        creator: creatorname,
-                        uri: uri,
-                        tokenid: tokenId,
-                        contractaddress: contractaddress,
-                        owner: ownername
-                    });
+                    if (creator == req.session.walletaddress) {
+                        res.redirect('/explore_detail_disabled/'+contractaddress+'/'+tokenId);
+                    }else{
+                        res.render("explore/explore_detail", {
+                            title: "nft_detail",
+                            bal: bal,
+                            email: req.session.email,
+                            name: name,
+                            description: description,
+                            price: price,
+                            creator: creatorname,
+                            uri: uri,
+                            tokenid: tokenId,
+                            contractaddress: contractaddress,
+                            owner: ownername
+                        });
+                    }
                 });    
             }
         })

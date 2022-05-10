@@ -83,7 +83,6 @@ router.post("/", function (req, res) {
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
-
     //var nftaddress = contract.getaddress.call(vendor, name);
     //console.log(nftaddress)
     setTimeout(function () {
@@ -105,18 +104,18 @@ router.post("/", function (req, res) {
     }, 15000)
 
 });
-module.exports = router;
 router.post("/:title/:contractaddress", function (req, res) {
-    var pool=req.connection;
+    var pool = req.connection;
     var tokenaddress = req.params.contractaddress;
     console.log(tokenaddress)
-    var collectionabi=require('../collectionABI');
-    var collectionabi=collectionabi.collectionABI;
-    var collectioncontract=web3.eth.contract(collectionabi).at(tokenaddress);
+    var collectionabi = require('../collectionABI');
+    var collectionabi = collectionabi.collectionABI;
+    var collectioncontract = web3.eth.contract(collectionabi).at(tokenaddress);
     var ipfsuri = req.body['work_ipfsuri'];
     var name = req.body['work_name'];
     var description = req.body['work_description'];
     var price = req.body['work_price'];
+    /*
     console.log(ipfsuri);
     var vendor = req.session.walletaddress;
     var address = req.session.walletaddress;
@@ -154,20 +153,8 @@ router.post("/:title/:contractaddress", function (req, res) {
             })
             connection.release();
         })
-    },10000)
-   //res.redirect('/')
-    
+    },10000)*/
+    res.redirect('/goodupload')
+
 });
-/*
-var collections = [
-    {
-        uri: "https://dummyimage.com/350x350/8b9091/fff",
-        title: "Black collection",
-        description: "yummy",
-    },
-    {
-        uri: "https://dummyimage.com/350x350/8b9091/fff",
-        title: "Blue collection",
-        description: "ocean",
-    },
-];*/
+module.exports = router;

@@ -15,7 +15,8 @@
   include ../navigator.pug
 
   // body-title
-  <div class="container-title">
+  
+  //<div class="container-title">
     <div class="row">
       <h3 class="col-auto mr-auto">探索總覽</h3>
       // sort by dropdown
@@ -28,7 +29,7 @@
         </select>
       </div>
     </div>
-  </div>
+  //</div>
 
   // body-card
   <div class="container-card">
@@ -98,8 +99,8 @@
                 </div>
                 //<p for="" id="" class="description">#{val[4]}</p>
                 <div class="row">
-                  <div class="col-auto mr-auto" for="" id="" class="title-sm"><p>#{work.name}</p></div>
-                  <div class="col-auto" for="" id="price"><p>$ #{work.price}</p></div>
+                  <div class="col-auto mr-auto" for="" id="" class="title-sm"><p>#{work.name} $#{work.price}</p></div>
+                  <div class="col-auto" for="" id="price"><p> </p></div>
                 </div>
               </div>
         </div>

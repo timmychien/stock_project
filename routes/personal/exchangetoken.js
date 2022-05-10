@@ -41,36 +41,44 @@ router.get("/", function (req, res) {
 });
 router.post("/", function (req, res) {
     var toaddress = req.session.walletaddress;
-    var nowbalance = 1000;
-    var tochange = req.body["tochange"];
-    var limit = parseInt(nowbalance / 100);
-    if (tochange > limit) {
-        res.render("personal/not_enough_point");
-    } else {
-        var address = process.env.PLATFORM_ADDR;
-        var privkey = Buffer.from(process.env.PRIV_KEY, "hex");
-        var count = web3.eth.getTransactionCount(address);
-        var data = pointcontract.operatorMint.getData(toaddress, tochange, "0x", "0x", {
-            from: address,
-        });
-        var gasPrice = 0;
-        var gasLimit = 3000000;
-        var rawTx = {
-            from: address,
-            nonce: web3.toHex(count),
-            gasPrice: web3.toHex(gasPrice),
-            gasLimit: web3.toHex(gasLimit),
-            to: pointAddress,
-            value: 0x0,
-            data: data,
-            chainId: 13144,
-        };
-        var tx = new Tx(rawTx, { common: customCommon });
-        tx.sign(privkey);
-        var serializedTx = tx.serialize();
-        var hash = web3.eth.sendRawTransaction("0x" + serializedTx.toString("hex"));
-        console.log(hash);
-        res.render("personal/exchange_redirect");
-    }
+    var pool=req.connection;
+    //var nowbalance = 1000;
+    var toExchange = req.body["toExchange"];
+    //var limit = parseInt(nowbalance / 100);
+    var address = process.env.PLATFORM_ADDR;
+    var privkey = Buffer.from(process.env.PRIV_KEY, "hex");
+    var count = web3.eth.getTransactionCount(address);
+    var data = pointcontract.operatorMint.getData(toaddress, toExchange, "0x", "0x", {
+        from: address,
+    });
+    var gasPrice = 0;
+    var gasLimit = 3000000;
+    var rawTx = {
+        from: address,
+        nonce: web3.toHex(count),
+        gasPrice: web3.toHex(gasPrice),
+        gasLimit: web3.toHex(gasLimit),
+        to: pointAddress,
+        value: 0x0,
+        data: data,
+        chainId: 13144,
+    };
+    var tx = new Tx(rawTx, { common: customCommon });
+    tx.sign(privkey);
+    var serializedTx = tx.serialize();
+    var hash = web3.eth.sendRawTransaction("0x" + serializedTx.toString("hex"));
+    console.log(hash);
+    var exchangeInfo='點數兌換';
+    pool.getConnection(function(err,connection){
+        connection.query('INSERT INTO point_transactions(address,hash,change_amount,info) VALUES(?,?,?,?)',[toaddress,hash,toExchange,exchangeInfo],function(err,rows){
+            if(err){
+                console.log(err)
+            }else{
+                res.render("personal/exchange_redirect");
+            }
+        })
+        connection.release();
+    })
+    
 });
 module.exports = router;

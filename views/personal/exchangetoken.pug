@@ -4,7 +4,7 @@
   <meta charset="utf-8">
 </head>
 <body>
-<title>個人錢包</title>
+<title>點數兌換</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/personal/exchangetoken.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -18,14 +18,14 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-3">
-        <label for='title'>個人錢包</label>
+        <label for='title'>點數兌換</label>
       </div>
 
       <div class="col-md-6">
         <form action="" method="post">
           //- // address
           //- <input class="textfield" type="text" id="address" name="address" placeholder="錢包地址" value="#{walletaddress}" disabled><br/>
-          <input class="textfield" type="text" id="points" name="points" placeholder="點數餘額" value="1000" disabled>
+          //<input class="textfield" type="text" id="points" name="points" placeholder="點數餘額" value="1000" disabled>
           //- <div class="row">
           //-   <div class="col-4">
           //-     <input class="textfield" type="text" id="points" name="points" placeholder="點數餘額" value="1000" disabled>
@@ -38,14 +38,14 @@
           // exchange point
           <div class="row mt-5 align-items-center">
             <div class="col-4">
-              <input class="textfield" type="text" id="tochange" name="tochange" placeholder="欲兌換平台點數" value="" oninput="value=value.replace(/[^\d]/g,'')">
+              <input class="textfield" type="text" id="toExchange" name="toExchange" placeholder="欲兌換平台點數" value="" oninput="value=value.replace(/[^\d]/g,'')">
             </div>
-            <div class="col-1 px-0">
+            //<div class="col-1 px-0">
               <i class="fa fa-exchange-alt fa-lg"></i>
-            </div>
-            <div class="col-4">
+            //</div>
+            //<div class="col-4">
               <input class="textfield" type="text" id="todebit" name="todebit" placeholder="預計扣除" value="" disabled>
-            </div>
+            //</div>
             <div class="col-3">
               <input class="btnAuthen" type="submit" id="confirm" value="確認" >
             </div>

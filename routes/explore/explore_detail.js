@@ -72,50 +72,51 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
 });
 
 router.post('/:contractaddress/:tokenid', function (req, res) {
+    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var tokenaddress = req.params.contractaddress;
     var tokenid = req.params.tokenid;
-    var pool=req.connection;
-    var tokenaddress = req.body['address'];
-    var tokenid = req.body['id'];
-    var contract = web3.eth.contract(collectionabi).at(tokenaddress);
-    var owner=contract.ownerOf(tokenid);
-    if(owner==req.session.walletaddress){
-        res.render('explore/explore_detail',{
-            warn: '您是作品擁有者或已販售本作品'
+    var price=req.body['price'];
+    if(bal<price){
+        res.render('explore/explore_detail', {
+            warn: '您的點數餘額不足!'
+        })
+    }else{
+        var pool = req.connection;
+        var tokenaddress = req.body['address'];
+        var tokenid = req.body['id'];
+        var buyer = req.session.walletaddress;
+        var address = req.session.walletaddress;
+        var privkey = Buffer.from(req.session.pk, 'hex');
+        var data = vendorcontract.buy.getData(buyer, price, tokenaddress, tokenid);
+        var count = web3.eth.getTransactionCount(address);
+        var gasPrice = web3.eth.gasPrice.toNumber() * 2;
+        var gasLimit = 3000000;
+        var rawTx = {
+            "from": address,
+            "nonce": web3.toHex(count),
+            "gasPrice": web3.toHex(gasPrice),
+            "gasLimit": web3.toHex(gasLimit),
+            "to": vendorAddress,
+            "value": 0x0,
+            "data": data,
+            "chainId": 13144
+        }
+        var tx = new Tx(rawTx, { common: customCommon });
+        tx.sign(privkey);
+        var serializedTx = tx.serialize();
+        var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
+        console.log(hash)
+        pool.getConnection(function (err, connection) {
+            connection.query('DELETE FROM goods_onsell WHERE contract=? AND tokenid=?', [tokenaddress, tokenid], function (err, rows) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    res.render('explore/buy_redirect');
+                }
+            })
+            connection.release();
         })
     }
-    var buyer = req.session.walletaddress;
-    var address = req.session.walletaddress;
-    var privkey = Buffer.from(req.session.pk, 'hex');
-    var data = vendorcontract.buy.getData(buyer, 2, tokenaddress, tokenid);
-    var count = web3.eth.getTransactionCount(address);
-    var gasPrice = web3.eth.gasPrice.toNumber() * 2;
-    var gasLimit = 3000000;
-    var rawTx = {
-        "from": address,
-        "nonce": web3.toHex(count),
-        "gasPrice": web3.toHex(gasPrice),
-        "gasLimit": web3.toHex(gasLimit),
-        "to": vendorAddress,
-        "value": 0x0,
-        "data": data,
-        "chainId": 13144
-    }
-    var tx = new Tx(rawTx, { common: customCommon });
-    tx.sign(privkey);
-    var serializedTx = tx.serialize();
-    var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
-    console.log(hash)
-    pool.getConnection(function(err,connection){
-        connection.query('DELETE FROM goods_onsell WHERE contract=? AND tokenid=?',[tokenaddress,tokenid],function(err,rows){
-            if(err){
-                console.log(err)
-            }else{
-                res.render('explore/buy_redirect');
-            }
-        })
-        connection.release();
-    })
     
 })
 

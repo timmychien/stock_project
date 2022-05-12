@@ -24,9 +24,10 @@ const customCommon = Common.forCustomChain('mainnet', {
 /* GET home page. */
 router.get("/:contractaddress/:tokenid", function (req, res) {
     if (!req.session.email) {
-        res.redirect("/login");
+        var bal=0;
+    }else{
+        var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     }
-    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var pool = req.connection;
     var contractaddress = req.params.contractaddress;
     var tokenId = req.params.tokenid;

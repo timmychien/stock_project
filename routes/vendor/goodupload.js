@@ -6,7 +6,7 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
-var vendorAddress = "0xAc79aC8B2EF6d54dc241038b993f0eDC45434e93";
+var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
 var abi = require('../vendorABI');
 var abi = abi.vendorABI;
 var pointabi = require('../pointABI');
@@ -61,49 +61,61 @@ router.post("/", function (req, res) {
     var description=req.body['description'];
     var uri=req.body['ipfsuri'];
     console.log(uri)
-    //var nftaddress=req.body['addr'];
-    var address = req.session.walletaddress;
-    var vendor = req.session.walletaddress;
-    var vendorname=req.session.name;
-    var privkey = Buffer.from(req.session.pk, 'hex');
-    var data = contract.createNFT.getData(name, symbol, vendor);
-    var count = web3.eth.getTransactionCount(address);
-    var gasPrice = 0;
-    var gasLimit = 3000000;
-    var rawTx = {
-        "from": address,
-        "nonce": web3.toHex(count),
-        "gasPrice": web3.toHex(gasPrice),
-        "gasLimit": web3.toHex(gasLimit),
-        "to": vendorAddress,
-        "value": 0x0,
-        "data": data,
-        "chainId": 13144
-    }
-    var tx = new Tx(rawTx, { common: customCommon });
-    tx.sign(privkey);
-    var serializedTx = tx.serialize();
-    var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
-    console.log(hash)
-    //var nftaddress = contract.getaddress.call(vendor, name);
-    //console.log(nftaddress)
-    setTimeout(function () {
-        pool.getConnection(function (err, connection) {
-            var nftaddress = contract.getaddress.call(vendor, name);
-            console.log(nftaddress)
-            connection.query('INSERT INTO collectionlist(name,symbol,vendor,contract,description,uri,vendorname)VALUES(?,?,?,?,?,?,?)', [name, symbol, vendor, nftaddress,description,uri,vendorname], function (err, rows) {
-                if (err) {
-                    res.render('error', {
-                        message: err.message,
-                        error: err
-                    })
-                } else {
-                    res.render('vendor/add_redirect');
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT * FROM collectionlist WHERE name=?',[name],function(err,rows){
+            if(err){
+                console.log(err)
+            }else{
+                if(rows.length>0){
+                    res.render('vendor/goodupload_error');
+                }else{
+                    var address = req.session.walletaddress;
+                    var vendor = req.session.walletaddress;
+                    var vendorname = req.session.name;
+                    var privkey = Buffer.from(req.session.pk, 'hex');
+                    var data = contract.createNFT.getData(name, symbol, vendor);
+                    var count = web3.eth.getTransactionCount(address);
+                    var gasPrice = 0;
+                    var gasLimit = 3000000;
+                    var rawTx = {
+                        "from": address,
+                        "nonce": web3.toHex(count),
+                        "gasPrice": web3.toHex(gasPrice),
+                        "gasLimit": web3.toHex(gasLimit),
+                        "to": vendorAddress,
+                        "value": 0x0,
+                        "data": data,
+                        "chainId": 13144
+                    }
+                    var tx = new Tx(rawTx, { common: customCommon });
+                    tx.sign(privkey);
+                    var serializedTx = tx.serialize();
+                    var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
+                    console.log(hash)
+                    //var nftaddress = contract.getaddress.call(vendor, name);
+                    //console.log(nftaddress)
+                    setTimeout(function () {
+                        var nftaddress = contract.getaddress.call(vendor, name);
+                        console.log(nftaddress)
+                        connection.query('INSERT INTO collectionlist(name,symbol,vendor,contract,description,uri,vendorname)VALUES(?,?,?,?,?,?,?)', [name, symbol, vendor, nftaddress, description, uri, vendorname], function (err, rows) {
+                            if (err) {
+                                res.render('error', {
+                                    message: err.message,
+                                    error: err
+                                })
+                            } else {
+                                res.render('vendor/add_redirect');
+                            }
+                        })
+                        connection.release()
+                    }, 15000)
                 }
-            })
-            connection.release()
+            }
         })
-    }, 15000)
+        connection.release();
+    })
+    //var nftaddress=req.body['addr'];
+   
 
 });
 router.post("/workupload", function (req, res) {
@@ -156,8 +168,6 @@ router.post("/workupload", function (req, res) {
 
                         })
                 }, 10000)
-                res.redirect('/goodupload')
-
             }
         })
         connection.release();

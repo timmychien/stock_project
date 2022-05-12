@@ -94,7 +94,10 @@
             each work in works
               <div class="col-4 explore-card">
                 <div>
-                  <a href="/explore_detail/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
+                  if(email)
+                    <a href="/explore_detail/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
+                  else
+                    <a href="/explore_detail_disabled/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
                   //<p class="badge badge-pill creator">#{val[2]}<p>
                 </div>
                 //<p for="" id="" class="description">#{val[4]}</p>

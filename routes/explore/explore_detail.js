@@ -9,7 +9,7 @@ var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
-var vendorAddress = "0xAc79aC8B2EF6d54dc241038b993f0eDC45434e93";
+var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
 var vendorabi = require('../vendorABI');
 var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -24,16 +24,16 @@ const customCommon = Common.forCustomChain('mainnet', {
 /* GET home page. */
 router.get("/:contractaddress/:tokenid", function (req, res) {
     if (!req.session.email) {
-        res.redirect("/login");
+        var bal=0;
+    }else{
+        var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     }
-    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var pool = req.connection;
     var contractaddress = req.params.contractaddress;
     var tokenId = req.params.tokenid;
     var contract = web3.eth.contract(collectionabi).at(contractaddress);
     var creator=contract.author.call();
     var owner = contract.ownerOf.call(tokenId);
-    //var isonsell = vendorcontract.isOnSell.call(contractaddress, id).toString();
     var uri = contract.tokenURI(tokenId);
     pool.getConnection(function (err, connection) {
         var metadata = contract.MetaData.call(tokenId);
@@ -44,10 +44,13 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
             if (err) {
                 console.log(err)
             } else {
+                if(!req.session.email){
+                    res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
+                }
                 var ownername = rows[0].Name;
                 connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
                     var creatorname=rows[0].Name;
-                    if (creator == req.session.walletaddress) {
+                    if (owner == req.session.walletaddress){
                         res.redirect('/explore_detail_disabled/'+contractaddress+'/'+tokenId);
                     }else{
                         res.render("explore/explore_detail", {
@@ -61,7 +64,8 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
                             uri: uri,
                             tokenid: tokenId,
                             contractaddress: contractaddress,
-                            owner: ownername
+                            owner: ownername,
+                            owneraddress:owner
                         });
                     }
                 });    
@@ -70,7 +74,6 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
     })
 
 });
-
 router.post('/:contractaddress/:tokenid', function (req, res) {
     var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var tokenaddress = req.params.contractaddress;
@@ -82,8 +85,9 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
         })
     }else{
         var pool = req.connection;
-        var tokenaddress = req.body['address'];
-        var tokenid = req.body['id'];
+        var tokencontract = web3.eth.contract(collectionabi).at(tokenaddress);
+        var name = tokencontract.name.call();
+        var tokenowner = tokencontract.ownerOf.call(tokenid);
         var buyer = req.session.walletaddress;
         var address = req.session.walletaddress;
         var privkey = Buffer.from(req.session.pk, 'hex');
@@ -111,7 +115,18 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
                 if (err) {
                     console.log(err)
                 } else {
-                    res.render('explore/buy_redirect');
+                    var buy_change=-price;
+                    var sell_change=+price;
+                    var buy_info='購買NFT:'+name+'(id:'+tokenid+')';
+                    var sell_info = '販售NFT:' + name + '(id:' + tokenid + ')';
+                    connection.query('INSERT INTO point_transactions(address,hash,change_amount,info)VALUES(?,?,?,?),(?,?,?,?)',[tokenowner,hash,sell_change,sell_info,buyer,hash,buy_change,buy_info],function(err,rows){
+                        if(err){
+                            console.log(err)
+                        }else{
+                            res.render('explore/buy_redirect');
+                        }
+                    })
+                    
                 }
             })
             connection.release();

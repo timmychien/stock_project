@@ -5,7 +5,7 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
-var vendorAddress = "0x7fDd60Cb32A4Db94EFfFe1611c588695f6e9E65b";
+var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
 var vendorabi = require('../vendorABI');
 var vendorabi = vendorabi.vendorABI;
 var pointabi = require('../pointABI');
@@ -21,12 +21,12 @@ const customCommon = Common.forCustomChain('mainnet', {
     networkId: 13330
 
 }, 'petersburg')
-var contracts = new Array();
 router.get('/', function (req, res) {
     if (!req.session.email) {
         res.redirect('/login')
     }
     else{
+        var contracts = new Array();
         var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
         var pool = req.connection;
         var owner = req.session.walletaddress;
@@ -44,16 +44,15 @@ router.get('/', function (req, res) {
                     }
                     //console.log(contracts)
                     for (var idx = 0; idx < contracts.length; idx++) {
-                        var contract = web3.eth.contract(abi).at(contracts[idx]);
+                        var contractaddress=contracts[idx];
+                        var contract = web3.eth.contract(abi).at(contractaddress);
                         var idlist = contract.tokenIdofOwnerByAddress.call(owner);
-                        var ids = new Array();
+                        var ids=new Array();
                         for (var j = 0; j < idlist.length; j++) {
-                            if (vendorcontract.isOnSell.call(contracts[idx], idlist[j]) == false) {
-                                ids.push(idlist[j].toNumber());
+                            if (vendorcontract.onSell.call(contracts[idx],idlist[j])==false){
+                                ids.push(idlist[j]);
                             }
                         }
-
-
                         for (var id = 0; id < ids.length; id++) {
                             var uri = contract.tokenURI.call(ids[id]);
                             var metadata = contract.MetaData.call(ids[id]);
@@ -109,11 +108,11 @@ router.post('/',function(req,res){
     var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
     console.log(hash)
     setTimeout(function () {
-        res.redirect('/resell/' + nftaddress + '/' + tokenId+'/'+newPrice);
+        res.redirect('/resell/' + nftaddress + '/' +tokenId+'/'+name+'/'+newPrice);
     },5000)
    
 })
-router.get('/:address/:id/:/name:price',function(req,res){
+router.get('/:address/:id/:name/:price',function(req,res){
     var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     res.render('resell/resell_redirect',{
         email: req.session.email,

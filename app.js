@@ -61,7 +61,6 @@ var addCollectionRouter=require('./routes/vendor/addCollection');
 var workListingRouter=require('./routes/vendor/workListing');
 var vendorCollectionRouter=require('./routes/vendor/vendorCollection');
 var gooduploadRouter = require("./routes/vendor/goodupload");
-var uploadworkRouter=require('./routes/vendor/uploadwork');
 var collectionDetailRouter = require("./routes/vendor/collection_detail");
 var app = express();
 require('dotenv').config();
@@ -186,7 +185,6 @@ app.use('/addCollection',addCollectionRouter);
 app.use('/workListing',workListingRouter);
 app.use('/vendorCollection',vendorCollectionRouter);
 app.use("/goodupload", gooduploadRouter);
-app.use("/uploadwork",uploadworkRouter);
 app.use("/collection_detail", collectionDetailRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

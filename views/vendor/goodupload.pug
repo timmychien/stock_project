@@ -117,7 +117,7 @@
                 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-body-work">
-                      <form class="row" action="/goodupload/#{val.name}/#{val.contract}" method="post">
+                      <form class="row" action="/goodupload/workupload" method="post">
                         <div id="container-upload" class="col-6 text-center">
                           <img src="" id="workpreview" width="300"height="300">
                           <input type="file" id="workimageupload" name="image" style="display:none;" onchange=previewwork()><br>
@@ -178,6 +178,7 @@
               //</select><br>
               <br>
               <input class="textfield" type="text" id="name" name="name" placeholder="商品集名稱*"><br>
+              <p>#{warn}</p>
               <input class="textfield" type="text" id="symbol" name="symbol" placeholder="商品集代號*"><br>
               //- <input class="textfield" type="text" id="symbol" name="symbol" placeholder="作品代號*"><br>
               <input class="textfield" type="text" id="description" name="description" placeholder="描述"><br>

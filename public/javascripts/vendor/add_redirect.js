@@ -1,4 +1,4 @@
 setTimeout(function () {
     // after 3 seconds
-    window.location = "/";
-}, 3000)
+    window.location = "/goodupload";
+}, 3000);

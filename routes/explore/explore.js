@@ -9,7 +9,7 @@ web3.setProvider(
         "https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"
     )
 );
-var vendorAddress = "0xAc79aC8B2EF6d54dc241038b993f0eDC45434e93";
+var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
 var vendorabi = require("../vendorABI");
 var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -52,24 +52,25 @@ function paginatedResults(data) {
     };
 }
 router.get("/", function (req, res) {
-    if (!req.session.email) {
-        res.redirect("/login");
-    } else {
+    if(!req.session.email){
+        var bal=0;
+    }else{
         var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
-        var pool = req.connection;
-        //var works = new Array();
-        var collections=new Array();
-        pool.getConnection(function (err, connection) {
-            connection.query(
-                "SELECT * FROM collectionlist",
-                function (err, rows) {
-                    if (err) {
-                        console.log(err);
-                    }
+    }
+    var pool = req.connection;
+    var collections=new Array();
+    pool.getConnection(function (err, connection) {
+        connection.query(
+            "SELECT * FROM collectionlist",
+            function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                else{
                     for (var i = 0; i < rows.length; i++) {
-                        var collectionName=rows[i].name;
+                        var collectionName = rows[i].name;
                         //console.log(collectionName)
-                        var onsellAmount=vendorcontract.onSellAmount.call(rows[i].contract);
+                        var onsellAmount = vendorcontract.onSellAmount.call(rows[i].contract);
                         if (onsellAmount > 0) {
                             collections.push([collectionName, onsellAmount]);
                         }
@@ -112,14 +113,17 @@ router.get("/", function (req, res) {
                         });
                     })
                 }
-            );
+            });
             connection.release();
         });
-    }
 });
 router.post("/",function(req,res){
     var collectionname = req.body['flexRadioDefault'];
-    var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
+    if(!req.session.email){
+        var bal=0;
+    }else{
+        var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
+    }
     var pool = req.connection;
     var addresslist=new Array();
     var collections=new Array();

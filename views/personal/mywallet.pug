@@ -20,37 +20,19 @@
       <div class="col-md-3">
         <label for='title'>個人錢包</label>
       </div>
-
-      <div class="col-md-6">
-        <form action="" method="post">
-          //- // address
-          //- <input class="textfield" type="text" id="address" name="address" placeholder="錢包地址" value="#{walletaddress}" disabled><br/>
-          //<input class="textfield" type="text" id="points" name="points" placeholder="點數餘額" value="1000" disabled>
-          //- <div class="row">
-          //-   <div class="col-4">
-          //-     <input class="textfield" type="text" id="points" name="points" placeholder="點數餘額" value="1000" disabled>
-          //-   </div>
-          //-   <div class="col-1"></div>
-          //-   <div class="col-4">
-          //-     <input class="textfield" type="text" id="eth" name="eth" placeholder="ETH餘額" value="" disabled>
-          //-   </div>
-          //- </div>
-          // exchange point
-          <div class="row mt-5 align-items-center">
-            <div class="col-4">
-              <input class="textfield" type="text" id="toExchange" name="toExchange" placeholder="欲兌換平台點數" value="" oninput="value=value.replace(/[^\d]/g,'')">
-            </div>
-            //<div class="col-1 px-0">
-              <i class="fa fa-exchange-alt fa-lg"></i>
-            //</div>
-            //<div class="col-4">
-              <input class="textfield" type="text" id="todebit" name="todebit" placeholder="預計扣除" value="" disabled>
-            //</div>
-            <div class="col-3">
-              <input class="btnAuthen" type="submit" id="confirm" value="確認" >
-            </div>
-          </div>
-        </form>
+      <div class="col-md-6"><form action="" method="post">
+        <table border="1"cellpadding="5">
+          <tr>
+            <th id="point_change">點數變動</th>
+            <th id="transaction_info">資訊</th>
+          </tr>
+          if(transactions)
+            each transaction in transactions 
+              <tr>
+                <td class="point_change" id="point_change">#{transaction.change_amount}</td>
+                <td class="transaction_info" id="transaction_info">#{transaction.info}</td>
+              </tr>
+        </table>      
       </div>
     </div>
   </div>

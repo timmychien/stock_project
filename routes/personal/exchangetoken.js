@@ -68,7 +68,7 @@ router.post("/", function (req, res) {
     var serializedTx = tx.serialize();
     var hash = web3.eth.sendRawTransaction("0x" + serializedTx.toString("hex"));
     console.log(hash);
-    var exchangeInfo='點數兌換';
+    var exchangeInfo='平台幣兌換';
     pool.getConnection(function(err,connection){
         connection.query('INSERT INTO point_transactions(address,hash,change_amount,info) VALUES(?,?,?,?)',[toaddress,hash,toExchange,exchangeInfo],function(err,rows){
             if(err){

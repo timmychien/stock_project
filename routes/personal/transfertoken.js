@@ -95,8 +95,8 @@ router.post('/',function(req,res){
                                 console.log(hash)
                                 var sub_amount=-toAmount;
                                 var add_amount=+toAmount;
-                                var sub_info='點數移轉(轉出)';
-                                var add_info='點數移轉(轉入)'
+                                var sub_info='平台幣移轉(轉出)';
+                                var add_info='平台幣移轉(轉入)'
                                 connection.query('INSERT INTO point_transactions(address,hash,change_amount,info) VALUES(?,?,?,?),(?,?,?,?)',[address,hash,sub_amount,sub_info,walletaddress,hash,add_amount,add_info],function(err,rows){
                                     if(err){
                                         console.log(err)

@@ -29,8 +29,14 @@ router.get('/',function(req,res){
 })
 router.post('/',function(req,res){
     var pool=req.connection;
+    var time = new Date();
+    time = time.getUTCFullYear() + '-' +
+        ('00' + (time.getMonth() + 1)).slice(-2) + '-' +
+        ('00' + time.getDate()).slice(-2) + ' ' +
+        ('00' + time.getHours()).slice(-2) + ':' +
+        ('00' + time.getMinutes()).slice(-2) + ':' +
+        ('00' + time.getSeconds()).slice(-2);
     var toAmount=req.body['toAmount'];
-    console.log(toAmount)
     var toEmail=req.body['toEmail'];
     var nowBalance = pointcontract.balanceOf(req.session.walletaddress);
     if(toAmount==''){
@@ -49,6 +55,7 @@ router.post('/',function(req,res){
                 emailWarn: '您無法發送點數給自己'
             })
         } else {
+            
             pool.getConnection(function (err, connection) {
                 connection.query('SELECT address FROM member_info WHERE email=?', [toEmail], function (err, rows) {
                     if (err) {
@@ -97,7 +104,7 @@ router.post('/',function(req,res){
                                 var add_amount=+toAmount;
                                 var sub_info='平台幣移轉(轉出)';
                                 var add_info='平台幣移轉(轉入)'
-                                connection.query('INSERT INTO point_transactions(address,hash,change_amount,info) VALUES(?,?,?,?),(?,?,?,?)',[address,hash,sub_amount,sub_info,walletaddress,hash,add_amount,add_info],function(err,rows){
+                                connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,info) VALUES(?,?,?,?,?),(?,?,?,?,?)',[time,address,hash,sub_amount,sub_info,time,walletaddress,hash,add_amount,add_info],function(err,rows){
                                     if(err){
                                         console.log(err)
                                     }else{

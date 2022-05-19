@@ -4,9 +4,9 @@
   <meta charset="utf-8">
 </head>
 <body>
-<title>個人錢包</title>
+<title>交易紀錄</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/personal/mywallet.css">
+  <link rel="stylesheet" href="/stylesheets/personal/transactionRecord.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -18,23 +18,33 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-3">
-        <label for='title'>個人錢包</label>
+        <label for='title'>交易紀錄</label>
       </div>
-      <div class="row">
-        <div class="col">
-            <div class="row">
-                <button id="exchange-btn" type="button" class="col-4 align-self-center" data-toggle="modal" data-target="#createModalCenter"><a href="/exchangetoken"><img src="/images/exchange.jpg"></a></button>
-                <button id="transfer-btn" type="button" class="col-4 align-self-center" data-toggle="modal" data-target="#createModalCenter"><a href="/transfertoken"><img src="/images/transfer.jpg"></a></button>
-                <button id="transactionRecord-btn" type="button" class="col-4 align-self-center" data-toggle="modal" data-target="#createModalCenter"><a href="/transactionRecord"><img src="/images/transaction.jpg"></a></button>           
-            </div>
-        </div>
+      <div class="col-md-6">
+        //<label for="sub-title">交易紀錄</label>
+        <br>
+        <br>
+        <table border="2"cellpadding="8">
+          <tr>
+            <th id="time">時間</th>
+            <th id="point_change">點數變動</th>
+            <th id="transaction_info">資訊</th>
+          </tr>
+          if(transactions)
+            each transaction in transactions 
+              <tr>
+                <td class="time" id="time">#{transaction.time}</td>
+                <td class="point_change" id="point_change">#{transaction.change_amount}</td>
+                <td class="transaction_info" id="transaction_info">#{transaction.info}</td>
+              </tr>
+        </table>    
       </div>
-    </div>  
+    </div>
   </div>
 
   // footer
   include ../footbar.pug
 
-  <script src="/javascripts/personal/mywallet.js"></script>
+  <script src="/javascripts/personal/transactionRecord.js"></script>
 </body>
 </html>

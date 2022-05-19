@@ -1,4 +1,3 @@
-const { baToJSON } = require('ethereumjs-util');
 var express = require('express');
 var router = express.Router();
 var Web3 = require('web3');

@@ -42,6 +42,13 @@ router.get("/", function (req, res) {
 router.post("/", function (req, res) {
     var toaddress = req.session.walletaddress;
     var pool=req.connection;
+    var time=new Date();
+    time = time.getUTCFullYear() + '-' +
+        ('00' + (time.getMonth() + 1)).slice(-2) + '-' +
+        ('00' + time.getDate()).slice(-2) + ' ' +
+        ('00' + time.getHours()).slice(-2) + ':' +
+        ('00' + time.getMinutes()).slice(-2) + ':' +
+        ('00' + time.getSeconds()).slice(-2);
     //var nowbalance = 1000;
     var toExchange = req.body["toExchange"];
     //var limit = parseInt(nowbalance / 100);
@@ -70,7 +77,7 @@ router.post("/", function (req, res) {
     console.log(hash);
     var exchangeInfo='平台幣兌換';
     pool.getConnection(function(err,connection){
-        connection.query('INSERT INTO point_transactions(address,hash,change_amount,info) VALUES(?,?,?,?)',[toaddress,hash,toExchange,exchangeInfo],function(err,rows){
+        connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,info) VALUES(?,?,?,?,?)',[time,toaddress,hash,toExchange,exchangeInfo],function(err,rows){
             if(err){
                 console.log(err)
             }else{
@@ -79,6 +86,5 @@ router.post("/", function (req, res) {
         })
         connection.release();
     })
-    
 });
 module.exports = router;

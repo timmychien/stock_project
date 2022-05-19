@@ -85,6 +85,13 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
         })
     }else{
         var pool = req.connection;
+        var time = new Date();
+        time = time.getUTCFullYear() + '-' +
+            ('00' + (time.getMonth() + 1)).slice(-2) + '-' +
+            ('00' + time.getDate()).slice(-2) + ' ' +
+            ('00' + time.getHours()).slice(-2) + ':' +
+            ('00' + time.getMinutes()).slice(-2) + ':' +
+            ('00' + time.getSeconds()).slice(-2);
         var tokencontract = web3.eth.contract(collectionabi).at(tokenaddress);
         var name = tokencontract.name.call();
         var tokenowner = tokencontract.ownerOf.call(tokenid);
@@ -119,7 +126,7 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
                     var sell_change=+price;
                     var buy_info='購買NFT:'+name+'(id:'+tokenid+')';
                     var sell_info = '販售NFT:' + name + '(id:' + tokenid + ')';
-                    connection.query('INSERT INTO point_transactions(address,hash,change_amount,info)VALUES(?,?,?,?),(?,?,?,?)',[tokenowner,hash,sell_change,sell_info,buyer,hash,buy_change,buy_info],function(err,rows){
+                    connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,info)VALUES(?,?,?,?,?),(?,?,?,?,?)',[time,tokenowner,hash,sell_change,sell_info,time,buyer,hash,buy_change,buy_info],function(err,rows){
                         if(err){
                             console.log(err)
                         }else{

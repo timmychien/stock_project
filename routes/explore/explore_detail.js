@@ -122,11 +122,15 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
                 if (err) {
                     console.log(err)
                 } else {
+                    var buyer_bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
+                    buyer_bal=buy_bal-price;
+                    var seller_bal = pointcontract.balanceOf.call(tokenowner).toNumber();
+                    seller_bal=seller_bal+price;
                     var buy_change=-price;
                     var sell_change=+price;
                     var buy_info='購買NFT:'+name+'(id:'+tokenid+')';
                     var sell_info = '販售NFT:' + name + '(id:' + tokenid + ')';
-                    connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,info)VALUES(?,?,?,?,?),(?,?,?,?,?)',[time,tokenowner,hash,sell_change,sell_info,time,buyer,hash,buy_change,buy_info],function(err,rows){
+                    connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,balance,info)VALUES(?,?,?,?,?,?),(?,?,?,?,?,?)',[time,tokenowner,hash,sell_change,seller_bal,sell_info,time,buyer,hash,buy_change,buyer_bal,buy_info],function(err,rows){
                         if(err){
                             console.log(err)
                         }else{

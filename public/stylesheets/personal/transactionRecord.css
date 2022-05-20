@@ -27,6 +27,10 @@ th[id="point_change"]{
     text-align:center;
     width:100px;
 }
+th[id="now_balance"] {
+    text-align: center;
+    width: 100px;
+}
 th[id="transaction_info"]{
     text-align:center;
 }

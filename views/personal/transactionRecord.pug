@@ -17,6 +17,7 @@
   // body
   <div class="container">
     <div class="row justify-content-center">
+      <i class="fa fa-chevron-left" style="margin: 3rem 0rem 0rem 1rem;" onclick="history.back()"></i>
       <div class="col-md-3">
         <label for='title'>交易紀錄</label>
       </div>
@@ -27,7 +28,8 @@
         <table border="2"cellpadding="8">
           <tr>
             <th id="time">時間</th>
-            <th id="point_change">點數變動</th>
+            <th id="point_change">平台幣變動</th>
+            <th id="now_balance">平台幣餘額</th>
             <th id="transaction_info">資訊</th>
           </tr>
           if(transactions)
@@ -35,6 +37,7 @@
               <tr>
                 <td class="time" id="time">#{transaction.time}</td>
                 <td class="point_change" id="point_change">#{transaction.change_amount}</td>
+                <td class="now" id="now_balance">#{transaction.balance}</td>
                 <td class="transaction_info" id="transaction_info">#{transaction.info}</td>
               </tr>
         </table>    

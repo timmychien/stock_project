@@ -99,12 +99,15 @@ router.post('/',function(req,res){
                                 tx.sign(privkey);
                                 var serializedTx = tx.serialize();
                                 var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
-                                console.log(hash)
+                                var address_bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
+                                var toAddress_bal = pointcontract.balanceOf(walletaddress).toNumber();
+                                address_bal=address_bal-toAmount;
+                                toAddress_bal=toAddress_bal+toAmount;
                                 var sub_amount=-toAmount;
                                 var add_amount=+toAmount;
                                 var sub_info='平台幣移轉(轉出)';
                                 var add_info='平台幣移轉(轉入)'
-                                connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,info) VALUES(?,?,?,?,?),(?,?,?,?,?)',[time,address,hash,sub_amount,sub_info,time,walletaddress,hash,add_amount,add_info],function(err,rows){
+                                connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,balance,info) VALUES(?,?,?,?,?,?),(?,?,?,?,?,?)',[time,address,hash,sub_amount,address_bal,sub_info,time,walletaddress,hash,add_amount,toAddress_bal,add_info],function(err,rows){
                                     if(err){
                                         console.log(err)
                                     }else{

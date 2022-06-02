@@ -102,7 +102,7 @@ router.post('/',function(req,res){
                                 var address_bal = pointcontract.balanceOf(req.session.walletaddress).toNumber();
                                 var toAddress_bal = pointcontract.balanceOf(walletaddress).toNumber();
                                 address_bal=address_bal-toAmount;
-                                toAddress_bal=toAddress_bal+toAmount;
+                                toAddress_bal=toAddress_bal+parseInt(toAmount);
                                 var sub_amount=-toAmount;
                                 var add_amount=+toAmount;
                                 var sub_info='平台幣移轉(轉出)';

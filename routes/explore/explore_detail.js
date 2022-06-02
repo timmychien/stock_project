@@ -40,37 +40,46 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
         var name = metadata[1];
         var description = metadata[2];
         var price = metadata[3];
-        connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
-            if (err) {
+        connection.query('SELECT * FROM nft_transaction WHERE contractAddress=?AND tokenId=?ORDER BY time DESC', [contractaddress, tokenId], function (err, rows1) {
+            if(err){
                 console.log(err)
-            } else {
-                if(!req.session.email){
-                    res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
-                }
-                var ownername = rows[0].Name;
-                connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
-                    var creatorname=rows[0].Name;
-                    if (owner == req.session.walletaddress){
-                        res.redirect('/explore_detail_disabled/'+contractaddress+'/'+tokenId);
-                    }else{
-                        res.render("explore/explore_detail", {
-                            title: "nft_detail",
-                            bal: bal,
-                            email: req.session.email,
-                            name: name,
-                            description: description,
-                            price: price,
-                            creator: creatorname,
-                            uri: uri,
-                            tokenid: tokenId,
-                            contractaddress: contractaddress,
-                            owner: ownername,
-                            owneraddress:owner
+            }else{
+                var transactions=rows1;
+                connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        if (!req.session.email) {
+                            res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
+                        }
+                        var ownername = rows[0].Name;
+                        connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
+                            var creatorname = rows[0].Name;
+                            if (owner == req.session.walletaddress) {
+                                res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
+                            } else {
+                                res.render("explore/explore_detail", {
+                                    title: "nft_detail",
+                                    bal: bal,
+                                    email: req.session.email,
+                                    name: name,
+                                    description: description,
+                                    price: price,
+                                    creator: creatorname,
+                                    uri: uri,
+                                    tokenid: tokenId,
+                                    contractaddress: contractaddress,
+                                    owner: ownername,
+                                    owneraddress: owner,
+                                    transactions: transactions
+                                });
+                            }
                         });
                     }
-                });    
+                })
             }
-        })
+        });
+        connection.release();
     })
 
 });
@@ -123,9 +132,9 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
                     console.log(err)
                 } else {
                     var buyer_bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
-                    buyer_bal=buy_bal-price;
+                    buyer_bal=buyer_bal-price;
                     var seller_bal = pointcontract.balanceOf.call(tokenowner).toNumber();
-                    seller_bal=seller_bal+price;
+                    seller_bal=seller_bal+parseInt(price);
                     var buy_change=-price;
                     var sell_change=+price;
                     var buy_info='購買NFT:'+name+'(id:'+tokenid+')';
@@ -134,7 +143,10 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
                         if(err){
                             console.log(err)
                         }else{
-                            res.render('explore/buy_redirect');
+                            connection.query("INSERT INTO nft_transaction(txhash,contractAddress,tokenId,actor,info,time)VALUES(?,?,?,?,?,?)", [hash, tokenaddress, tokenid, req.session.name, "購買", time], function (err, rows) {
+                                res.render('explore/buy_redirect');
+                            })
+                            
                         }
                     })
                     

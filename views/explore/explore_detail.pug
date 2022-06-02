@@ -26,7 +26,6 @@
       </div>
       <div class="col">
         <form action="" method="post">
-          <span class="badge badge-pill creator">持有者 #{owner}</span>
           <span class="badge badge-pill creator">創作者 #{creator}</span>
           <div class="row">
             <div class="my-3 name">#{name}</div>
@@ -45,7 +44,25 @@
         </form>
       </div>
     </div>
+    <div class="row">
+      <table border="2"cellpadding="8">
+        <tr>
+          <th id="actor">交易者</th>
+          <th id="transaction_info">資訊</th>
+          <th id="time">時間</th>
+        </tr>
+        if(transactions)
+          each transaction in transactions 
+            <tr>
+              <td class="now" id="actor">#{transaction.actor}</td>
+              <td class="transaction_info" id="transaction_info">#{transaction.info}</td>
+              <td class="time" id="time">#{transaction.time}</td>
+            </tr>
+      </table>    
+    </div>
   </div>
+  <br>
+  <br>
   // footbar
 include ../footbar.pug
 <script src="/javascripts/explore/explore_detail.js"></script>

@@ -4,9 +4,9 @@
   <meta charset="utf-8">
 </head>
 <body>
-<title>販售我的藝術品</title>
+<title>個人藝術品</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/vendor/vendorCollection.css">
+  <link rel="stylesheet" href="/stylesheets/resell/resell.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   include ../navigator.pug
@@ -15,25 +15,78 @@
   <div class="works">
     <br>
     <br>
-    if (works)
-      each work in works
-        <br>
-        <br>
-        <div class="container">
-            <img src=#{work[0]} width="400"height="240">
-            <label for="name">作品名稱:</label>
-            <dd>#{work[2]}</dd>
-            <label for="newPrice">欲出售價格</label>
-            <form action="" method="post">
-              <input class="textfield" type="text" id="newPrice" name="newPrice">
-              <p>#{warn}</p>
-                <input type="hidden" name="nftaddress" value=#{work[1]}>
-                <input type="hidden" name="tokenname" value=#{work[2]}>
-                <input type="hidden" name="tokenId" value=#{work[3]}>
-                <input type="submit" value=點我上架>
-            </form>
+    <div class="container-card">
+      <div class="row">
+        <div class="col">
+        <div class="row">
+          if (works)
+            each work in works
+              <div class="col-4 explore-card">
+                <form acion="" method="post">
+                  <div>
+                    <a href="/resell/work_detail/#{work[1]}/#{work[3]}"><img src=#{work[0]} width="285" height="285"></a>
+                  </div>
+                  <div class="row">
+                    <div class="col-auto mr-auto" for="" id="" class="title-sm"><p>#{work[2]}</p></div>
+                  </div>
+                  <input type="textfield" name="newPrice" placeholder="請輸入欲上架價格"><br>
+                  <input type="hidden" name="nftaddress" value=#{work[1]}>
+                  <input type="hidden" name="tokenName" value=#{work[2]}>
+                  <input type="hidden" name="tokenId" value=#{work[3]}>
+                  <br>
+                  <input type="submit" value=點我上架>
+                </form>
+              </div>
         </div>
+      </div>
+    </div>    
+    // pagination
+    <div class="row justify-content-center">
+      <nav aria-label="Page navigation example" id="pagination">
+        <ul class="pagination">
+          // previous
+          if (pagination.page == 1)
+            <li class="page-item disabled">
+              <a class="page-link" href="#{pagination.previous}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          else
+            <li class="page-item">
+              <a class="page-link" href="#{pagination.previous}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          // paging
+          each _, idx in pagination.numOfPages
+            if (idx+1 == pagination.page)
+              <li class="page-item active">
+                <a class="page-link" href="#">#{idx+1}<span class="sr-only">(current)</span></a>
+              </li>
+            else
+              <li class="page-item"><a class="page-link" href="?page=#{idx+1}">#{idx+1}</a></li>
+          // next
+          if (pagination.page == pagination.numOfPages.length)
+            <li class="page-item disabled">
+              <a class="page-link" href="#{pagination.next}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          else
+            <li class="page-item">
+              <a class="page-link" href="#{pagination.next}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-<script src="/javascripts/vendor/vendorCollection.js"></script>
+include ../footbar.pug  
+<script src="/javascripts/resell/resell.js"></script>
 </body>
 </html>

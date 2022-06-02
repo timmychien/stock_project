@@ -119,6 +119,13 @@ router.post("/", function (req, res) {
 
 });
 router.post("/workupload", function (req, res) {
+    var time = new Date();
+    time = time.getUTCFullYear() + '-' +
+        ('00' + (time.getMonth() + 1)).slice(-2) + '-' +
+        ('00' + time.getDate()).slice(-2) + ' ' +
+        ('00' + time.getHours()).slice(-2) + ':' +
+        ('00' + time.getMinutes()).slice(-2) + ':' +
+        ('00' + time.getSeconds()).slice(-2);
     var pool = req.connection;
     var collection = req.body["work_belong_collection"];
     var ipfsuri = req.body['work_ipfsuri'];
@@ -163,10 +170,18 @@ router.post("/workupload", function (req, res) {
                             if (err) {
                                 console.log(err)
                             } else {
-                                res.render('vendor/list_redirect');
+                                connection.query("INSERT INTO nft_transaction(txhash,contractAddress,tokenId,actor,info,time)VALUES(?,?,?,?,?,?)",[hash,tokenaddress,tokenId,req.session.name,"鑄造",time],function(err,rows){
+                                    if(err){
+                                        console.log(err)
+                                    }else{
+                                        res.render('vendor/list_redirect');
+                                    }
+                                })
+                               
                             }
 
                         })
+                        connection.release();
                 }, 10000)
             }
         })

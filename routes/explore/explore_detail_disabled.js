@@ -41,30 +41,38 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
         var name = metadata[1];
         var description = metadata[2];
         var price = metadata[3];
-        connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
-            if (err) {
+        connection.query('SELECT * FROM nft_transaction WHERE contractAddress=?AND tokenId=?ORDER BY time DESC', [contractaddress, tokenId], function (err, rows1) {
+            if(err){
                 console.log(err)
-            } else {
-                var ownername = rows[0].Name;
-                connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
-                    var creatorname = rows[0].Name;
-                    res.render("explore/explore_detail_disabled", {
-                        title: "nft_detail",
-                        bal: bal,
-                        email: req.session.email,
-                        name: name,
-                        description: description,
-                        price: price,
-                        creator: creatorname,
-                        uri: uri,
-                        tokenid: tokenId,
-                        contractaddress: contractaddress,
-                        owner: ownername
-                    });
-                });
+            }else{
+                var transactions=rows1;
+                connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        var ownername = rows[0].Name;
+                        connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
+                            var creatorname = rows[0].Name;
+                            res.render("explore/explore_detail_disabled", {
+                                title: "nft_detail",
+                                bal: bal,
+                                email: req.session.email,
+                                name: name,
+                                description: description,
+                                price: price,
+                                creator: creatorname,
+                                uri: uri,
+                                tokenid: tokenId,
+                                contractaddress: contractaddress,
+                                owner: ownername,
+                                transactions:transactions
+                            });
+                        });
+                    }
+                })
             }
-        })
+        });
+        connection.release();
     })
-
 });
 module.exports = router;

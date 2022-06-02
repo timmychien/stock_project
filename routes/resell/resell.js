@@ -12,6 +12,8 @@ var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
+var collectionabi=require('../collectionABI');
+var collectionabi=collectionabi.collectionABI;
 var abi = require('../collectionABI');
 var abi = abi.collectionABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -60,13 +62,38 @@ router.get('/', function (req, res) {
                             works.push([uri, contracts[idx], name, ids[id]]);
                         }
                     }
+                    const numOfResults = works.length;
+                    const resultsPerPage = 9;
+                    const numOfPages = Math.ceil(numOfResults / resultsPerPage);
+                    let page = req.query.page ? parseInt(req.query.page) : 1;
+                    const startIndex = (page - 1) * resultsPerPage;
+                    const endIndex = page * resultsPerPage;
+
+                    if (endIndex > works.length - 1) {
+                        worksPerPage = works.slice(startIndex);
+                    } else {
+                        worksPerPage = works.slice(startIndex, endIndex);
+                    }
+                    let pagination = {
+                        numOfPages: Array(numOfPages),
+                        page: page,
+                    };
+
+                    if (endIndex < works.length) {
+                        pagination.next = "?page=" + (page + 1).toString();
+                    }
+
+                    if (startIndex > 0) {
+                        pagination.previous = "?page=" + (page - 1).toString();
+                    }
                     res.render('resell/resell', {
                         title: '我的藝術品',
                         email: req.session.email,
                         role: req.session.role,
                         bal: bal,
                         walletaddress: req.session.walletaddress,
-                        works: works
+                        works: works,
+                        pagination: pagination,
                     });
                 }
             })
@@ -78,6 +105,7 @@ router.post('/',function(req,res){
     var nftaddress=req.body['nftaddress'];
     var tokenId=req.body['tokenId'];
     var name=req.body['tokenName'];
+    console.log(name)
     var newPrice = parseInt(req.body['newPrice']);
     console.log(newPrice)
     if(typeof(newPrice)!='number'){
@@ -121,6 +149,13 @@ router.get('/:address/:id/:name/:price',function(req,res){
     })
 })
 router.post('/:address/:id/:name/:price',function(req,res){
+    var time = new Date();
+    time = time.getUTCFullYear() + '-' +
+        ('00' + (time.getMonth() + 1)).slice(-2) + '-' +
+        ('00' + time.getDate()).slice(-2) + ' ' +
+        ('00' + time.getHours()).slice(-2) + ':' +
+        ('00' + time.getMinutes()).slice(-2) + ':' +
+        ('00' + time.getSeconds()).slice(-2);
     var pool=req.connection;
     var nftaddress=req.params.address;
     var tokenId=req.params.id;
@@ -157,11 +192,68 @@ router.post('/:address/:id/:name/:price',function(req,res){
             if(err){
                 console.log(err)
             }else{
-                res.redirect('/');
+                connection.query("INSERT INTO nft_transaction(txhash,contractAddress,tokenId,actor,info,time)VALUES(?,?,?,?,?,?)", [hash, nftaddress, tokenId, req.session.name, "上架", time], function (err, rows) {
+                    if(err){
+                        console.log(err)
+                    }else{
+                        res.render('resell/resell_success_redirect');
+                    }
+                });
+                //res.redirect('/');
             }
         })
         connection.release();
     })
     
+})
+router.get('/work_detail/:contractaddress/:tokenid',function(req,res){
+    if (!req.session.email) {
+        var bal = 0;
+    } else {
+        var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
+    }
+    var pool = req.connection;
+    var contractaddress = req.params.contractaddress;
+    var tokenId = req.params.tokenid;
+    var contract = web3.eth.contract(collectionabi).at(contractaddress);
+    var creator = contract.author.call();
+    //var owner = contract.ownerOf.call(tokenId);
+    var uri = contract.tokenURI(tokenId);
+    pool.getConnection(function (err, connection) {
+        var metadata = contract.MetaData.call(tokenId);
+        var name = metadata[1];
+        var description = metadata[2];
+        var price = metadata[3];
+        connection.query('SELECT * FROM nft_transaction WHERE contractAddress=?AND tokenId=?ORDER BY time DESC',[contractaddress,tokenId],function(err,rows1){
+            if(err){
+                console.log(err)
+            }else{
+                var transactions=rows1;
+                connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows2) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        var creatorname = rows2[0].Name;
+                        res.render("resell/work_detail", {
+                            title: "nft_detail",
+                            bal: bal,
+                            email: req.session.email,
+                            name: name,
+                            description: description,
+                            price: price,
+                            creator: creatorname,
+                            uri: uri,
+                            tokenid: tokenId,
+                            contractaddress: contractaddress,
+                            creator: creatorname,
+                            transactions:transactions
+                        });
+                    }
+                })
+            }
+        })
+        connection.release();
+        
+    })
 })
 module.exports = router;

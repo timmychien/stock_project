@@ -77,7 +77,7 @@ router.post("/", function (req, res) {
     console.log(hash);
     var exchangeInfo='平台幣兌換';
     var balance = pointcontract.balanceOf(req.session.walletaddress).toNumber();
-    balance=balance+toExchange;
+    balance=balance+parseInt(toExchange);
     pool.getConnection(function(err,connection){
         connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,balance,info) VALUES(?,?,?,?,?,?)',[time,toaddress,hash,toExchange,balance,exchangeInfo],function(err,rows){
             if(err){

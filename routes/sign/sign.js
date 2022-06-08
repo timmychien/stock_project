@@ -53,10 +53,13 @@ router.post("/", function (req, res) {
                                 req.session.isverified = 0;
                                 console.log("insert success");
                                 var transporter = nodemailer.createTransport({
-                                    service: "gmail",
+                                    service: "Gmail",
                                     auth: {
+                                        type: 'OAuth2',
                                         user: process.env.EMAIL,
-                                        pass: process.env.EMAIL_PASS,
+                                        clientId: process.env.CLIENT_ID,
+                                        clientSecret: process.env.CLIENT_SECRET,
+                                        refreshToken: process.env.REFRESH_TOKEN
                                     },
                                 });
                                 var mailOptions = {

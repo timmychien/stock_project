@@ -26,10 +26,13 @@ router.post("/", function (req, res) {
                     res.render("forgetpw/forgetpw", { warn: "此信箱尚未被註冊" });
                 } else {
                     var transporter = nodemailer.createTransport({
-                        service: "gmail",
+                        service: "Gmail",
                         auth: {
+                            type: 'OAuth2',
                             user: process.env.EMAIL,
-                            pass: process.env.EMAIL_PASS,
+                            clientId: process.env.CLIENT_ID,
+                            clientSecret: process.env.CLIENT_SECRET,
+                            refreshToken: process.env.REFRESH_TOKEN
                         },
                     });
                     var mailOptions = {

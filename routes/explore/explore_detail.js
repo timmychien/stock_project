@@ -93,7 +93,7 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
 router.post('/:contractaddress/:tokenid',function(req,res){
     var contractaddress=req.params.contractaddress;
     var tokenid=req.params.tokenid;
-    res.render('explore/confirm',{
+    res.render('explore/buy_confirm',{
         contractaddress:contractaddress,
         tokenid:tokenid
     });

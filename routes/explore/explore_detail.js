@@ -34,6 +34,7 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
     var contract = web3.eth.contract(collectionabi).at(contractaddress);
     var creator=contract.author.call();
     var owner = contract.ownerOf.call(tokenId);
+    console.log(owner)
     var uri = contract.tokenURI(tokenId);
     pool.getConnection(function (err, connection) {
         var metadata = contract.MetaData.call(tokenId);
@@ -48,33 +49,39 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
                 connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
                     if (err) {
                         console.log(err)
-                    } else {
+                    }
+                    if(rows.length==0){
+                        
+                    } 
+                    else {
                         if (!req.session.email) {
                             res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
                         }
-                        var ownername = rows[0].Name;
-                        connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
-                            var creatorname = rows[0].Name;
-                            if (owner == req.session.walletaddress) {
-                                res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
-                            } else {
-                                res.render("explore/explore_detail", {
-                                    title: "nft_detail",
-                                    bal: bal,
-                                    email: req.session.email,
-                                    name: name,
-                                    description: description,
-                                    price: price,
-                                    creator: creatorname,
-                                    uri: uri,
-                                    tokenid: tokenId,
-                                    contractaddress: contractaddress,
-                                    owner: ownername,
-                                    owneraddress: owner,
-                                    transactions: transactions
-                                });
-                            }
-                        });
+                        else{
+                            var ownername = rows[0].Name;
+                            connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
+                                var creatorname = rows[0].Name;
+                                if (owner == req.session.walletaddress) {
+                                    res.redirect('/explore_detail_disabled/' + contractaddress + '/' + tokenId);
+                                } else {
+                                    res.render("explore/explore_detail", {
+                                        title: "nft_detail",
+                                        bal: bal,
+                                        email: req.session.email,
+                                        name: name,
+                                        description: description,
+                                        price: price,
+                                        creator: creatorname,
+                                        uri: uri,
+                                        tokenid: tokenId,
+                                        contractaddress: contractaddress,
+                                        owner: ownername,
+                                        owneraddress: owner,
+                                        transactions: transactions
+                                    });
+                                }
+                            });
+                        }
                     }
                 })
             }
@@ -83,7 +90,15 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
     })
 
 });
-router.post('/:contractaddress/:tokenid', function (req, res) {
+router.post('/:contractaddress/:tokenid',function(req,res){
+    var contractaddress=req.params.contractaddress;
+    var tokenid=req.params.tokenid;
+    res.render('explore/confirm',{
+        contractaddress:contractaddress,
+        tokenid:tokenid
+    });
+})
+router.post('/:contractaddress/:tokenid/confirm', function (req, res) {
     var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var tokenaddress = req.params.contractaddress;
     var tokenid = req.params.tokenid;
@@ -100,7 +115,7 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
             ('00' + time.getDate()).slice(-2) + ' ' +
             ('00' + time.getHours()).slice(-2) + ':' +
             ('00' + time.getMinutes()).slice(-2) + ':' +
-            ('00' + time.getSeconds()).slice(-2);
+            ('00' + time.getSeconds()).slice(-2);    
         var tokencontract = web3.eth.contract(collectionabi).at(tokenaddress);
         var name = tokencontract.name.call();
         var tokenowner = tokencontract.ownerOf.call(tokenid);
@@ -154,6 +169,7 @@ router.post('/:contractaddress/:tokenid', function (req, res) {
             })
             connection.release();
         })
+       res.render('explore/buy_redirect');
     }
     
 })

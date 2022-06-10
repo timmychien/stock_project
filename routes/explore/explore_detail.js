@@ -67,6 +67,7 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
                                     res.render("explore/explore_detail", {
                                         title: "nft_detail",
                                         bal: bal,
+                                        role: req.session.role,
                                         email: req.session.email,
                                         name: name,
                                         description: description,

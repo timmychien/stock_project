@@ -15,33 +15,39 @@
   include ../navigator.pug
 
   // collection detail
-  <h5 class="text-center my-5">商品集詳情</h5>
+  //<h5 class="text-center my-5">商品集詳情</h5>
   <div class="container">
     <div class="row">
-        <div class="col">
-            <img src=#{collection_info.uri} class="img-fluid">
-        </div>
-        <div class="col">
-            // todo: edit button
-            <div class="row dropdown">
-              <button class="btn dropdown-toggle ml-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-ellipsis-h"></i>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="" disabled>編輯</a>
-                <a class="dropdown-item" href="">刪除</a>
-              </div>
-            </div>
-            // collection description
-            <div class="row">
-              <div class="title">#{title}</div>
-            </div>
-            <div class="row">
-              <div class="detail">#{collection_info.description}</div>
-            </div>
-        </div>
+      <i class="fa fa-chevron-left" style="margin: 3rem 0rem 0rem 1rem;" onclick="history.back()"></i>
+      <div class="col">
+        <h5 class="text-center my-5">商品集詳情</h5>
+      </div>
     </div>
-
+    <div class="row">
+      <div class="col">
+        <img src=#{collection_info.uri} class="img-fluid">
+      </div>
+      <div class="col">
+        // todo: edit button
+        <div class="row dropdown">
+          <button class="btn dropdown-toggle ml-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-ellipsis-h"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="" disabled>編輯</a>
+            <a class="dropdown-item" href="">刪除</a>
+          </div>
+          </div>
+            // collection description
+          <div class="row">
+            <div class="title">#{title}</div>
+          </div>
+          <div class="row">
+            <div class="detail">#{collection_info.description}</div>
+          </div>
+        </div>
+      </div>
+    </div>
     // divider
     <hr>
     

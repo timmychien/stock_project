@@ -20,14 +20,14 @@
     <div class="row">
       <h3 class="col-3">商品上架</h3>
       <h3 class="col-auto mr-auto">商品集</h3>
-      <div class="col-auto">
+      //<div class="col-auto">
         <select class="selectpicker">
           <option value="1" selected>最新</option>
           <option value="2">價格：由高至低</option>
           <option value="3">價格：由低至高</option>
           <option value="4">最舊</option>
         </select>
-      </div>
+      //</div>
     </div>
   </div>
 
@@ -100,47 +100,12 @@
               <div class="col-4 explore-card ">
                 <div>
                   // click on this
-                  <img src=#{val.uri} width="285" height="285" id="uploadCollection" class="upload" data-toggle="modal" data-target="#uploadModalCenter">
-                  <p class="badge badge-pill creator">#{val.vendorname}<p>
+                  <img src=#{val.image} width="285" height="285" id="uploadCollection" class="upload" data-toggle="modal" data-target="#uploadModalCenter">
                 </div>
-                <p for="" id="" class="description">#{val.description}</p>
+                <p for="" id="" class="date">#{val.name}</p>
                 <div class="row">
                   // need to get this
-                  <a href="/collection_detail/#{val.name}/#{val.contract}">
-                    <div class="col-auto mr-auto" for="" id="collectionTitle" class="title-sm">#{val.name}
-                    </div>
-                  </a>
-                </div>
-              </div>
-              // upload work modal
-              <div class="modal fade bd-example-modal-xl" id="uploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-body-work">
-                      <form class="row" action="/goodupload/workupload" method="post">
-                        <div id="container-upload" class="col-6 text-center">
-                          <img src="" id="workpreview" width="300"height="300">
-                          <input type="file" id="workimageupload" name="image" style="display:none;" onchange=previewwork()><br>
-                          <i class="bi bi-upload" id="workicon" style="font-size: 5rem;"></i>
-                          <label for="workimageupload">上傳圖片</label>
-                          <p id="worknotice">格式限制：jpg、gif、png</p>
-                        </div>
-                        <input type="hidden" id="work_ipfsuri" name="work_ipfsuri" readonly>
-                        <div class="col-1"></div>
-                        <div class="col-5">
-                          <br>
-                          <input class="textfield work_belong_collection" type="text" id="work_belong_collection" name="work_belong_collection" placeholder="商品集" style="display:none"><br>
-                          <input class="textfield" type="text" id="work_name" name="work_name" placeholder="作品名稱*"><br>
-                          <span>#{warn}</span>
-                          <input class="textfield" type="text" id="work_description" for="description" name="work_description" placeholder="描述"><br>
-                          <input class="textfield" type="text" id="work_price" for="price" name="work_price" placeholder="價格*"><br>
-                          <div class="row" id="upload-btn-group">
-                            <div class="col"><input class="btn-submit" type="submit" id="upload" value="上傳作品"></div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+                  <div class="col-auto mr-auto" for="" id="collectionTitle" class="title-sm">#{val.up_or_down}</div>
                 </div>
               </div>
         </div>
@@ -169,22 +134,23 @@
             <input type="hidden" id="ipfsuri" name="ipfsuri" readonly>
             <div class="col-1"></div>
             <div class="col-5">
-              // using dropdown?
-              //<select class="form-select" aria-label="Default select example">
-                <option selected>選擇商品集</option>
-                <option value="1">Collection 1</option>
-                <option value="2">Collection 2</option>
-                <option value="3">Collection 3</option>
-              //</select><br>
               <br>
-              <input class="textfield" type="text" id="name" name="name" placeholder="商品集名稱*"><br>
-              <p>#{warn}</p>
-              <input class="textfield" type="text" id="symbol" name="symbol" placeholder="商品集代號*"><br>
-              //- <input class="textfield" type="text" id="symbol" name="symbol" placeholder="作品代號*"><br>
-              <input class="textfield" type="text" id="description" name="description" placeholder="描述"><br>
+              <label for="date">日期:</label>
+              <input class="textfield" type="date" id="date" name="date" placeholder="日期"><br>
               <span>#{warn}</span>
+              <label for="updown">漲跌:</label>
+              <select id="updown" name="updown">
+                <option value="up">漲</option>
+                <option value>跌</option>
+              </select><br>
+              <input class="textfield" type="number" id="mintLimit" name="mintLimit" placeholder="發行上限"><br>
+              <span>#{limitWarn}</span>
+              //- <input class="textfield" type="text" id="symbol" name="symbol" placeholder="作品代號*"><br>
+              //- <input class="textfield" type="text" id="description" name="description" placeholder="描述"><br>
+              //- <span>#{warn}</span>
               <br>
-              <input class="btn-submit" type="submit" id="upload" value="創建商品集">
+              <input class="btn-submit" type="submit" id="upload" value="創建">
+              <span>#{uriWarn}</span>
               <br>
             </div>
           </form>

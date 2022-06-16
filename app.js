@@ -18,7 +18,6 @@ var resetpwRouter = require('./routes/forgetpw/resetpw');
 var forgetpkRouter=require('./routes/forgetpk');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
-//var verifyRouter = require('./routes/sign/verify');
 //admin
 var createVoteRouter = require('./routes/admin/createvote');
 var airdropNFTRouter = require('./routes/admin/airdropNFT');
@@ -29,10 +28,6 @@ var signupoverviewRouter =require('./routes/overview/signup_overview');
 var voteoverviewRouter = require('./routes/overview/vote_overview');
 var signupRouter =require('./routes/signup/signup');
 var voteRouter=require('./routes/vote/vote');
-//activities
-var activityRouter = require('./routes/activity/activity');
-var openactivityRouter = require('./routes/activity/activity_open');
-var onvoteactivityRouter = require('./routes/activity/activity_onvote');
 //explore
 var exploreRouter =require('./routes/explore/explore');
 var exploreDetailRouter = require("./routes/explore/explore_detail");
@@ -58,9 +53,6 @@ var mywalletRouter=require('./routes/personal/mywallet');
 var modifyInfoRouter=require('./routes/modify/modifyinfo');
 var applyforvendorRouter=require('./routes/apply/applyforvendor');
 //vendor
-var addCollectionRouter=require('./routes/vendor/addCollection');
-var workListingRouter=require('./routes/vendor/workListing');
-var vendorCollectionRouter=require('./routes/vendor/vendorCollection');
 var gooduploadRouter = require("./routes/vendor/goodupload");
 var collectionDetailRouter = require("./routes/vendor/collection_detail");
 var app = express();
@@ -149,10 +141,6 @@ app.use('/airdropNFT',airdropNFTRouter);
 app.use('/workconfig',workConfigRouter);
 app.use('/promote',promoteRouter);
 app.use('/auditvendor',auditvendorRouter);
-//activities
-app.use('/activity',activityRouter);
-app.use('/activity_open',openactivityRouter);
-app.use('/activity_onvote', onvoteactivityRouter);
 //explore
 app.use('/explore',exploreRouter);
 app.use("/explore_detail", exploreDetailRouter);
@@ -183,9 +171,6 @@ app.use('/modifyinfo',modifyInfoRouter);
 app.use('/applyforvendor',applyforvendorRouter);
 
 //vendor
-app.use('/addCollection',addCollectionRouter);
-app.use('/workListing',workListingRouter);
-app.use('/vendorCollection',vendorCollectionRouter);
 app.use("/goodupload", gooduploadRouter);
 app.use("/collection_detail", collectionDetailRouter);
 // catch 404 and forward to error handler

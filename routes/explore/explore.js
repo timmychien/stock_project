@@ -10,9 +10,9 @@ web3.setProvider(
     )
 );
 var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
-var vendorabi = require("../vendorABI");
-var vendorabi = vendorabi.vendorABI;
-var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
+var stockabi = require("../stockABI");
+var stockabi = stockabi.stockABI;
+//var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
 var collectionabi = require("../collectionABI");
 var collectionabi = collectionabi.collectionABI;
 var pointabi = require("../pointABI");
@@ -117,6 +117,7 @@ router.get("/", function (req, res) {
             connection.release();
         });
 });
+/*
 router.post("/",function(req,res){
     var collectionname = req.body['flexRadioDefault'];
     if(!req.session.email){
@@ -184,5 +185,5 @@ router.post("/",function(req,res){
         connection.release();
     });
     
-})
+})*/
 module.exports = router;

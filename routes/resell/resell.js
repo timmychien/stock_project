@@ -6,8 +6,8 @@ const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
 var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
-var vendorabi = require('../vendorABI');
-var vendorabi = vendorabi.vendorABI;
+var stockabi = require('../stockABI');
+var stockabi = stockabi.stockABI;
 var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
@@ -16,7 +16,7 @@ var collectionabi=require('../collectionABI');
 var collectionabi=collectionabi.collectionABI;
 var abi = require('../collectionABI');
 var abi = abi.collectionABI;
-var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
+//var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
 const customCommon = Common.forCustomChain('mainnet', {
     name: 'nftproject',
     chainId: 13330,
@@ -101,6 +101,7 @@ router.get('/', function (req, res) {
         })
     }
 });
+/*
 router.post('/',function(req,res){
     var nftaddress=req.body['nftaddress'];
     var tokenId=req.body['tokenId'];
@@ -255,5 +256,5 @@ router.get('/work_detail/:contractaddress/:tokenid',function(req,res){
         connection.release();
         
     })
-})
+})*/
 module.exports = router;

@@ -5,12 +5,12 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
-var pointabi = require('../pointABI');
+/*var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
 var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
-var vendorabi = require('../vendorABI');
+var vendorabi = require('../stockABI');
 var vendorabi = vendorabi.vendorABI;
 var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
 var collectionabi = require('../collectionABI');
@@ -20,15 +20,16 @@ const customCommon = Common.forCustomChain('mainnet', {
     chainId: 13330,
     networkId: 13330
 
-}, 'petersburg')
+}, 'petersburg')*/
 /* GET home page. */
 router.get("/:contractaddress/:tokenid", function (req, res) {
     if (!req.session.email) {
         var bal=0;
     }else{
         var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
+        res.render('explore/explore_detail');
     }
-    var pool = req.connection;
+    /*var pool = req.connection;
     var contractaddress = req.params.contractaddress;
     var tokenId = req.params.tokenid;
     var contract = web3.eth.contract(collectionabi).at(contractaddress);
@@ -88,9 +89,11 @@ router.get("/:contractaddress/:tokenid", function (req, res) {
             }
         });
         connection.release();
-    })
+    })*/
+
 
 });
+/*
 router.post('/:contractaddress/:tokenid',function(req,res){
     var contractaddress = req.params.contractaddress;
     var tokenid = req.params.tokenid;
@@ -177,6 +180,6 @@ router.post('/:contractaddress/:tokenid/:price/confirm', function (req, res) {
     })
     res.render('explore/buy_redirect');
     
-})
+})*/
 
 module.exports = router;

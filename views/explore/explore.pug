@@ -55,10 +55,10 @@
                 // radio
                 <div class="container-radio overflow-auto">
                   <form action="" method="post">
-                    each collection in collections 
+                    each nft in nfts 
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1" value=#{collection[0]}>
-                        <label class="form-check-label" for="flexRadioDefault1">#{collection[0]}(#{collection[1]})</label>
+                        //<input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1" value=#{collection[0]}>
+                        //<label class="form-check-label" for="flexRadioDefault1">#{collection[0]}(#{collection[1]})</label>
                       </div>
                     <input type="submit" value="篩選" class="my-3 submit-btn">
                   </form>
@@ -90,19 +90,20 @@
       </div>
       <div class="col">
         <div class="row">
-          if (works)
-            each work in works
+          if (nfts)
+            each nft in nfts
               <div class="col-4 explore-card">
                 <div>
-                  if(email)
-                    <a href="/explore_detail/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
-                  else
-                    <a href="/explore_detail_disabled/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
+                  //-if(email)
+                    //-<a href="/explore_detail/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
+                  //-else
+                    //-<a href="/explore_detail_disabled/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
                   //<p class="badge badge-pill creator">#{val[2]}<p>
+                  <img src=#{nft.image} width="285" height="285">
                 </div>
                 //<p for="" id="" class="description">#{val[4]}</p>
                 <div class="row">
-                  <div class="col-auto mr-auto" for="" id="" class="title-sm"><p>#{work.name} $#{work.price}</p></div>
+                  <div class="col-auto mr-auto" for="" id="" class="title-sm"><p>#{nft.name} $1</p></div>
                   <div class="col-auto" for="" id="price"><p> </p></div>
                 </div>
               </div>

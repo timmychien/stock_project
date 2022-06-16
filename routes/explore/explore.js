@@ -9,7 +9,7 @@ web3.setProvider(
         "https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"
     )
 );
-var vendorAddress = "0x78931Ab7795710473556F35ee546E105ec4B3c01";
+var stockAddress="0xebF8Ddd2bbC45E172461CF4117a97C0b7E3F41A5";
 var stockabi = require("../stockABI");
 var stockabi = stockabi.stockABI;
 //var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
@@ -60,62 +60,47 @@ router.get("/", function (req, res) {
     var pool = req.connection;
     var collections=new Array();
     pool.getConnection(function (err, connection) {
-        connection.query(
-            "SELECT * FROM collectionlist",
-            function (err, rows) {
-                if (err) {
-                    console.log(err);
+        connection.query("SELECT * FROM stockNFT",function (err, rows) {
+            if (err) {
+                console.log(err);
+            }
+            else{
+                var nfts=rows;
+                const numOfResults = nfts.length;
+                const resultsPerPage = 9;
+                const numOfPages = Math.ceil(numOfResults / resultsPerPage);
+                let page = req.query.page ? parseInt(req.query.page) : 1;
+                const startIndex = (page - 1) * resultsPerPage;
+                const endIndex = page * resultsPerPage;
+
+                if (endIndex > nfts.length - 1) {
+                    worksPerPage = nfts.slice(startIndex);
+                } else {
+                    worksPerPage = nfts.slice(startIndex, endIndex);
                 }
-                else{
-                    for (var i = 0; i < rows.length; i++) {
-                        var collectionName = rows[i].name;
-                        //console.log(collectionName)
-                        var onsellAmount = vendorcontract.onSellAmount.call(rows[i].contract);
-                        if (onsellAmount > 0) {
-                            collections.push([collectionName, onsellAmount]);
-                        }
-                    }
-                    connection.query('SELECT * FROM goods_onsell', function (err, rows2) {
-                        var works = rows2;
-                        //pagination
-                        const numOfResults = works.length;
-                        const resultsPerPage = 9;
-                        const numOfPages = Math.ceil(numOfResults / resultsPerPage);
-                        let page = req.query.page ? parseInt(req.query.page) : 1;
-                        const startIndex = (page - 1) * resultsPerPage;
-                        const endIndex = page * resultsPerPage;
+                let pagination = {
+                    numOfPages: Array(numOfPages),
+                    page: page,
+                };
 
-                        if (endIndex > works.length - 1) {
-                            worksPerPage = works.slice(startIndex);
-                        } else {
-                            worksPerPage = works.slice(startIndex, endIndex);
-                        }
-                        let pagination = {
-                            numOfPages: Array(numOfPages),
-                            page: page,
-                        };
-
-                        if (endIndex < works.length) {
-                            pagination.next = "?page=" + (page + 1).toString();
-                        }
-
-                        if (startIndex > 0) {
-                            pagination.previous = "?page=" + (page - 1).toString();
-                        }
-                        res.render("explore/explore", {
-                            email: req.session.email,
-                            bal: bal,
-                            role: req.session.role,
-                            collections: collections,
-                            //works: works,
-                            works: worksPerPage,
-                            pagination: pagination,
-                        });
-                    })
+                if (endIndex < nfts.length) {
+                    pagination.next = "?page=" + (page + 1).toString();
                 }
-            });
+
+                if (startIndex > 0) {
+                    pagination.previous = "?page=" + (page - 1).toString();
+                }
+                res.render('explore/explore',{
+                    email:req.session.email,
+                    role:req.session.role,
+                    nfts:nfts,
+                    bal:bal,
+                    pagination: pagination,
+                });
+            }
             connection.release();
         });
+    });    
 });
 /*
 router.post("/",function(req,res){

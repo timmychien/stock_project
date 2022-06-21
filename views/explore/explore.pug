@@ -94,12 +94,12 @@
             each nft in nfts
               <div class="col-4 explore-card">
                 <div>
-                  //-if(email)
-                    //-<a href="/explore_detail/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
-                  //-else
-                    //-<a href="/explore_detail_disabled/#{work.contract}/#{work.tokenid}"><img src=#{work.tokenURI} width="285" height="285"></a>
+                  if(email)
+                    <a href="/explore_detail/#{nft.address}"><img src=#{nft.image} width="285" height="285"></a>
+                  else
+                    <a href="/explore_detail_disabled/#{nft.address}"><img src=#{nft.image} width="285" height="285"></a>
                   //<p class="badge badge-pill creator">#{val[2]}<p>
-                  <img src=#{nft.image} width="285" height="285">
+                  //<img src=#{nft.image} width="285" height="285">
                 </div>
                 //<p for="" id="" class="description">#{val[4]}</p>
                 <div class="row">

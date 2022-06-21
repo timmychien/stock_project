@@ -74,7 +74,7 @@ router.post('/:contractaddress/confirm', function (req, res) {
         ('00' + time.getSeconds()).slice(-2);    
     var tokencontract = web3.eth.contract(collectionabi).at(tokenaddress);
     var name = tokencontract.name.call();
-    //var tokenowner = tokencontract.ownerOf.call(tokenid);
+    //var tokenowner = tokencontract.owner.call();
     var buyer = req.session.walletaddress;
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');
@@ -100,17 +100,17 @@ router.post('/:contractaddress/confirm', function (req, res) {
     pool.getConnection(function (err, connection) {
         var buyer_bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
         buyer_bal=buyer_bal-price;
-        var seller_bal = pointcontract.balanceOf.call(tokenowner).toNumber();
-        seller_bal=seller_bal+parseInt(price);
+        //var seller_bal = pointcontract.balanceOf.call(tokenowner).toNumber();
+        //seller_bal=seller_bal+parseInt(price);
         var buy_change=-price;
-        var sell_change=+price;
-        var buy_info='購買NFT:'+name+'(id:'+tokenid+')';
-        var sell_info = '販售NFT:' + name + '(id:' + tokenid + ')';
-        connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,balance,info)VALUES(?,?,?,?,?,?),(?,?,?,?,?,?)',[time,tokenowner,hash,sell_change,seller_bal,sell_info,time,buyer,hash,buy_change,buyer_bal,buy_info],function(err,rows){
+        //var sell_change=+price;
+        var buy_info='購買NFT:'+name;
+        var sell_info = '販售NFT:' + name;
+        connection.query('INSERT INTO point_transactions(time,address,hash,change_amount,balance,info)VALUES(?,?,?,?,?,?)',[time,buyer,hash,buy_change,buyer_bal,buy_info],function(err,rows){
             if(err){
                 console.log(err)
             }else{
-                connection.query("INSERT INTO nft_transaction(txhash,contractAddress,tokenId,actor,info,time)VALUES(?,?,?,?,?,?)", [hash, tokenaddress, tokenid, req.session.name, "購買", time], function (err, rows) {
+                connection.query("INSERT INTO nft_transaction(txhash,contractAddress,tokenId,actor,info,time)VALUES(?,?,?,?,?,?)", [hash, tokenaddress,"#",req.session.name, "購買", time], function (err, rows) {
                     res.render('explore/buy_redirect');
                 })
                         
@@ -119,7 +119,7 @@ router.post('/:contractaddress/confirm', function (req, res) {
         connection.release();
         
     })
-    res.render('explore/buy_redirect');
+    //res.render('explore/buy_redirect');
     
 })
 

@@ -9,10 +9,10 @@ var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
-//var vendorAddress = "0xAc79aC8B2EF6d54dc241038b993f0eDC45434e93";
-//var vendorabi = require('../vendorABI');
-//var vendorabi = vendorabi.vendorABI;
-//var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
+var stockabi=require('../stockABI');
+var stockabi=stockabi.stockABI;
+var stockAddress ="0xebF8Ddd2bbC45E172461CF4117a97C0b7E3F41A5";
+var stockcontract=web3.eth.contract(stockabi).at(stockAddress);
 var collectionabi = require('../collectionABI');
 var collectionabi = collectionabi.collectionABI;
 const customCommon = Common.forCustomChain('mainnet', {
@@ -22,57 +22,25 @@ const customCommon = Common.forCustomChain('mainnet', {
 
 }, 'petersburg')
 /* GET home page. */
-router.get("/:contractaddress/:tokenid", function (req, res) {
-    if (!req.session.email) {
-        var bal=0;
-    }else{
-        var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
-    }
+router.get("/:contractaddress", function (req, res) {
     var pool = req.connection;
     var contractaddress = req.params.contractaddress;
-    var tokenId = req.params.tokenid;
-    var contract = web3.eth.contract(collectionabi).at(contractaddress);
-    var creator = contract.author.call();
-    var owner = contract.ownerOf.call(tokenId);
-    //var isonsell = vendorcontract.isOnSell.call(contractaddress, id).toString();
-    var uri = contract.tokenURI(tokenId);
-    pool.getConnection(function (err, connection) {
-        var metadata = contract.MetaData.call(tokenId);
-        var name = metadata[1];
-        var description = metadata[2];
-        var price = metadata[3];
-        connection.query('SELECT * FROM nft_transaction WHERE contractAddress=?AND tokenId=?ORDER BY time DESC', [contractaddress, tokenId], function (err, rows1) {
-            if(err){
-                console.log(err)
-            }else{
-                var transactions=rows1;
-                connection.query('SELECT * FROM member_info WHERE address=?', [owner], function (err, rows) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        var ownername = rows[0].Name;
-                        connection.query('SELECT * FROM member_info WHERE address=?', [creator], function (err, rows) {
-                            var creatorname = rows[0].Name;
-                            res.render("explore/explore_detail_disabled", {
-                                title: "nft_detail",
-                                bal: bal,
-                                email: req.session.email,
-                                name: name,
-                                description: description,
-                                price: price,
-                                creator: creatorname,
-                                uri: uri,
-                                tokenid: tokenId,
-                                contractaddress: contractaddress,
-                                owner: ownername,
-                                transactions:transactions
-                            });
-                        });
-                    }
-                })
-            }
-        });
-        connection.release();
-    })
+    if (!req.session.email) {
+        var bal=0;
+        var contract = web3.eth.contract(collectionabi).at(contractaddress);
+        var uri=contract.baseURI.call();
+        var name = contract.name.call();
+        var mintLimit = contract.mintLimit.call();
+        var totalSupply = contract.totalSupply.call();
+        res.render('explore/explore_detail_disabled',{
+            bal:bal,
+            uri:uri,
+            name:name,
+            mintLimit:mintLimit,
+            totalSupply:totalSUpply
+        })
+    }else{
+        res.redirect('/explore_detail/'+contractaddress)
+    }
 });
 module.exports = router;

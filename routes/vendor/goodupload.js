@@ -6,7 +6,7 @@ var Web3 = require('web3');
 const web3 = new Web3();
 var Common = require('ethereumjs-common').default;
 web3.setProvider(new web3.providers.HttpProvider("https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"));
-var stockAddress = "0xebF8Ddd2bbC45E172461CF4117a97C0b7E3F41A5";
+var stockAddress = "0xAaAB5FdeF3E26878D2D2d7a1B4511184F21C6EC5";
 var abi = require('../stockABI');
 var abi = abi.stockABI;
 var pointabi = require('../pointABI');
@@ -39,7 +39,6 @@ router.get('/', function (req, res) {
                 else {
                     var collections = rows;
                     res.render('vendor/goodupload', {
-                        title: '我的商品集',
                         email: req.session.email,
                         role: req.session.role,
                         bal:bal,
@@ -55,8 +54,7 @@ router.get('/', function (req, res) {
 });
 router.post("/", function (req, res) {
     var pool = req.connection;
-    var date=req.body['date'];
-    var updown = req.body['updown'];
+    var date= req.body['date'];
     var mintLimit = req.body['mintLimit'];
     var uri = req.body['ipfsuri'];
     if(date==''){
@@ -81,23 +79,20 @@ router.post("/", function (req, res) {
     }
     else{
         console.log(date)
-        var timestamp = (new Date(date).getTime()) / 1000;
-        var name = date + updown;
+        var timestamp = Math.floor(new Date(date).getTime()/1000);
         console.log("timestamp:", timestamp)
         console.log(uri)
-        var checkaddress = contract.optionAddress(name);
+        var checkname=date.concat('',"up");
+        var checkaddress = contract.optionAddress(checkname);
         if (checkaddress != '0x0000000000000000000000000000000000000000') {
             res.render('vendor/goodupload_error')
         } else {
-            if (updown == 'up') {
-                var data = contract.createUpOption.getData(date, timestamp, mintLimit, uri);
-            } else {
-                var data = contract.createDownOption.getData(date, timestamp, mintLimit, uri);
-            }
+            var datestring = date.toString();
+            var data=contract.createGame.getData(date, timestamp, mintLimit, uri);
             var address = req.session.walletaddress;
             var privkey = Buffer.from(req.session.pk, 'hex');
             var count = web3.eth.getTransactionCount(address);
-            var gasPrice = web3.eth.gasPrice.toNumber();
+            var gasPrice = 0;
             var gasLimit = 3000000;
             var rawTx = {
                 "from": address,
@@ -107,7 +102,7 @@ router.post("/", function (req, res) {
                 "to": stockAddress,
                 "value": 0x0,
                 "data": data,
-                "chainId": 13144
+                "chainId": 13330
             }
             var tx = new Tx(rawTx, { common: customCommon });
             tx.sign(privkey);
@@ -115,19 +110,29 @@ router.post("/", function (req, res) {
             var hash = web3.eth.sendRawTransaction('0x' + serializedTx.toString('hex'));
             console.log(hash)
             setTimeout(function () {
-                var optionAddress = contract.optionAddress(name);
-                console.log('optionAddress:', optionAddress)
+                var upName = date.concat('',"up");
+                var downName = date.concat('',"down");
+                var upAddr = contract.optionAddress(upName);
+                var downAddr = contract.optionAddress(downName);
+                console.log('upAddress:', upAddr)
+                console.log('downAddress:', downAddr)
                 pool.getConnection(function (err, connection) {
-                    connection.query('INSERT INTO stockNFT(name,date,address,up_or_down,image)VALUES(?,?,?,?,?)', [name,date, optionAddress, updown, uri], function (err, rows) {
-                        if (err) {
+                    connection.query('INSERT INTO game_list(date,timestamp,URI,upAddr,downAddr)VALUES(?,?,?,?,?)',[date,timestamp,uri,upAddr,downAddr],function(err,rows1){
+                        if(err){
                             console.log(err)
-                        } else {
-                            res.render('vendor/list_redirect');
+                        }else{
+                            connection.query('INSERT INTO stockNFT(name,date,address,up_or_down,image)VALUES(?,?,?,?,?),(?,?,?,?,?)', [upName, date, upAddr, 'up', uri,downName,date,downAddr,'down',uri], function (err, rows2) {
+                                if (err) {
+                                    console.log(err)
+                                } else {
+                                    res.render('vendor/list_redirect');
+                                }
+                            })
                         }
                     })
                     connection.release();
                 })
-            }, 5000)
+            }, 8000)
         }
     }
 });

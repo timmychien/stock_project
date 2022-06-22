@@ -4,7 +4,7 @@
   <meta charset="utf-8">
 </head>
 <body>
-<title>商品上架</title>
+<title>創建活動</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/vendor/goodupload.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -18,8 +18,8 @@
   // body-title
   <div class="container-title">
     <div class="row">
-      <h3 class="col-3">商品上架</h3>
-      <h3 class="col-auto mr-auto">商品集</h3>
+      <h3 class="col-3">創建活動</h3>
+      <h3 class="col-auto mr-auto">活動</h3>
       //<div class="col-auto">
         <select class="selectpicker">
           <option value="1" selected>最新</option>
@@ -36,7 +36,7 @@
     <div class="row">
       <div class="col-3">
         <div class="mb-3" id="tutorial">
-        |此頁面提供會員上架商品<br>包含創建商品集與<br>上傳單一作品至商品集中
+        |此頁面提供會員創建競猜活動
         //- <div id="accordionFilter" class="mb-3">
         //-   // filter
         //-   <div class="card">
@@ -138,11 +138,6 @@
               <label for="date">日期:</label>
               <input class="textfield" type="date" id="date" name="date" placeholder="日期"><br>
               <span>#{warn}</span>
-              <label for="updown">漲跌:</label>
-              <select id="updown" name="updown">
-                <option value="up">漲</option>
-                <option value>跌</option>
-              </select><br>
               <input class="textfield" type="number" id="mintLimit" name="mintLimit" placeholder="發行上限"><br>
               <span>#{limitWarn}</span>
               //- <input class="textfield" type="text" id="symbol" name="symbol" placeholder="作品代號*"><br>

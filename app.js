@@ -24,22 +24,12 @@ var airdropNFTRouter = require('./routes/admin/airdropNFT');
 var workConfigRouter=require('./routes/admin/workconfig');
 var promoteRouter=require('./routes/admin/promote');
 var auditvendorRouter=require('./routes/admin/auditvendor');
-var signupoverviewRouter =require('./routes/overview/signup_overview');
-var voteoverviewRouter = require('./routes/overview/vote_overview');
-var signupRouter =require('./routes/signup/signup');
-var voteRouter=require('./routes/vote/vote');
 //explore
 var exploreRouter =require('./routes/explore/explore');
 var exploreDetailRouter = require("./routes/explore/explore_detail");
 var exploreDetailDisabledRouter = require("./routes/explore/explore_detail_disabled");
 //resell
 var resellRouter=require('./routes/resell/resell');
-//works
-var worksRouter=require('./routes/works/works');
-var buyRouter = require('./routes/works/buy');
-var voteworkRouter =require('./routes/works/vote');
-var workvotedRounter=require('./routes/works/workvoted');
-var workboughtRouter=require('./routes/works/workbought')
 //個人專區
 var myinfoRouter=require('./routes/personal/myinfo');
 var myworkRouter=require('./routes/personal/mywork');
@@ -147,16 +137,6 @@ app.use("/explore_detail", exploreDetailRouter);
 app.use("/explore_detail_disabled",exploreDetailDisabledRouter);
 //resell
 app.use('/resell',resellRouter);
-//works
-app.use('/works',worksRouter);
-app.use('/works/buy', buyRouter);
-app.use('/works/vote', voteworkRouter);
-app.use('/workvoted',workvotedRounter);
-app.use('/workbought',workboughtRouter);
-app.use('/overview_signup',signupoverviewRouter);
-app.use('/overview_vote', voteoverviewRouter);
-app.use('/signup',signupRouter);
-app.use('/vote',voteRouter);
 //個人專區
 app.use('/myinfo',myinfoRouter);
 app.use('/mywork',myworkRouter);

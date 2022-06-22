@@ -9,9 +9,9 @@ web3.setProvider(
         "https://besu-nftproject-8e16194c11-node-0d55c2a5.baas.twcc.ai"
     )
 );
-var stockAddress="0xebF8Ddd2bbC45E172461CF4117a97C0b7E3F41A5";
-var stockabi = require("../stockABI");
-var stockabi = stockabi.stockABI;
+//var stockAddress="0xebF8Ddd2bbC45E172461CF4117a97C0b7E3F41A5";
+//var stockabi = require("../stockABI");
+//var stockabi = stockabi.stockABI;
 //var vendorcontract = web3.eth.contract(vendorabi).at(vendorAddress);
 var collectionabi = require("../collectionABI");
 var collectionabi = collectionabi.collectionABI;

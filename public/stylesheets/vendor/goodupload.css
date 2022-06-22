@@ -157,7 +157,7 @@ input[type="text"] {
     transform: translate(-3.6rem, 3rem);
     font-size: 20px;
     font-weight: 350;
-    content: '創建商品集';
+    content: '創建活動';
 }
 #upload-btn:focus {
     outline: none;

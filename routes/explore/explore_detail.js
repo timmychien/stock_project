@@ -9,7 +9,7 @@ var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
-var stockAddress = "0xebF8Ddd2bbC45E172461CF4117a97C0b7E3F41A5";
+var stockAddress = "0x77018B67b39598Ae8145A178c689E4CD32a5aFF6";
 var stockabi = require('../stockABI');
 var stockabi = stockabi.stockABI;
 var stockcontract = web3.eth.contract(stockabi).at(stockAddress);
@@ -90,7 +90,7 @@ router.post('/:contractaddress/confirm', function (req, res) {
         "to": stockAddress,
         "value": 0x0,
         "data": data,
-        "chainId": 13330
+        "chainId": 13144
     }
     var tx = new Tx(rawTx, { common: customCommon });
     tx.sign(privkey);

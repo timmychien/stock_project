@@ -23,7 +23,7 @@ const customCommon = Common.forCustomChain('mainnet', {
 }, 'petersburg')
 /* GET home page. */
 router.get("/:contractaddress", function (req, res) {
-    var pool = req.connection;
+    //var pool = req.connection;
     var contractaddress = req.params.contractaddress;
     if (!req.session.email) {
         var bal=0;
@@ -37,7 +37,7 @@ router.get("/:contractaddress", function (req, res) {
             uri:uri,
             name:name,
             mintLimit:mintLimit,
-            totalSupply:totalSUpply
+            totalSupply:totalSupply
         })
     }else{
         res.redirect('/explore_detail/'+contractaddress)

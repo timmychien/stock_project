@@ -451,21 +451,6 @@ var stockABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "totalVoting",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
 				"internalType": "address",

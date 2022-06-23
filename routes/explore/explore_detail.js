@@ -9,7 +9,7 @@ var pointabi = require('../pointABI');
 var pointabi = pointabi.pointABI;
 var pointAddress = "0x1e8B628Da1EBcE9B1adA7CD181cda91614762414";
 var pointcontract = web3.eth.contract(pointabi).at(pointAddress);
-var stockAddress = "0x77018B67b39598Ae8145A178c689E4CD32a5aFF6";
+var stockAddress = "0x3be920996149c9746729D2A707a360D0324CD425";
 var stockabi = require('../stockABI');
 var stockabi = stockabi.stockABI;
 var stockcontract = web3.eth.contract(stockabi).at(stockAddress);
@@ -24,7 +24,6 @@ const customCommon = Common.forCustomChain('mainnet', {
 /* GET home page. */
 router.get("/:contractaddress", function (req, res) {
     var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
-    var pool = req.connection;
     var contractaddress = req.params.contractaddress;
     var contract = web3.eth.contract(collectionabi).at(contractaddress);
     var uri = contract.baseURI.call();
@@ -46,6 +45,8 @@ router.get("/:contractaddress", function (req, res) {
 router.post('/:contractaddress',function(req,res){
     var contractaddress = req.params.contractaddress;
     //var price = req.body['price'];
+    var price=1;
+    var amount=req.body['amount'];
     var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     if (bal < price) {
         res.render('explore/explore_detail', {
@@ -55,16 +56,20 @@ router.post('/:contractaddress',function(req,res){
     else{
         res.render('explore/buy_confirm', {
             contractaddress: contractaddress,
+            amount:amount,
         });
     }
 })
-router.post('/:contractaddress/confirm', function (req, res) {
+router.post('/:contractaddress/:amount/confirm', function (req, res) {
     //var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     var tokenaddress = req.params.contractaddress;
-    var tokenid = req.params.tokenid;
+    //var tokenid = req.params.tokenid;
     var price=1;
+    var amount=req.params.amount;
     var pool = req.connection;
-    var timestamp = Math.floor(Date.now() / 1000);
+    //var datetime = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }).getTime();
+    var timestamp = Math.floor(new Date().getTime() / 1000) + 28800;
+    console.log(timestamp)
     var time = new Date();
     time = time.getUTCFullYear() + '-' +
         ('00' + (time.getMonth() + 1)).slice(-2) + '-' +
@@ -78,9 +83,10 @@ router.post('/:contractaddress/confirm', function (req, res) {
     var buyer = req.session.walletaddress;
     var address = req.session.walletaddress;
     var privkey = Buffer.from(req.session.pk, 'hex');
-    var data = stockcontract.buy.getData(buyer,tokenaddress,amount,price,timestamp);
+    var to =process.env.PLATFORM_ADDR;
+    var data = stockcontract.buy.getData(buyer,to,tokenaddress,amount,price,timestamp);
     var count = web3.eth.getTransactionCount(address);
-    var gasPrice = web3.eth.gasPrice.toNumber();
+    var gasPrice = 0;
     var gasLimit = 3000000;
     var rawTx = {
         "from": address,
@@ -90,7 +96,7 @@ router.post('/:contractaddress/confirm', function (req, res) {
         "to": stockAddress,
         "value": 0x0,
         "data": data,
-        "chainId": 13144
+        "chainId": 13330
     }
     var tx = new Tx(rawTx, { common: customCommon });
     tx.sign(privkey);

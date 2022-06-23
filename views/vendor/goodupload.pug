@@ -95,18 +95,14 @@
           // create collection button
           <button id="upload-btn" type="button" class="col-4 align-self-center" data-toggle="modal" data-target="#createModalCenter">+</button>
           // collection list
-          if (collections)
-            each val in collections
+          if (games)
+            each game in games
               <div class="col-4 explore-card ">
                 <div>
                   // click on this
-                  <img src=#{val.image} width="285" height="285" id="uploadCollection" class="upload" data-toggle="modal" data-target="#uploadModalCenter">
+                  <img src=#{game.URI} width="285" height="285" id="uploadCollection" class="upload" data-toggle="modal" data-target="#uploadModalCenter">
                 </div>
-                <p for="" id="" class="date">#{val.name}</p>
-                <div class="row">
-                  // need to get this
-                  <div class="col-auto mr-auto" for="" id="collectionTitle" class="title-sm">#{val.up_or_down}</div>
-                </div>
+                <p for="" id="" class="date">#{game.date}</p>
               </div>
         </div>
       </div>
@@ -136,7 +132,7 @@
             <div class="col-5">
               <br>
               <label for="date">日期:</label>
-              <input class="textfield" type="date" id="date" name="date" placeholder="日期"><br>
+              <input class="textfield" type="date" id="date" name="date"><br>
               <span>#{warn}</span>
               <input class="textfield" type="number" id="mintLimit" name="mintLimit" placeholder="發行上限"><br>
               <span>#{limitWarn}</span>

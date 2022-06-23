@@ -52,15 +52,16 @@ function paginatedResults(data) {
     };
 }
 router.get("/", function (req, res) {
+    const today = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+    console.log(today)
     if(!req.session.email){
         var bal=0;
     }else{
         var bal = pointcontract.balanceOf.call(req.session.walletaddress).toNumber();
     }
     var pool = req.connection;
-    var collections=new Array();
     pool.getConnection(function (err, connection) {
-        connection.query("SELECT * FROM stockNFT",function (err, rows) {
+        connection.query("SELECT * FROM stockNFT WHERE date>=?",[today],function (err, rows) {
             if (err) {
                 console.log(err);
             }
